@@ -9,3 +9,19 @@
   letter-spacing: -1px;
   display: block;
 }
+
+@media screen and (max-width: 770px) {
+  .tech__heading{
+    padding-top: 10px;
+    margin: 0px 0px 22px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .tech__heading{
+    padding-top: 0px;
+    margin: 0px 0px 24px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+}

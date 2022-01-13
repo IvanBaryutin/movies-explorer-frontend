@@ -1,6 +1,22 @@
 .about__items{
   margin-bottom: 110px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 40px;
+}
+
+@media screen and (max-width: 770px) {
+  .about__items{
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 30px;
+    margin-bottom: 90px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about__items{
+    grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+    gap: 56px;
+    margin-bottom: 60px;
+  }
 }

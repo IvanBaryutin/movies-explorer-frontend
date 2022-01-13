@@ -5,3 +5,17 @@
   font-weight: 400;
   margin: 0;
 }
+
+@media screen and (max-width: 770px) {
+  .about__item-description{
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about__item-description{
+    font-size: 11px;
+    line-height: 16px;
+  }
+}

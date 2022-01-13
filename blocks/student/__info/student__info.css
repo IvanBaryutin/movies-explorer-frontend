@@ -1,3 +1,9 @@
 .student__info{
   width: 600px;
 }
+
+@media screen and (max-width: 770px) {
+  .student__info{
+    width: 364px;
+  }
+}

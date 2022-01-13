@@ -6,3 +6,15 @@
   display: flex;
   flex-direction: column;
 }
+
+@media screen and (max-width: 770px) {
+  .cover{
+    margin: 20px 20px 0px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .cover{
+    margin: 14px 14px 0px;
+  }
+}

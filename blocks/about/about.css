@@ -3,3 +3,17 @@
   max-width: 1140px;
   padding: 20px 0px 80px;
 }
+
+@media screen and (max-width: 770px) {
+  .about{
+    margin: 0px 50px;
+    padding: 0px 0px 80px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about{
+    margin: 0px 18px;
+    padding: 0px 0px 55px;
+  }
+}

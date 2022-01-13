@@ -5,3 +5,9 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
+@media screen and (max-width: 770px) {
+  .student{
+    margin: 20px 50px 0px;
+  }
+}

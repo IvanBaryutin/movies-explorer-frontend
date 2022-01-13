@@ -10,3 +10,11 @@
   margin: 0px 5px;
   letter-spacing: -1px;
 }
+
+
+@media screen and (max-width: 770px) {
+  .tech__item{
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

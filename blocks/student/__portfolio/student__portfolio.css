@@ -2,3 +2,9 @@
   width: 100%;
   margin: 100px 0px 90px 0px;
 }
+
+@media screen and (max-width: 770px) {
+  .student__portfolio{
+    margin: 90px 0px 50px 0px;
+  }
+}

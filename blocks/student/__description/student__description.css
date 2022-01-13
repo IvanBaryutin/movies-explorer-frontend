@@ -5,3 +5,11 @@
   line-height: 20px;
   margin: 18px 0;
 }
+
+@media screen and (max-width: 770px) {
+  .student__description{
+    font-size: 12px;
+    line-height: 18px;
+    margin: 16px 0 10px 0;
+  }
+}

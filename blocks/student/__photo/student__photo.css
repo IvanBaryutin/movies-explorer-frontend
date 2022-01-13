@@ -6,3 +6,10 @@
   background-size: cover;
   background-position: center;
 }
+
+@media screen and (max-width: 770px) {
+  .student__photo{
+    width: 255px;
+    height: 307px;
+  }
+}

@@ -6,3 +6,11 @@
   font-weight: 500;
   width: 20%;
 }
+
+@media screen and (max-width: 320px) {
+  .about__timeline-description-item{
+    font-size: 11px;
+    width: 100px;
+    padding: 10px 0px;
+  }
+}

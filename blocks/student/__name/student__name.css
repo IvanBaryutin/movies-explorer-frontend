@@ -6,3 +6,10 @@
   margin: 0;
   letter-spacing: -1px;
 }
+
+@media screen and (max-width: 770px) {
+  .student__name{
+    font-size: 40px;
+    line-height: 40px;
+  }
+}
