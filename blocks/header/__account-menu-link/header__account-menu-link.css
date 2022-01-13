@@ -1,0 +1,9 @@
+.header__account-menu-link{
+  padding: 10px 8px;
+  font-weight: 500;
+  line-height: 16px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #000;
+  display: block;
+}

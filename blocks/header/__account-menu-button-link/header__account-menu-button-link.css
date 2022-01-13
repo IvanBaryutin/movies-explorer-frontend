@@ -1,0 +1,10 @@
+.header__account-menu-button-link{
+  padding: 8px 20px;
+  margin-left: 30px;
+  margin-top: 3px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}

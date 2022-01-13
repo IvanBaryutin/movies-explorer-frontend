@@ -1,0 +1,64 @@
+@import url('../vendor/normalize.css');
+@import url('../fonts/inter.css');
+
+@import url('../blocks/body/body.css');
+@import url('../blocks/page/page.css');
+
+@import url('../blocks/header/header.css');
+@import url('../blocks/header/__logo-link/header__logo-link.css');
+@import url('../blocks/header/__main-menu/header__main-menu.css');
+@import url('../blocks/header/__main-menu-link/header__main-menu-link.css');
+@import url('../blocks/header/__account-menu/header__account-menu.css');
+@import url('../blocks/header/__account-menu-link/header__account-menu-link.css');
+@import url('../blocks/header/__account-menu-button-link/header__account-menu-button-link.css');
+@import url('../blocks/header/__account-menu-button-link/_style/header__account-menu-button-link_style_black.css');
+@import url('../blocks/header/__account-menu-button-link/_style/header__account-menu-button-link_style_gray.css');
+
+@import url('../blocks/subtitle/subtitle.css');
+
+@import url('../blocks/cover/cover.css');
+@import url('../blocks/cover/__title/cover__title.css');
+@import url('../blocks/cover/__links/cover__links.css');
+@import url('../blocks/cover/__link-item/cover__link-item.css');
+
+@import url('../blocks/about/about.css');
+/*@import url('../blocks/about/__title/about__titile.css');*/
+@import url('../blocks/about/__items/about__items.css');
+@import url('../blocks/about/__item/about__item.css');
+@import url('../blocks/about/__item-title/about__item-title.css');
+@import url('../blocks/about/__item-description/about__item-description.css');
+@import url('../blocks/about/__timeline/about__timeline.css');
+@import url('../blocks/about/__timeline-item/about__timeline-item.css');
+@import url('../blocks/about/__timeline-item/_style/about__timelene-item_style_gray80.css');
+@import url('../blocks/about/__timiline-description/about__timeline-description.css');
+@import url('../blocks/about/__timeline-description-item/about__timeline-description-item.css');
+@import url('../blocks/about/__timeline-description-item/_size/about__timelene-description-item_size_80.css');
+
+@import url('../blocks/tech/tech.css');
+@import url('../blocks/tech/__block/tech__block.css');
+/*@import url('../blocks/tech/__title/tech__title.css');*/
+@import url('../blocks/tech/__heading/tech__heading.css');
+@import url('../blocks/tech/__description/tech__description.css');
+@import url('../blocks/tech/__items/tech__items.css');
+@import url('../blocks/tech/__item/tech__item.css');
+
+@import url('../blocks/student/student.css');
+/*@import url('../blocks/student/__title/student__title.css');*/
+@import url('../blocks/student/__info/student__info.css');
+@import url('../blocks/student/__photo/student__photo.css');
+@import url('../blocks/student/__name/student__name.css');
+@import url('../blocks/student/__description/student__description.css');
+@import url('../blocks/student/__text/student__text.css');
+@import url('../blocks/student/__social-links/student__social-links.css');
+@import url('../blocks/student/__social-link/student__social-link.css');
+@import url('../blocks/student/__portfolio/student__portfolio.css');
+@import url('../blocks/student/__portfolio-title/student__portfolio-title.css');
+@import url('../blocks/student/__portfolio-links/student__portfolio-links.css');
+@import url('../blocks/student/__portfolio-link/student_portfolio-link.css');
+@import url('../blocks/student/__portfolio-link/_style/student__portfolio-link_style_clear.css');
+
+@import url('../blocks/footer/footer.css');
+@import url('../blocks/footer/__title/footer__title.css');
+@import url('../blocks/footer/__copyright/footer__copyright.css');
+@import url('../blocks/footer/__links/footer__links.css');
+@import url('../blocks/footer/__link/footer__link.css');

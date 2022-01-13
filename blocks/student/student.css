@@ -1,0 +1,7 @@
+.student{
+  margin: 20px auto 0px;
+  max-width: 1140px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

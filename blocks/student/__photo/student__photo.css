@@ -1,0 +1,8 @@
+.student__photo{
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+  background-image: url('../../../images/avatar.png');
+  background-size: cover;
+  background-position: center;
+}
