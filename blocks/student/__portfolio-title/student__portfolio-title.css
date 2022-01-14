@@ -5,3 +5,10 @@
   font-weight: 400;
   margin: 0px 0px 30px;
 }
+
+@media screen and (max-width: 320px) {
+  .student__portfolio-title{
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

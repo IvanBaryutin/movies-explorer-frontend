@@ -4,3 +4,11 @@
   margin: 20px 0;
   display: flex;
 }
+
+@media screen and (max-width: 320px) {
+  .footer__links{
+    flex-direction: column;
+    text-align: center;
+    margin: 30px 0px;
+  }
+}

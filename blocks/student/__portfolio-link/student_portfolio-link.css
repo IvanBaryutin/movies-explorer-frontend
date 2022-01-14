@@ -14,3 +14,11 @@
   padding: 19px 0px;
   letter-spacing: -1px;
 }
+
+@media screen and (max-width: 320px) {
+  .student__portfolio-link{
+    font-size: 18px;
+    line-height: 28px;
+    background-size: 12px auto;
+  }
+}

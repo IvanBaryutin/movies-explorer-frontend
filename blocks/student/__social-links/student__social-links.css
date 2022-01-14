@@ -10,3 +10,9 @@
     margin: 80px 0px 0px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .student__social-links{
+    margin: 30px 0px 0px;
+  }
+}

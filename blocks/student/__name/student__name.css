@@ -13,3 +13,10 @@
     line-height: 40px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .student__name{
+    font-size: 30px;
+    line-height: 36px;
+  }
+}

@@ -1,9 +1,16 @@
 .student__info{
   width: 600px;
+  order: 2;
 }
 
 @media screen and (max-width: 770px) {
   .student__info{
     width: 364px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .student__info{
+    margin-top: 40px;
   }
 }

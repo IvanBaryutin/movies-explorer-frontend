@@ -5,4 +5,14 @@
   font-weight: 400;
   margin-left: 20px;
   text-decoration: none;
+  display: block;
+}
+
+@media screen and (max-width: 320px) {
+  .footer__link{
+    font-size: 12px;
+    line-height: 15px;
+    margin-left: 0px;
+    padding: 6px 0;
+  }
 }

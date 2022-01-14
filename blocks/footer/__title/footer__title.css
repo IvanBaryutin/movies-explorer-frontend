@@ -9,3 +9,11 @@
   font-weight: 400;
   border-bottom: solid 1px #e8e8e8;
 }
+
+@media screen and (max-width: 320px) {
+  .footer__title{
+    font-size: 12px;
+    line-height: 15px;
+    padding: 60px 0px 20px;
+  }
+}
