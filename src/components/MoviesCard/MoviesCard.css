@@ -1,0 +1,50 @@
+.movies-card {
+  background-color: #fdfdfd;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+  padding-top: 14px;
+  display: grid;
+  grid-template-areas:
+  "title save-icon"
+  "duration save-icon"
+  "image image";
+}
+
+.movies-card__title {
+  font-size: 15px;
+  line-height: 18px;
+  color: #000;
+  margin: 0;
+  padding: 14px 14px 0;
+  grid-area: title;
+}
+
+.movies-card__duration {
+  font-size: 11px;
+  line-height: 13px;
+  color: #a0a0a0;
+  margin: 0;
+  padding: 9px 14px;
+  grid-area: duration;
+}
+
+.movies-card__save-icon {
+  margin: 14px;
+  width: 30px;
+  height: 30px;
+  background-image: url('../../images/save-icon.svg');
+  background-repeat: no-repeat;
+  background-color: #fdfdfd;
+  outline: 0;
+  border:none;
+  cursor: pointer;
+  background-position: 50%;
+  justify-self: end;
+  grid-area: save-icon;
+}
+
+.movies-card__image {
+  object-fit: cover;
+  width: 100%;
+  max-height: 100%;
+  grid-area: image;
+}
