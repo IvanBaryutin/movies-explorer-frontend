@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+@import url('../../vendor/normalize.css');
+@import url('../../vendor/fonts/inter.css');
+
+.page{
+  color: #fff;
+  font-family: 'Inter', Arial, sans-serif;
+}
