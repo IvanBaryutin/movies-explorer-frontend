@@ -5,12 +5,20 @@ import "./SavedMovies.css";
 
 function SavedMovies() {
   return (
-    <section className="saved-movies">
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-    </section>
+    <>
+      <SearchForm />
+      <section className="saved-movies">
+        <div className='saved-movies__cards'>
+          <MoviesCard />
+          <MoviesCard />
+          <MoviesCard />
+          <MoviesCard />
+        </div>
+        <div className='saved-movies__more'>
+          <button className='saved-movies__more-button'>Еще</button>
+        </div>
+      </section>
+    </>
   )
 }
 

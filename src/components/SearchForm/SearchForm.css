@@ -1,9 +1,17 @@
 .search-form {
+
+  xbackground-color: #f9f9f9;
+  padding: 52px 0 80px;
+  border-radius: 9px;
+  border-bottom: solid 1px #e8e8e8;
+  margin: 0 auto;
+  max-width: 1140px;
+}
+
+.search-form__panel {
+  background-color: #f9f9f9;
   display: flex;
   justify-content: space-between;
-  background-color: #f9f9f9;
-  padding: 25px 30px;
-  border-radius: 9px;
 }
 
 .search-form__area {
@@ -27,6 +35,7 @@
   background-color: #f9f9f9;
   padding: 25px 60px;
   border: none;
+  width: 100%;
 }
 
 .search-form__input:focus {
@@ -49,6 +58,7 @@
   xheight: 40px;
   display: flex;
   align-items: center;
+  padding-right: 30px;
 }
 
 .search-form__label{

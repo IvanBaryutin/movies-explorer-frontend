@@ -1,9 +1,36 @@
 .saved-movies{
   margin: 0px auto;
   max-width: 1140px;
-  padding: 20px 0px 80px;
+  padding: 70px 70px 80px;
+}
+
+.saved-movies__cards {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-columns: repeat(3, 1fr);
+  xgrid-template-rows: 1fr 1fr 1fr;
+  xgrid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, 364px);
   grid-gap: 24px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.saved-movies__more {
+  display: flex;
+  justify-content: center;
+  padding: 50px 0 80px;
+}
+
+.saved-movies__more-button {
+  xmargin: auto;
+  width: 320px;
+  height: 36px;
+  background-color: #fff;
+  color: #000;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  border: solid 1px #e8e8e8;
+  cursor: pointer;
+  border-radius: 5px;
 }
