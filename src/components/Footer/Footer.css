@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  font-family: 'Inter', Arial, sans-serif;
 }
 
 @media screen and (max-width: 770px) {

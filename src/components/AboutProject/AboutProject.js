@@ -1,4 +1,5 @@
 import "./AboutProject.css";
+import "../Subtitle/Subtitle.css";
 
 function AboutProject() {
   return (

@@ -5,6 +5,7 @@
   max-width: 1200px;
   display: flex;
   flex-direction: column;
+  font-family: 'Inter', Arial, sans-serif;
 }
 
 @media screen and (max-width: 770px) {
@@ -61,9 +62,10 @@
 
 .cover__link-item{
   color: #fff;
+  font-style: normal;
+  font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  font-weight: 500;
   padding: 10px 17px;
   background-color: #e8e8e8;
   border-radius: 10px;
