@@ -1,7 +1,7 @@
 .saved-movies{
   margin: 0px auto;
   max-width: 1140px;
-  padding: 70px 70px 80px;
+  padding: 80px 70px 0px;
 }
 
 .saved-movies__cards {
@@ -18,7 +18,7 @@
 .saved-movies__more {
   display: flex;
   justify-content: center;
-  padding: 50px 0 80px;
+  padding: 70px 0 65px;
 }
 
 .saved-movies__more-button {
