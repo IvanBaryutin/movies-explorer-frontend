@@ -8,7 +8,7 @@
 
 @media screen and (max-width: 770px) {
   .student {
-    margin: 20px 50px 0px;
+    margin: 0px 50px 0px;
   }
 }
 
@@ -122,6 +122,14 @@
   border-bottom: solid 1px #e8e8e8;
   padding: 19px 0px;
   letter-spacing: -1px;
+}
+
+@media screen and (max-width: 770px) {
+  .student__portfolio-link {
+    font-size: 28px;
+    line-height: 50px;
+    background-size: 12px auto;
+  }
 }
 
 @media screen and (max-width: 320px) {
