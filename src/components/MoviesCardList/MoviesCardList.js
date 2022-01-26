@@ -1,6 +1,5 @@
-import MoviesCard from '../MoviesCard/MoviesCard';
+import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
-
 
 function MoviesCardList() {
   return (
@@ -15,7 +14,7 @@ function MoviesCardList() {
       <MoviesCard />
       <MoviesCard />
     </section>
-  )
+  );
 }
 
 export default MoviesCardList;

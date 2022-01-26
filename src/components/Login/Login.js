@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import "../Form/Form.css";
 
@@ -20,7 +20,7 @@ function Login() {
       </div>
       <div className="form__footer">
         <button type="submit" className="form__submit-button">Зарегистрироваться</button>
-        <p className="form__footer-text">Уже зарегистрированы? <a href="/signin" className="form__footer-link"> Войти</a></p>
+        <p className="form__footer-text">Уже зарегистрированы? <Link to="/signin" className="form__footer-link"> Войти</Link></p>
       </div>
     </section>
   )

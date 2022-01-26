@@ -37,10 +37,10 @@
   }
 }
 
-@import url('../../vendor/normalize.css');
-@import url('../../vendor/fonts/inter.css');
+@import url("../../vendor/normalize.css");
+@import url("../../vendor/fonts/inter.css");
 
-.page{
-  color: #fff;
-  font-family: 'Inter', Arial, sans-serif;
+.page {
+  color: #000;
+  font-family: "Inter", Arial, sans-serif;
 }

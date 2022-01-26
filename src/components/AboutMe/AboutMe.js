@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./AboutMe.css";
 
 function AboutMe() {
@@ -16,12 +17,12 @@ function AboutMe() {
         </p>
         <ul className="student__social-links">
           <li>
-            <a href="#" className="student__social-link">
+            <a href="https://www.facebook.com/baryutin" className="student__social-link">
               Facebook
             </a>
           </li>
           <li>
-            <a href="#" className="student__social-link">
+            <a href="https://github.com/IvanBaryutin/" className="student__social-link">
               Github
             </a>
           </li>
@@ -42,10 +43,7 @@ function AboutMe() {
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              className="student__portfolio-link student__portfolio-link_style_clear"
-            >
+            <a href="#" className="student__portfolio-link student__portfolio-link_style_clear">
               Одностраничное приложение
             </a>
           </li>

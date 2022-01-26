@@ -1,26 +1,26 @@
-.cover{
+.cover {
   background-color: #f5f5f5;
   border-radius: 10px;
   margin: 20px auto 0px;
   max-width: 1200px;
   display: flex;
   flex-direction: column;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
 }
 
 @media screen and (max-width: 770px) {
-  .cover{
+  .cover {
     margin: 20px 20px 0px;
   }
 }
 
 @media screen and (max-width: 320px) {
-  .cover{
+  .cover {
     margin: 14px 14px 0px;
   }
 }
 
-.cover__title{
+.cover__title {
   font-size: 50px;
   line-height: 58px;
   font-weight: 400;
@@ -31,7 +31,7 @@
 }
 
 @media screen and (max-width: 770px) {
-  .cover__title{
+  .cover__title {
     font-size: 40px;
     line-height: 52px;
     margin: 350px 32px 314px;
@@ -39,14 +39,14 @@
 }
 
 @media screen and (max-width: 320px) {
-  .cover__title{
+  .cover__title {
     font-size: 29px;
     line-height: 37px;
     margin: 220px 0px 212px;
   }
 }
 
-.cover__links{
+.cover__links {
   display: flex;
   margin: 0 0 30px;
   padding: 0;
@@ -55,12 +55,12 @@
 }
 
 @media screen and (max-width: 320px) {
-  .cover__links{
+  .cover__links {
     margin: 0 0 14px;
   }
 }
 
-.cover__link-item{
+.cover__link-item {
   color: #fff;
   font-style: normal;
   font-weight: 500;
@@ -76,7 +76,7 @@
 }
 
 @media screen and (max-width: 320px) {
-  .cover__link-item{
+  .cover__link-item {
     padding: 5px 15px;
     font-size: 10px;
     border-radius: 6px;

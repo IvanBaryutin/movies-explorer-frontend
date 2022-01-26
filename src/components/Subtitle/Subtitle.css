@@ -1,4 +1,4 @@
-.subtitle{
+.subtitle {
   font-size: 22px;
   line-height: 27px;
   font-weight: 400;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 320px) {
-  .subtitle{
+  .subtitle {
     font-size: 18px;
     line-height: 22px;
     margin: 70px 0px 60px 0px;
