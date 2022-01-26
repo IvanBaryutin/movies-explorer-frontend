@@ -10,6 +10,7 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import Profile from "../Profile/Profile";
+import Movies from "../Movies/Movies";
 
 function App() {
   return (
@@ -28,6 +29,11 @@ function App() {
           <Route exact path="/saved-movies">
             <Header />
             <SavedMovies />
+            <Footer />
+          </Route>
+          <Route exact path="/movies">
+            <Header />
+            <Movies />
             <Footer />
           </Route>
           <Route exact path="/signup">
