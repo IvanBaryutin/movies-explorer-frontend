@@ -4,7 +4,6 @@ import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import AboutMe from "../AboutMe/AboutMe";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Register from "../Register/Register";
 import Login from "../Login/Login";

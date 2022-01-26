@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import "../Form/Form.css";
 
@@ -7,7 +7,7 @@ function Register() {
   return (
     <section className="form">
       <img className="form__logo" src={logo} alt="Логотип" />
-      <div class="form__area">
+      <div className="form__area">
         <p className='form__title'>Добро пожаловать!</p>
         <form className="form__inputs" >
             <label htmlFor='name' className="form__label">Имя</label>

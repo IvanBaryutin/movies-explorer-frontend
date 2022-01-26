@@ -16,12 +16,12 @@ function Header() {
           </li>
           <Route exact path={["/profile", "/movies", "/saved-movies"]}>
             <li>
-              <Link to="/movies" class="header__main-menu-link">
+              <Link to="/movies" className="header__main-menu-link">
                 Фильмы
               </Link>
             </li>
             <li>
-              <Link to="/saved-movies" class="header__main-menu-link">
+              <Link to="/saved-movies" className="header__main-menu-link">
                 Сохранённые фильмы
               </Link>
             </li>
@@ -49,7 +49,7 @@ function Header() {
             <li>
               <Link
                 to="/profile"
-                class="header__account-menu-button-link header__account-menu-button-link_style_gray"
+                className="header__account-menu-button-link header__account-menu-button-link_style_gray"
               >
                 Аккаунт
               </Link>

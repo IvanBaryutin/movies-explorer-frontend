@@ -8,7 +8,7 @@ function Login() {
   return (
     <section className="form">
       <img className="form__logo" src={logo} alt="Логотип" />
-      <div class="form__area">
+      <div className="form__area">
         <p className='form__title'>Рады видеть!</p>
         <form className="form__inputs" >
           <label htmlFor='email' className="form__label">E-mail</label>

@@ -4,7 +4,7 @@ import "./Profile.css";
 function Profile() {
   return (
     <section className="profile">
-      <div class="profile__form">
+      <div className="profile__form">
         <p className='profile__title'>Привет, Виталий!</p>
         <form className="profile__inputs-table" >
             <label htmlFor='name' className="profile__label">Имя</label>
