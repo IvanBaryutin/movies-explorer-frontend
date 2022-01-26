@@ -17,10 +17,6 @@ function SavedMovies() {
           <MoviesCard />
           <MoviesCard />
           <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
         </div>
         <div className='saved-movies__more'>
           <button className='saved-movies__more-button'>Еще</button>
