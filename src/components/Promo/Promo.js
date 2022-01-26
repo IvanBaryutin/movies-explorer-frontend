@@ -1,3 +1,4 @@
+import { HashLink } from "react-router-hash-link";
 import "./Promo.css";
 
 function Promo() {
@@ -8,19 +9,19 @@ function Promo() {
       </h1>
       <ul className="cover__links">
         <li>
-          <a href="#" className="cover__link-item">
+          <HashLink smooth to="/#about" className="cover__link-item">
             О проекте
-          </a>
+          </HashLink>
         </li>
         <li>
-          <a href="#" className="cover__link-item">
-            Технологии
-          </a>
+          <HashLink smooth to="/#tech" className="cover__link-item">
+            Тезнологии
+          </HashLink>
         </li>
         <li>
-          <a href="#" className="cover__link-item">
+          <HashLink smooth to="/#student" className="cover__link-item">
             Студент
-          </a>
+          </HashLink>
         </li>
       </ul>
     </section>

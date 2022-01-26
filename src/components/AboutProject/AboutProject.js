@@ -3,7 +3,7 @@ import "../Subtitle/Subtitle.css";
 
 function AboutProject() {
   return (
-    <section className="about">
+    <section className="about" id="about">
       <h2 className="subtitle">О проекте</h2>
       <div className="about__items">
         <div className="about__item">
@@ -14,7 +14,9 @@ function AboutProject() {
           </p>
         </div>
         <div className="about__item">
-          <p className="about__item-title">На выполнение диплома ушло 5 недель</p>
+          <p className="about__item-title">
+            На выполнение диплома ушло 5 недель
+          </p>
           <p className="about__item-description">
             У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было
             соблюдать, чтобы успешно защититься.

@@ -16,11 +16,12 @@ function Login() {
           <label htmlFor='password' className="form__label">Пароль</label>
           <input id="password" name="password" type="password" placeholder="" className="form__input" required></input>
           <p className="form__error">Что-то пошло не так...</p>
-          <button type="submit" className="submit__button">Войти</button>
         </form>
-        <p className="form__footer">Ещё не зарегистрированы? <a href="/signin" className="form__footer-link"> Регистрация</a></p>
       </div>
-
+      <div className="form__footer">
+        <button type="submit" className="form__submit-button">Зарегистрироваться</button>
+        <p className="form__footer-text">Уже зарегистрированы? <a href="/signin" className="form__footer-link"> Войти</a></p>
+      </div>
     </section>
   )
 }
