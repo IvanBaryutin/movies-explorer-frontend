@@ -10,17 +10,17 @@ function Footer() {
       <nav>
         <ul className="footer__links">
           <li>
-            <a href="https://yandex.ru/maps" className="footer__link">
+            <a href="https://practicum.yandex.ru/" className="footer__link" target="_blank" rel="noreferrer">
               Яндекс.Практикум
             </a>
           </li>
           <li>
-            <a href="https://yandex.ru/pogoda" className="footer__link">
+            <a href="https://github.com/IvanBaryutin/" className="footer__link" target="_blank" rel="noreferrer">
               Github
             </a>
           </li>
           <li>
-            <a href="https://rasp.yandex.ru" className="footer__link">
+            <a href="https://www.facebook.com/baryutin" className="footer__link" target="_blank" rel="noreferrer">
               Facebook
             </a>
           </li>
