@@ -8,7 +8,7 @@
   font-family: "Inter", Arial, sans-serif;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 1210px) {
   .cover {
     margin: 20px 20px 0px;
   }
@@ -30,7 +30,7 @@
   letter-spacing: -2px;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 1000px) {
   .cover__title {
     font-size: 40px;
     line-height: 52px;
@@ -38,7 +38,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 600px) {
   .cover__title {
     font-size: 29px;
     line-height: 37px;
@@ -54,7 +54,7 @@
   justify-content: center;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
   .cover__links {
     margin: 0 0 14px;
   }
@@ -75,7 +75,7 @@
   display: block;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
   .cover__link-item {
     padding: 5px 15px;
     font-size: 10px;

@@ -4,14 +4,14 @@
   padding: 20px 0px 100px;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 1160px) {
   .about {
     margin: 0px 50px;
     padding: 0px 0px 80px;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
   .about {
     margin: 0px 18px;
     padding: 0px 0px 55px;
@@ -46,7 +46,7 @@
   font-weight: 400;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
   .about__timeline-item {
     font-size: 11px;
     line-height: 13px;
@@ -70,7 +70,7 @@
   width: 20%;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
   .about__timeline-description-item {
     font-size: 11px;
     width: 100px;
@@ -97,7 +97,7 @@
   letter-spacing: -1px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
   .about__item-title {
     font-size: 18px;
     line-height: 22px;
@@ -112,7 +112,7 @@
   gap: 40px;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 800px) {
   .about__items {
     grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
     gap: 30px;
@@ -120,7 +120,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
   .about__items {
     grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
     gap: 56px;
@@ -136,14 +136,14 @@
   margin: 0;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 800px) {
   .about__item-description {
     font-size: 12px;
     line-height: 18px;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
   .about__item-description {
     font-size: 11px;
     line-height: 16px;
