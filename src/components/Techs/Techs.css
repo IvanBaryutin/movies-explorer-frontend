@@ -5,6 +5,12 @@
   padding-bottom: 65px;
 }
 
+@media screen and (max-width: 900px) {
+  .tech {
+    padding-bottom: 50px;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .tech {
     background-color: #fff;
@@ -67,7 +73,7 @@
   margin: 0px 0px 26px;
   padding: 20px 0px 0px;
   text-align: center;
-  letter-spacing: -1px;
+  letter-spacing: -2px;
   display: block;
 }
 
@@ -118,7 +124,7 @@
 .tech__block {
   margin: 0px auto;
   max-width: 1140px;
-  padding: 10px 0;
+  padding: 20px 0;
 }
 
 @media screen and (max-width: 1200px) {
