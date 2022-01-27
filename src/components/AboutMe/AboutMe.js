@@ -33,17 +33,17 @@ function AboutMe() {
         <p className="student__portfolio-title">Портфолио</p>
         <ul className="student__portfolio-links">
           <li>
-            <a href="#" className="student__portfolio-link">
+            <Link to="https://github.com/IvanBaryutin/how-to-learn" className="student__portfolio-link">
               Статичный сайт
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className="student__portfolio-link">
+            <a href="https://github.com/IvanBaryutin/russian-travel" className="student__portfolio-link">
               Адаптивный сайт
             </a>
           </li>
           <li>
-            <a href="#" className="student__portfolio-link student__portfolio-link_style_clear">
+            <a href="https://github.com/IvanBaryutin/react-mesto-api-full" className="student__portfolio-link student__portfolio-link_style_clear">
               Одностраничное приложение
             </a>
           </li>
