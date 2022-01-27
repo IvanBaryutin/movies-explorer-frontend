@@ -1,10 +1,25 @@
-import React from "react";
+import React, {useState} from 'react';
 import { Route, Link } from "react-router-dom";
 import "./Header.css";
 import burger from "../../images/burger-icon.svg";
 import close from "../../images/close-icon.svg";
 
 function Header() {
+
+  const [isMobileMenuOpened, setMobileMenuOpened] = useState(false);
+
+  function handleBurgerClick() {
+    if (isMobileMenuOpened) {
+      setMobileMenuOpened(false);
+    } else {
+      setMobileMenuOpened(true);
+    }
+  }
+
+  function closeMobileMenu() {
+    setMobileMenuOpened(false);
+  }
+
   return (
     <header className="header">
       <nav>
@@ -59,18 +74,20 @@ function Header() {
               src={burger}
               className="header__mobile-menu-open-button"
               alt="иконка мобильного меню"
+              onClick={handleBurgerClick}
             />
           </li>
           </Route>
         </ul>
       </nav>
 
-      <div className="header__popup header__popup_opened">
+      <div className={`header__popup ${ isMobileMenuOpened ? "header__popup_opened" : ""}`}>
         <div className="header__popup-container">
           <img
             src={close}
             className="header__popup-close-button"
             alt="иконка-крестик"
+            onClick={closeMobileMenu}
           />
           <ul className="header__mobile-menu">
             <li>
