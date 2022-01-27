@@ -12,7 +12,7 @@ function Login() {
         <p className='form__title'>Рады видеть!</p>
         <form className="form__inputs" >
           <label htmlFor='email' className="form__label">E-mail</label>
-          <input id="email" name="email" type="email" placeholder="" className="form__input"  required></input>
+          <input id="email" name="email" type="email" placeholder="" className="form__input" required></input>
           <label htmlFor='password' className="form__label">Пароль</label>
           <input id="password" name="password" type="password" placeholder="" className="form__input" required></input>
           <p className="form__error">Что-то пошло не так...</p>

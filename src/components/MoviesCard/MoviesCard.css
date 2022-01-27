@@ -52,6 +52,10 @@
   background-color: #000;
 }
 
+.movies-card__save-icon:hover {
+  background-color: #a0a0a0;
+}
+
 .movies-card__image {
   object-fit: cover;
   width: 100%;

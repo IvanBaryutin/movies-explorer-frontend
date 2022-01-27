@@ -7,8 +7,8 @@ function MoviesCard() {
     <article className="movies-card">
       <p className="movies-card__title">33 слова о дизайне</p>
       <p className="movies-card__duration">1ч 47м</p>
-      <button className="movies-card__save-icon movies-card__save-icon_active" />
-      <img src={image} className="movies-card__image" />
+      <button className="movies-card__save-icon" />
+      <img src={image} className="movies-card__image" alt="Обложка фильма"/>
     </article>
   )
 }

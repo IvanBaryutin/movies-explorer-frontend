@@ -17,12 +17,12 @@ function AboutMe() {
         </p>
         <ul className="student__social-links">
           <li>
-            <a href="https://www.facebook.com/baryutin" className="student__social-link">
+            <a href="https://www.facebook.com/baryutin" className="student__social-link" target="_blank" rel="noreferrer">
               Facebook
             </a>
           </li>
           <li>
-            <a href="https://github.com/IvanBaryutin/" className="student__social-link">
+            <a href="https://github.com/IvanBaryutin/" className="student__social-link" target="_blank" rel="noreferrer">
               Github
             </a>
           </li>
@@ -33,17 +33,17 @@ function AboutMe() {
         <p className="student__portfolio-title">Портфолио</p>
         <ul className="student__portfolio-links">
           <li>
-            <Link to="https://github.com/IvanBaryutin/how-to-learn" className="student__portfolio-link">
+            <Link to="https://github.com/IvanBaryutin/how-to-learn" className="student__portfolio-link" target="_blank" rel="noreferrer">
               Статичный сайт
             </Link>
           </li>
           <li>
-            <a href="https://github.com/IvanBaryutin/russian-travel" className="student__portfolio-link">
+            <a href="https://github.com/IvanBaryutin/russian-travel" className="student__portfolio-link" target="_blank" rel="noreferrer">
               Адаптивный сайт
             </a>
           </li>
           <li>
-            <a href="https://github.com/IvanBaryutin/react-mesto-api-full" className="student__portfolio-link student__portfolio-link_style_clear">
+            <a href="https://github.com/IvanBaryutin/react-mesto-api-full" className="student__portfolio-link student__portfolio-link_style_clear" target="_blank" rel="noreferrer">
               Одностраничное приложение
             </a>
           </li>

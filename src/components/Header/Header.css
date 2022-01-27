@@ -40,6 +40,11 @@
   text-decoration: none;
 }
 
+.header__account-menu-button-link:hover {
+  opacity: 0.8;
+}
+
+
 @media screen and (max-width: 320px) {
   .header__account-menu-button-link {
     font-size: 10px;
@@ -131,6 +136,12 @@
   display: none;
 }
 
+.header__mobile-menu-open-button:hover {
+  opacity: 0.8;
+}
+
+
+
 @media screen and (max-width: 760px) {
   .header__mobile-menu-open-button {
     display: block;
@@ -178,6 +189,11 @@
   height: 22px;
   align-self: end;
   cursor: pointer;
+  transition: transform 1s;
+}
+
+.header__popup-close-button:hover {
+  transform: rotate(90deg);
 }
 
 .header__mobile-menu {

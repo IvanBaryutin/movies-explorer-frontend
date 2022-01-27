@@ -16,7 +16,7 @@ function Header() {
           </li>
           <Route exact path={["/profile", "/movies", "/saved-movies"]}>
             <li>
-              <Link to="/movies" className="header__main-menu-link">
+              <Link to="/movies" className="header__main-menu-link header__main-menu-link_active">
                 Фильмы
               </Link>
             </li>
@@ -65,7 +65,7 @@ function Header() {
         </ul>
       </nav>
 
-      <div className="header__popup">
+      <div className="header__popup header__popup_opened">
         <div className="header__popup-container">
           <img
             src={close}
