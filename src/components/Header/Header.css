@@ -160,6 +160,7 @@
   visibility: hidden;
   display: flex;
   flex-direction: row-reverse;
+  transition: opacity .7s ease-out;
 }
 
 .header__popup_opened {

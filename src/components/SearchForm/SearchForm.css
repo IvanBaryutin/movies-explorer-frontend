@@ -148,6 +148,7 @@
   background-color: #f5f5f5;
   border-radius: 50px;
   transition-duration: 200ms;
+  cursor: pointer;
 }
 
 .search-form__filter-checkbox:after {

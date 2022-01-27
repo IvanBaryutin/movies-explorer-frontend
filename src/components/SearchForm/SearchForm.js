@@ -20,6 +20,7 @@ function SearchForm() {
             type="checkbox"
             className="search-form__filter-checkbox"
             name="short-film"
+            id="short-film"
           ></input>
           <label htmlFor="short-film" className="search-form__label">
             Короткометражки
