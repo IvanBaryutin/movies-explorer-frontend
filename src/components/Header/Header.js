@@ -54,18 +54,18 @@ function Header() {
                 Аккаунт
               </Link>
             </li>
-          </Route>
-          <li>
+            <li>
             <img
               src={burger}
               className="header__mobile-menu-open-button"
               alt="иконка мобильного меню"
             />
           </li>
+          </Route>
         </ul>
       </nav>
 
-      <div className="header__popup xheader__popup_opened">
+      <div className="header__popup">
         <div className="header__popup-container">
           <img
             src={close}

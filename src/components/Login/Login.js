@@ -19,8 +19,8 @@ function Login() {
         </form>
       </div>
       <div className="form__footer">
-        <button type="submit" className="form__submit-button">Зарегистрироваться</button>
-        <p className="form__footer-text">Уже зарегистрированы? <Link to="/signin" className="form__footer-link"> Войти</Link></p>
+        <button type="submit" className="form__submit-button">Войти</button>
+        <p className="form__footer-text">Ещё не зарегистрированы? <Link to="/signup" className="form__footer-link">Регистрация</Link></p>
       </div>
     </section>
   )

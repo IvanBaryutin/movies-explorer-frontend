@@ -7,6 +7,19 @@
   text-align: center;
 }
 
+
+@media screen and (max-width: 800px) {
+  .error-page {
+    padding-top: 400px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .error-page {
+    padding-top: 329px;
+  }
+}
+
 .error-page__title {
   font-weight: 400;
   font-size: 140px;
@@ -15,12 +28,28 @@
   padding: 0;
 }
 
+@media screen and (max-width: 400px) {
+  .error-page__title {
+    font-size: 80px;
+    line-height: 97px;
+  }
+}
+
+
 .error-page__subtitle {
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
   margin: 5px 0 184px;
   padding: 0;
+}
+
+@media screen and (max-width: 400px) {
+  .error-page__subtitle {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 10px 0 284px;
+  }
 }
 
 .error-page__link {
