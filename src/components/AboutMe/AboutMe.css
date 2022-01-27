@@ -80,6 +80,12 @@
   text-decoration: none;
 }
 
+
+.student__social-link:hover {
+  opacity: 0.7;
+}
+
+
 @media screen and (max-width: 500px) {
   .student__social-link {
     margin-right: 26px;
@@ -123,6 +129,10 @@
   border-bottom: solid 1px #e8e8e8;
   padding: 19px 0px;
   letter-spacing: -1px;
+}
+
+.student__portfolio-link:hover {
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 980px) {

@@ -66,6 +66,11 @@
   display: block;
 }
 
+.footer__link:hover {
+  opacity: .7;
+}
+
+
 @media screen and (max-width: 320px) {
   .footer__link {
     font-size: 12px;

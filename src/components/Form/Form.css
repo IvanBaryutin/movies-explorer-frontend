@@ -74,8 +74,12 @@
   padding: 5px 0 10px;
   color: #000;
   border-bottom: solid 1px #e8e8e8;
-  outline: none;
   margin-bottom: 24px;
+  outline: none;
+}
+
+.form__input:focus {
+  border-bottom: solid 1px #000;
 }
 
 .form__input:last-of-type {
