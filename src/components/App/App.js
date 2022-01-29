@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -17,6 +18,7 @@ import * as Auth from '../../utils/auth';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUserData, setCurrentUserData] = useState({});
   const history = useHistory();
 
   useEffect(() => {
@@ -26,7 +28,7 @@ function App() {
       // проверим токен
       Auth.getContent(jwt).then((res) => {
         if (res){
-          console.log(res);
+          //console.log(res);
           // авторизуем пользователя
           setCurrentUserData(res);
           setLoggedIn(true);
@@ -45,21 +47,21 @@ function App() {
       <div className="page">
         <Switch>
           <Route exact path="/profile">
-            <Header />
+            <Header logged={loggedIn} />
             <Profile />
           </Route>
           <Route exact path="/">
-            <Header />
+            <Header logged={loggedIn} />
             <Main />
             <Footer />
           </Route>
           <Route exact path="/saved-movies">
-            <Header />
+            <Header logged={loggedIn} />
             <SavedMovies />
             <Footer />
           </Route>
           <Route exact path="/movies">
-            <Header />
+            <Header logged={loggedIn} />
             <Movies />
             <Footer />
           </Route>
