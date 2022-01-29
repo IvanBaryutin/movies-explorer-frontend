@@ -143,3 +143,26 @@
     line-height: 15px;
   }
 }
+
+.form__submit-result {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  margin: 0 0 20px;
+}
+
+.form__submit-result_status_error {
+  color: #ff4062;
+  display: block;
+}
+
+.form__submit-result_status_ok{
+  color: #2be080;
+  display: block;
+}
+
+.form__submit-result_status_empty {
+  display: none;
+}
+
