@@ -13,10 +13,32 @@ import Movies from "../Movies/Movies";
 // import api from "../utils/Api.js";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 // import ProtectedRoute from "./ProtectedRoute.js"; // импортируем HOC
-// import * as Auth from '../utils/auth.js';
+import * as Auth from '../../utils/auth';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    // если у пользователя есть токен в localStorage, проверим валидность токена
+    const jwt = localStorage.getItem('jwt');
+    if (jwt){
+      // проверим токен
+      Auth.getContent(jwt).then((res) => {
+        if (res){
+          console.log(res);
+          // авторизуем пользователя
+          setCurrentUserData(res);
+          setLoggedIn(true);
+          history.push("/");
+        }
+      })
+      .catch((err) => {
+        // попадаем сюда, если один из промисов завершится ошибкой
+        console.log(err);
+      });
+    }
+  }, [history]);
 
   return (
     <div>
