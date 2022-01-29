@@ -9,7 +9,7 @@ function Register(props) {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [SubmitResult, setSubmitResult] = React.useState({status: "empty", message: ""});
+  const [SubmitResult, setSubmitResult] = React.useState({ status: "empty", message: "" });
   const history = useHistory();
 
   function handleChangeName(evt) {
@@ -31,11 +31,11 @@ function Register(props) {
 
     Auth.register(name, email, password)
       .then((res) => {
-        setSubmitResult({status: 'ok', message: 'Вы успешно зарегистрировались!'});
+        setSubmitResult({ status: 'ok', message: 'Вы успешно зарегистрировались!' });
         history.push('/signin');
       })
       .catch((err) => {
-        setSubmitResult({status: 'error', message: err.message})
+        setSubmitResult({ status: 'error', message: err.message })
         console.log(`Ошибка ${err}`)
       });
 
@@ -48,11 +48,11 @@ function Register(props) {
         <p className='form__title'>Добро пожаловать!</p>
         <form className="form__inputs" >
           <label htmlFor="name" className="form__label">Имя</label>
-          <input id="name" name="name" type="text" placeholder="Имя" className="form__input" value={name} onChange={handleChangeName} required></input>
+          <input id="name" name="name" minLength="6" maxLength="30" type="text" placeholder="Имя" className="form__input" value={name} onChange={handleChangeName} required></input>
           <label htmlFor="email" className="form__label">E-mail</label>
           <input id="email" name="email" type="email" placeholder="E-mail" className="form__input" value={email} onChange={handleChangeEmail} required></input>
           <label htmlFor="password" className="form__label">Пароль</label>
-          <input id="password" name="password" type="password" placeholder="Пароль" className="form__input" value={password} onChange={handleChangePassword} required></input>
+          <input id="password" name="password" minLength="6" maxLength="30" type="password" placeholder="Пароль" className="form__input" value={password} onChange={handleChangePassword} required></input>
           <p className="form__error">Что-то пошло не так...</p>
         </form>
       </div>
