@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
@@ -10,8 +10,14 @@ import Login from "../Login/Login";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import Profile from "../Profile/Profile";
 import Movies from "../Movies/Movies";
+// import api from "../utils/Api.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+// import ProtectedRoute from "./ProtectedRoute.js"; // импортируем HOC
+// import * as Auth from '../utils/auth.js';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <div>
       <div className="page">
