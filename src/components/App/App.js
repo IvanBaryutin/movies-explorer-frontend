@@ -20,6 +20,7 @@ import mainApi from "../../utils/MainApi";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUserData, setCurrentUserData] = useState({});
+  const [formErrorText, setFormErrorText] = React.useState("");
   const history = useHistory();
 
   useEffect(() => {
@@ -51,8 +52,8 @@ function App() {
         history.push("/signin");
       })
       .catch((err) => {
+        setFormErrorText(err.message);
         console.log(`Ошибка ${err}`);
-        console.log(err);
       });
   }
 
@@ -80,7 +81,7 @@ function App() {
             <Footer />
           </Route>
           <Route exact path="/signup">
-            <Register onRegister={handleRegister}/>
+            <Register onRegister={handleRegister} errorText={formErrorText}/>
           </Route>
           <Route exact path="/signin">
             <Login />

@@ -44,7 +44,10 @@ function Register(props) {
         </form>
       </div>
       <div className="form__footer">
-        <p className={`form__submit-result_status form__submit-result_status_${SubmitResult.status}`}>{SubmitResult.message}</p>
+        {props.errorText !== "" &&
+          <p className="form__submit-result-error">{props.errorText}</p>
+        }
+        <p className="form__submit-result_error">{props.SubmitErrorText}</p>
         <button type="submit" className="form__submit-button" onClick={handleSubmit}>Зарегистрироваться</button>
         <p className="form__footer-text">Уже зарегистрированы? <Link to="/signin" className="form__footer-link"> Войти</Link></p>
       </div>
