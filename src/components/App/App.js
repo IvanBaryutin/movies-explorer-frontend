@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { Route, Switch, Redirect } from "react-router-dom";
+import { useHistory } from "react-router";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -11,10 +11,11 @@ import Login from "../Login/Login";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import Profile from "../Profile/Profile";
 import Movies from "../Movies/Movies";
-// import api from "../utils/Api.js";
+
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 // import ProtectedRoute from "./ProtectedRoute.js"; // импортируем HOC
-import * as Auth from '../../utils/auth';
+import * as Auth from "../../utils/auth";
+import mainApi from "../../utils/MainApi";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -23,24 +24,37 @@ function App() {
 
   useEffect(() => {
     // если у пользователя есть токен в localStorage, проверим валидность токена
-    const jwt = localStorage.getItem('jwt');
-    if (jwt){
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
       // проверим токен
-      Auth.getContent(jwt).then((res) => {
-        if (res){
-          //console.log(res);
-          // авторизуем пользователя
-          setCurrentUserData(res);
-          setLoggedIn(true);
-          history.push("/");
-        }
-      })
-      .catch((err) => {
-        // попадаем сюда, если один из промисов завершится ошибкой
-        console.log(err);
-      });
+      Auth.getContent(jwt)
+        .then((res) => {
+          if (res) {
+            //console.log(res);
+            // авторизуем пользователя
+            setCurrentUserData(res);
+            setLoggedIn(true);
+            history.push("/");
+          }
+        })
+        .catch((err) => {
+          // попадаем сюда, если один из промисов завершится ошибкой
+          console.log(err);
+        });
     }
   }, [history]);
+
+  // Регистрация нового пользователя
+  function handleRegister(name, email, password) {
+    Auth.register(name, email, password)
+      .then((res) => {
+        history.push("/signin");
+      })
+      .catch((err) => {
+        console.log(`Ошибка ${err}`);
+        console.log(err);
+      });
+  }
 
   return (
     <div>
@@ -66,7 +80,7 @@ function App() {
             <Footer />
           </Route>
           <Route exact path="/signup">
-            <Register />
+            <Register onRegister={handleRegister}/>
           </Route>
           <Route exact path="/signin">
             <Login />

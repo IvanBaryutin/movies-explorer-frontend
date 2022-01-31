@@ -25,20 +25,7 @@ function Register(props) {
   }
 
   function handleSubmit(e) {
-    // Запрещаем браузеру переходить по адресу формы
-    e.preventDefault();
-    // Логика обработки формы регистрации
-
-    Auth.register(name, email, password)
-      .then((res) => {
-        setSubmitResult({ status: 'ok', message: 'Вы успешно зарегистрировались!' });
-        history.push('/signin');
-      })
-      .catch((err) => {
-        setSubmitResult({ status: 'error', message: err.message })
-        console.log(`Ошибка ${err}`)
-      });
-
+    props.onRegister(name, email, password);
   }
 
   return (

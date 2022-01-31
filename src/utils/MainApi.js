@@ -5,12 +5,12 @@ export class MainApi {
   }
 
   _checkToken = (headers) => {
-    const token = localStorage.getItem('jwt');
+    const token = localStorage.getItem("jwt");
     if (token) {
-      this._headers['authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
+      this._headers["authorization"] = `Bearer ${localStorage.getItem("jwt")}`;
     }
     return headers;
-  }
+  };
 
   _checkRequestResult = (res) => {
     if (res.ok) {
@@ -18,41 +18,49 @@ export class MainApi {
     }
     // если ошибка, отклоняем промис
     return Promise.reject(`Ошибка: ${res.status}`);
-  }
+  };
+
+  register = (name, email, password) => {
+    return fetch(`${this._baseUrl}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    }).then((res) => this._checkRequestResult(res));
+  };
 
   getUserInfo = () => {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: 'GET',
+      method: "GET",
       headers: this._checkToken(this._headers),
-    })
-      .then((res) => this._checkRequestResult(res))
-  }
+    }).then((res) => this._checkRequestResult(res));
+  };
 
   setUserInfo = (user) => {
-    this._headers['Content-Type'] = 'application/json';
+    this._headers["Content-Type"] = "application/json";
     return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: this._checkToken(this._headers),
       body: JSON.stringify({
         name: user.name,
-        about: user.about
-      })
-    })
-      .then((res) => this._checkRequestResult(res))
-  }
+        email: user.email,
+      }),
+    }).then((res) => this._checkRequestResult(res));
+  };
 
   getAllSavedMovies() {
     return fetch(`${this._baseUrl}/movies`, {
-      method: 'GET',
+      method: "GET",
       headers: this._checkToken(this._headers),
-    })
-      .then((res) => this._checkRequestResult(res))
+    }).then((res) => this._checkRequestResult(res));
   }
 
   addMovie = (movie) => {
-    this._headers['Content-Type'] = 'application/json';
+    this._headers["Content-Type"] = "application/json";
     return fetch(`${this._baseUrl}/movies`, {
-      method: 'POST',
+      method: "POST",
       headers: this._checkToken(this._headers),
       body: JSON.stringify({
         country: movie.country,
@@ -66,36 +74,26 @@ export class MainApi {
         nameEN: movie.nameEN,
         thumbnail: movie.thumbnail,
         movieId: movie.movieId,
-      })
-    })
-      .then((res) => this._checkRequestResult(res))
-  }
+      }),
+    }).then((res) => this._checkRequestResult(res));
+  };
 
   deleteMovie = (movieId) => {
-    this._headers['Content-Type'] = 'application/json';
+    this._headers["Content-Type"] = "application/json";
     return fetch(`${this._baseUrl}/cards/${movieId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: this._checkToken(this._headers),
-    })
-      .then((res) => this._checkRequestResult(res))
-  }
-
-  getUserInfo = () => {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'GET',
-      headers: this._checkToken(this._headers),
-    })
-      .then((res) => this._checkRequestResult(res))
-  }
-
+    }).then((res) => this._checkRequestResult(res));
+  };
 }
 
-const api = new Api({
-  baseUrl: 'https://api.diploma.nomoredomains.rocks',
+const mainApi = new MainApi({
+  // baseUrl: 'https://api.the-mesto.students.nomoredomains.rocks',
+  baseUrl: "http://localhost:3000",
   headers: {
     // authorization: '1e5c33de-1f37-4db9-b61a-be6eb6c35223',
-    'Access-Control-Allow-Origin': 'origin-list',
-  }
+    "Access-Control-Allow-Origin": "origin-list",
+  },
 });
 
-export default MainApi;
+export default mainApi;
