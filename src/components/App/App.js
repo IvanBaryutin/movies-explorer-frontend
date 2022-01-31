@@ -57,6 +57,29 @@ function App() {
       });
   }
 
+  // Авторизация
+  function handleLogin(email, password) {
+    if (email === '' || password === '') {
+      return;
+    }
+    Auth.authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          //console.log(data.token);
+          localStorage.setItem('jwt', data.token);
+          //handleLogin(email);
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        //console.log(`Ошибка ${err}`)
+        if (err.message) {
+          setFormErrorText(err.message);
+          //setSubmitResult({ status: 'error', message: err.message })
+        }
+      });
+  }
+
   return (
     <div>
       <div className="page">
@@ -81,10 +104,10 @@ function App() {
             <Footer />
           </Route>
           <Route exact path="/signup">
-            <Register onRegister={handleRegister} errorText={formErrorText}/>
+            <Register onRegister={handleRegister} errorText={formErrorText} />
           </Route>
           <Route exact path="/signin">
-            <Login />
+            <Login onLogin={handleLogin} errorText={formErrorText} />
           </Route>
           <Route path="*">
             <ErrorPage />
