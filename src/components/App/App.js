@@ -19,7 +19,7 @@ import mainApi from "../../utils/MainApi";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [currentUserData, setCurrentUserData] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
   const [formErrorText, setFormErrorText] = React.useState("");
   const history = useHistory();
 
@@ -28,12 +28,15 @@ function App() {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       // проверим токен
-      Auth.getContent(jwt)
+      //Auth.getContent(jwt)
+      mainApi
+        .getUserInfo()
         .then((res) => {
           if (res) {
-            //console.log(res);
+            console.log(res);
             // авторизуем пользователя
-            setCurrentUserData(res);
+            setCurrentUser(res);
+            console.log(currentUser);
             setLoggedIn(true);
             history.push("/");
           }
@@ -43,7 +46,7 @@ function App() {
           console.log(err);
         });
     }
-  }, [history]);
+  }, [loggedIn]);
 
   // Регистрация нового пользователя
   function handleRegister(name, email, password) {
@@ -59,16 +62,16 @@ function App() {
 
   // Авторизация
   function handleLogin(email, password) {
-    if (email === '' || password === '') {
+    if (email === "" || password === "") {
       return;
     }
     Auth.authorize(email, password)
       .then((data) => {
         if (data.token) {
           //console.log(data.token);
-          localStorage.setItem('jwt', data.token);
+          localStorage.setItem("jwt", data.token);
           //handleLogin(email);
-          history.push('/');
+          history.push("/");
         }
       })
       .catch((err) => {
@@ -81,40 +84,42 @@ function App() {
   }
 
   return (
-    <div>
-      <div className="page">
-        <Switch>
-          <Route exact path="/profile">
-            <Header logged={loggedIn} />
-            <Profile />
-          </Route>
-          <Route exact path="/">
-            <Header logged={loggedIn} />
-            <Main />
-            <Footer />
-          </Route>
-          <Route exact path="/saved-movies">
-            <Header logged={loggedIn} />
-            <SavedMovies />
-            <Footer />
-          </Route>
-          <Route exact path="/movies">
-            <Header logged={loggedIn} />
-            <Movies />
-            <Footer />
-          </Route>
-          <Route exact path="/signup">
-            <Register onRegister={handleRegister} errorText={formErrorText} />
-          </Route>
-          <Route exact path="/signin">
-            <Login onLogin={handleLogin} errorText={formErrorText} />
-          </Route>
-          <Route path="*">
-            <ErrorPage />
-          </Route>
-        </Switch>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div>
+        <div className="page">
+          <Switch>
+            <Route exact path="/profile">
+              <Header logged={loggedIn} />
+              <Profile />
+            </Route>
+            <Route exact path="/">
+              <Header logged={loggedIn} />
+              <Main />
+              <Footer />
+            </Route>
+            <Route exact path="/saved-movies">
+              <Header logged={loggedIn} />
+              <SavedMovies />
+              <Footer />
+            </Route>
+            <Route exact path="/movies">
+              <Header logged={loggedIn} />
+              <Movies />
+              <Footer />
+            </Route>
+            <Route exact path="/signup">
+              <Register onRegister={handleRegister} errorText={formErrorText} />
+            </Route>
+            <Route exact path="/signin">
+              <Login onLogin={handleLogin} errorText={formErrorText} />
+            </Route>
+            <Route path="*">
+              <ErrorPage />
+            </Route>
+          </Switch>
+        </div>
       </div>
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 
