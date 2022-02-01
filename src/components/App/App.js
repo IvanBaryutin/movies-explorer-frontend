@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useHistory } from "react-router";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -86,59 +87,73 @@ function App() {
 
   // Выход
   function handleSignOut() {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem("jwt");
     setLoggedIn(false);
-    setCurrentUser({name: '', email: ''});
-    history.push('/');
+    setCurrentUser({ name: "", email: "" });
+    history.push("/");
   }
 
   // Обновление профиля
   function handleUpdate(name, email) {
     console.log(name, email);
-    mainApi.setUserInfo({name: name, email: email})
-    .then((res) => {
-      setCurrentUser(res);
-      setFormErrorText("Данные обновлены");
-    })
-    .catch((err) => {
-      setFormErrorText(err.message);
-    });
+    mainApi
+      .setUserInfo({ name: name, email: email })
+      .then((res) => {
+        setCurrentUser(res);
+        setFormErrorText("Данные обновлены");
+      })
+      .catch((err) => {
+        setFormErrorText(err.message);
+      });
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
         <div className="page">
+          <Header logged={loggedIn} />
+
           <Switch>
-            <Route exact path="/profile">
-              <Header logged={loggedIn} />
-              <Profile onSignOut={handleSignOut} onUpdateProfile={handleUpdate} errorText={formErrorText} />
-            </Route>
-            <Route exact path="/">
-              <Header logged={loggedIn} />
-              <Main />
-              <Footer />
-            </Route>
-            <Route exact path="/saved-movies">
-              <Header logged={loggedIn} />
-              <SavedMovies />
-              <Footer />
-            </Route>
-            <Route exact path="/movies">
-              <Header logged={loggedIn} />
-              <Movies />
-              <Footer />
-            </Route>
             <Route exact path="/signup">
               <Register onRegister={handleRegister} errorText={formErrorText} />
             </Route>
+
             <Route exact path="/signin">
               <Login onLogin={handleLogin} errorText={formErrorText} />
             </Route>
+
+            <ProtectedRoute
+              exact
+              path="/profile"
+              loggedIn={loggedIn}
+              component={Profile}
+              onSignOut={handleSignOut}
+              onUpdateProfile={handleUpdate}
+              errorText={formErrorText}
+            ></ProtectedRoute>
+
+            <ProtectedRoute
+              exact
+              path="/saved-movies"
+              loggedIn={loggedIn}
+              component={SavedMovies}
+            ></ProtectedRoute>
+            <ProtectedRoute
+              exact
+              path="/movies"
+              loggedIn={loggedIn}
+              component={Movies}
+            ></ProtectedRoute>
+
+            <Route exact path="/">
+              <Main />
+            </Route>
+
             <Route path="*">
               <ErrorPage />
             </Route>
           </Switch>
+          <Footer />
         </div>
       </div>
     </CurrentUserContext.Provider>
