@@ -98,13 +98,10 @@ function App() {
     mainApi.setUserInfo({name: name, email: email})
     .then((res) => {
       setCurrentUser(res);
-      console.log("Данные обновлены");
       setFormErrorText("Данные обновлены");
     })
     .catch((err) => {
-      console.log(err);
       setFormErrorText(err.message);
-      //console.log(`Ошибка ${err}`);
     });
   }
 

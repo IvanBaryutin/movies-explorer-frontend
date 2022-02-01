@@ -95,3 +95,12 @@
 .profile__button_color_red {
   color: #ff4062;
 }
+
+.profile__submit-result-error {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  margin: 0 0 20px;
+  color: #ff4062;
+}

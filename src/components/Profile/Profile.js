@@ -59,8 +59,14 @@ function Profile(props) {
         </form>
       </div>
       <div className="profile__footer">
-        <button type="submit" className="profile__button"
-          onClick={handleClickUpdate}>
+        {props.errorText !== "" && (
+          <p className="profile__submit-result-error">{props.errorText}</p>
+        )}
+        <button
+          type="submit"
+          className="profile__button"
+          onClick={handleClickUpdate}
+        >
           Редактировать
         </button>
         <button

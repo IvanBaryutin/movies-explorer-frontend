@@ -14,10 +14,13 @@ export class MainApi {
 
   _checkRequestResult = (res) => {
     if (res.ok) {
+      console.log(res);
       return res.json();
     }
+    console.log(res);
     // если ошибка, отклоняем промис
-    return Promise.reject(`Ошибка: ${res.status}`);
+    // return Promise.reject(`Ошибка: ${res.status}`);
+    return res.json().then(err => {throw err;});
   };
 
   register = (name, email, password) => {

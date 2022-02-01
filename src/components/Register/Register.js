@@ -82,7 +82,6 @@ function Register(props) {
         {props.errorText !== "" && (
           <p className="form__submit-result-error">{props.errorText}</p>
         )}
-        <p className="form__submit-result_error">{props.SubmitErrorText}</p>
         <button
           type="submit"
           className="form__submit-button"
