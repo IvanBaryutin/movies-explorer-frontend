@@ -33,10 +33,10 @@ function App() {
         .getUserInfo()
         .then((res) => {
           if (res) {
-            console.log(res);
+            //console.log(res);
             // авторизуем пользователя
             setCurrentUser(res);
-            console.log(currentUser);
+            // console.log(currentUser);
             setLoggedIn(true);
             history.push("/");
           }
@@ -71,6 +71,7 @@ function App() {
           //console.log(data.token);
           localStorage.setItem("jwt", data.token);
           //handleLogin(email);
+          setLoggedIn(true);
           history.push("/");
         }
       })
@@ -83,6 +84,30 @@ function App() {
       });
   }
 
+  // Выход
+  function handleSignOut() {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+    setCurrentUser({name: '', email: ''});
+    history.push('/');
+  }
+
+  // Обновление профиля
+  function handleUpdate(name, email) {
+    console.log(name, email);
+    mainApi.setUserInfo({name: name, email: email})
+    .then((res) => {
+      setCurrentUser(res);
+      console.log("Данные обновлены");
+      setFormErrorText("Данные обновлены");
+    })
+    .catch((err) => {
+      console.log(err);
+      setFormErrorText(err.message);
+      //console.log(`Ошибка ${err}`);
+    });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
@@ -90,7 +115,7 @@ function App() {
           <Switch>
             <Route exact path="/profile">
               <Header logged={loggedIn} />
-              <Profile />
+              <Profile onSignOut={handleSignOut} onUpdateProfile={handleUpdate} errorText={formErrorText} />
             </Route>
             <Route exact path="/">
               <Header logged={loggedIn} />

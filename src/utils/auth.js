@@ -33,6 +33,7 @@ export const  authorize = (email, password) => {
     .then((res) => checkRequestResult(res))
 }
 
+/*
 export const  getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
@@ -44,3 +45,4 @@ export const  getContent = (token) => {
   })
     .then((res) => checkRequestResult(res))
 }
+*/
