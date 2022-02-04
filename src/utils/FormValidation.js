@@ -1,4 +1,6 @@
-import React, { useCallback } from "./react";
+// Ссылка на вебинар: https://disk.yandex.ru/d/vegboPekzVLrYQ/Вебинар%20-%20разбор%20курсового%20проекта%20(10-12%20спринт)%2002.11.21.mp4
+
+import React, { useCallback } from "react";
 
 //хук управления формой
 export function useForm() {
@@ -8,6 +10,7 @@ export function useForm() {
     const target = event.target;
     const value = target.value;
     const name = target.name;
+    // К полям старого объекта добавляется или оновляется соответствующее поле со значением
     setValues({...values, [name]: value});
   };
 
@@ -16,11 +19,13 @@ export function useForm() {
 
 //хук управления формой и валидации формы
 export function useFormWithValidation() {
+  // Храним данные формы в объектах - стейт переменных
   const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 
   const handleChange = (event) => {
+    // Получаем значение и имя поля
     const target = event.target;
     const name = target.name;
     const value = target.value;

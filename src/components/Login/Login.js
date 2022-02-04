@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Auth from "../../utils/auth";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { useFormWithValidation } from "../../utils/FormValidation";
 import logo from "../../images/logo.svg";
 import "../Form/Form.css";
 
 function Login(props) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
   const history = useHistory();
 
+  /*
   function handleChangeEmail(evt) {
     setEmail(evt.target.value);
   }
@@ -17,9 +19,14 @@ function Login(props) {
   function handleChangePassword(evt) {
     setPassword(evt.target.value);
   }
+  */
+
+  useEffect(() => {
+    resetForm();
+  }, [resetForm]);
 
   function handleSubmit() {
-    props.onLogin(email, password);
+    props.onLogin(values.email, values.password);
   }
 
   return (
@@ -37,9 +44,11 @@ function Login(props) {
             type="email"
             placeholder=""
             className="form__input"
-            onChange={handleChangeEmail}
+            onChange={handleChange}
+            value={values.email || ""}
             required
           ></input>
+          <p className="form__error">{errors.email || " "}</p>
           <label htmlFor="password" className="form__label">
             Пароль
           </label>
@@ -47,12 +56,15 @@ function Login(props) {
             id="password"
             name="password"
             type="password"
+            minLength="8"
+            maxLength="30"
             placeholder=""
             className="form__input"
-            onChange={handleChangePassword}
+            onChange={handleChange}
+            value={values.password || ""}
             required
           ></input>
-          <p className="form__error">Что-то пошло не так...</p>
+          <p className="form__error">{errors.password || " "}</p>
         </form>
       </div>
       <div className="form__footer">
@@ -63,6 +75,7 @@ function Login(props) {
           type="submit"
           className="form__submit-button"
           onClick={handleSubmit}
+          disabled= { !isValid ? "disabled" : ""}
         >
           Войти
         </button>

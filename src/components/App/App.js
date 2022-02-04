@@ -64,8 +64,11 @@ function App() {
   // Авторизация
   function handleLogin(email, password) {
     if (email === "" || password === "") {
+      console.log(false);
       return;
     }
+    console.log(email);
+    console.log(password);
     Auth.authorize(email, password)
       .then((data) => {
         if (data.token) {
