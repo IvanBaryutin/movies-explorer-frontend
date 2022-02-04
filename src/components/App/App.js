@@ -25,6 +25,8 @@ function App() {
   const [formErrorText, setFormErrorText] = React.useState("");
   const [filmsErrorText, setfilmsErrorText] = React.useState("");
   const [allMovies, setAllMovies] = React.useState([]);
+  const [isMoviesActual, setIsMoviesActual] = React.useState(false);
+  const [allSearchedMovies, setAllSearchedMovies] = React.useState([]);
   const [allSavedMovies, setAllSavedMovies] = React.useState([]);
   const history = useHistory();
 
@@ -51,7 +53,7 @@ function App() {
           console.log(err);
         });
     }
-  }, [loggedIn]);
+  }, [history, loggedIn]);
 
   // Регистрация нового пользователя
   function handleRegister(name, email, password) {
@@ -118,6 +120,7 @@ function App() {
       .then((res) => {
         setAllMovies(res);
         localStorage.setItem("allMovies", res);
+        setIsMoviesActual(true);
       })
       .catch((err) => {
         setfilmsErrorText("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
@@ -130,15 +133,18 @@ function App() {
         setfilmsErrorText("Нужно ввести ключевое слово");
         return;
       }
-      setfilmsErrorText("");
-      const movies = localStorage.getItem("allMovies");
-      // getAllMovies();
-      if (!movies) {
+      const cachedMovies = localStorage.getItem("allMovies");
+
+      if (isMoviesActual === false || !cachedMovies) {
         getAllMovies();
       }
+      setfilmsErrorText("");
+      console.log(isMoviesActual);
+      console.log(allMovies);
     }
 
   // Загрузка данных о сохраненных карточках
+  /*
   useEffect(() => {
     mainApi
     .getAllSavedMovies()
@@ -150,6 +156,7 @@ function App() {
       console.log(`Ошибка ${err}`)
     });
   }, [loggedIn]);
+  */
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

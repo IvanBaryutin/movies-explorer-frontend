@@ -11,16 +11,6 @@ function Login(props) {
     useFormWithValidation();
   const history = useHistory();
 
-  /*
-  function handleChangeEmail(evt) {
-    setEmail(evt.target.value);
-  }
-
-  function handleChangePassword(evt) {
-    setPassword(evt.target.value);
-  }
-  */
-
   function handleSubmit() {
     props.onLogin(values.email, values.password);
   }

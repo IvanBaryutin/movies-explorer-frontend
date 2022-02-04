@@ -11,7 +11,7 @@ function MoviesCardList(props) {
         <div className="movies-card-list__cards">
           {props.allMovies.map(movie => (
             <MoviesCard
-              key={movie._id}
+              key={movie.id}
               movie={movie}
             />
           ))}
