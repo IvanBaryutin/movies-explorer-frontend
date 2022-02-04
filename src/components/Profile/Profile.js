@@ -1,26 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useFormWithValidation } from "../../utils/FormValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./Profile.css";
 
 function Profile(props) {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
   const currentUser = React.useContext(CurrentUserContext);
-
-  function handleChangeName(evt) {
-    setName(evt.target.value);
-  }
-
-  function handleChangeEmail(evt) {
-    setEmail(evt.target.value);
-  }
 
   function handleClickExit(evt) {
     props.onSignOut();
   }
 
   function handleClickUpdate() {
-    props.onUpdateProfile(name, email);
+    props.onUpdateProfile(values.name, values.email);
   }
 
   return (
@@ -34,14 +27,17 @@ function Profile(props) {
           <input
             id="name"
             name="name"
+            minLength="2"
+            maxLength="30"
             type="text"
             placeholder=""
             className="profile__input"
-            // defaultValue={currentUser.name}
-            value={name}
-            onChange={handleChangeName}
+            pattern="^[а-яА-ЯёЁa-zA-Z -]+$"
+            value={values.name || ""}
+            onChange={handleChange}
             required
           ></input>
+          <p className="profile__error">{errors.name || " "}</p>
           <label htmlFor="email" className="profile__label">
             E-mail
           </label>
@@ -51,11 +47,11 @@ function Profile(props) {
             type="email"
             placeholder=""
             className="profile__input"
-            // defaultValue={currentUser.email}
-            value={email}
-            onChange={handleChangeEmail}
+            value={values.email || ""}
+            onChange={handleChange}
             required
           ></input>
+          <p className="profile__error">{errors.email || " "}</p>
         </form>
       </div>
       <div className="profile__footer">
@@ -66,6 +62,7 @@ function Profile(props) {
           type="submit"
           className="profile__button"
           onClick={handleClickUpdate}
+          disabled={!isValid ? "disabled" : ""}
         >
           Редактировать
         </button>

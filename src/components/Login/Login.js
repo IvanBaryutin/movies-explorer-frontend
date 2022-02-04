@@ -21,10 +21,6 @@ function Login(props) {
   }
   */
 
-  useEffect(() => {
-    resetForm();
-  }, [resetForm]);
-
   function handleSubmit() {
     props.onLogin(values.email, values.password);
   }
@@ -56,7 +52,7 @@ function Login(props) {
             id="password"
             name="password"
             type="password"
-            minLength="8"
+            minLength="6"
             maxLength="30"
             placeholder=""
             className="form__input"

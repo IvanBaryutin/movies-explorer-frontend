@@ -1,29 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useFormWithValidation } from "../../utils/FormValidation";
 import logo from "../../images/logo.svg";
 import "../Form/Form.css";
 import { useHistory } from "react-router";
 
 function Register(props) {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
   const history = useHistory();
 
-  function handleChangeName(evt) {
-    setName(evt.target.value);
-  }
-
-  function handleChangeEmail(evt) {
-    setEmail(evt.target.value);
-  }
-
-  function handleChangePassword(evt) {
-    setPassword(evt.target.value);
-  }
-
   function handleSubmit() {
-    props.onRegister(name, email, password);
+    props.onRegister(values.name, values.email, values.password);
   }
 
   return (
@@ -38,15 +26,17 @@ function Register(props) {
           <input
             id="name"
             name="name"
-            minLength="6"
+            minLength="2"
             maxLength="30"
             type="text"
+            pattern="^[а-яА-ЯёЁa-zA-Z -]+$"
             placeholder="Имя"
             className="form__input"
-            value={name}
-            onChange={handleChangeName}
+            value={values.name || ""}
+            onChange={handleChange}
             required
           ></input>
+          <p className="form__error">{errors.name || " "}</p>
           <label htmlFor="email" className="form__label">
             E-mail
           </label>
@@ -56,10 +46,11 @@ function Register(props) {
             type="email"
             placeholder="E-mail"
             className="form__input"
-            value={email}
-            onChange={handleChangeEmail}
+            value={values.email || ""}
+            onChange={handleChange}
             required
           ></input>
+          <p className="form__error">{errors.email || " "}</p>
           <label htmlFor="password" className="form__label">
             Пароль
           </label>
@@ -71,11 +62,11 @@ function Register(props) {
             type="password"
             placeholder="Пароль"
             className="form__input"
-            value={password}
-            onChange={handleChangePassword}
+            value={values.password || ""}
+            onChange={handleChange}
             required
           ></input>
-          <p className="form__error">Что-то пошло не так...</p>
+          <p className="form__error">{errors.password || " "}</p>
         </form>
       </div>
       <div className="form__footer">
@@ -86,6 +77,7 @@ function Register(props) {
           type="submit"
           className="form__submit-button"
           onClick={handleSubmit}
+          disabled= { !isValid ? "disabled" : ""}
         >
           Зарегистрироваться
         </button>

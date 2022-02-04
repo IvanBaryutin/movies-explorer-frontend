@@ -106,10 +106,12 @@
   border: none;
   cursor: pointer;
 }
+
 .form__submit-button:disabled,
 .form__submit-button[disabled]{
   background-color: #f8f8f8;
   color: #c2c2c2;
+  cursor: not-allowed;
 }
 
 @media screen and (max-width: 450px) {
