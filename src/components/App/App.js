@@ -17,11 +17,14 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 // import ProtectedRoute from "./ProtectedRoute.js"; // импортируем HOC
 import * as Auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [formErrorText, setFormErrorText] = React.useState("");
+  const [allMovies, setAllMovies] = React.useState([]);
+  const [allSavedMovies, setAllSavedMovies] = React.useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -95,7 +98,7 @@ function App() {
 
   // Обновление профиля
   function handleUpdate(name, email) {
-    console.log(name, email);
+    // console.log(name, email);
     mainApi
       .setUserInfo({ name: name, email: email })
       .then((res) => {
@@ -106,6 +109,36 @@ function App() {
         setFormErrorText(err.message);
       });
   }
+
+    // Загрузка данных о карточках с сервиса
+    function getAllMovies() {
+      /*
+      moviesApi
+      .getAllMovies()
+      .then((res) => {
+        setAllMovies(res);
+        // console.log(allMovies);
+      })
+      .catch((err) => {
+        setFormErrorText(err.message);
+        console.log(`Ошибка ${err}`)
+      });
+      */
+     console.log(6666666666666);
+    };
+
+  // Загрузка данных о сохраненных карточках
+  useEffect(() => {
+    mainApi
+    .getAllSavedMovies()
+    .then((res) => {
+      setAllSavedMovies(res);
+      //console.log(allSavedMovies);
+    })
+    .catch((err) => {
+      console.log(`Ошибка ${err}`)
+    });
+  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -143,6 +176,7 @@ function App() {
               path="/movies"
               loggedIn={loggedIn}
               component={Movies}
+              allMovies={allMovies}
             ></ProtectedRoute>
 
             <Route exact path="/">

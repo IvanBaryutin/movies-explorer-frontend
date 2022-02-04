@@ -1,41 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import "./MoviesCard.css";
-import image from '../../images/3bfd6b9af4141d2ee15e36a186b073a7.jpg';
+import image from "../../images/3bfd6b9af4141d2ee15e36a186b073a7.jpg";
 
-function MoviesCard() {
-
+function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);
 
   function handleSaveClick() {
     if (!isLiked) {
-      setIsLiked(true)
+      setIsLiked(true);
     } else {
-      setIsLiked(false)
+      setIsLiked(false);
     }
   }
 
   function handleDeleteClick() {
     if (!isLiked) {
-      setIsLiked(true)
+      setIsLiked(true);
     } else {
-      setIsLiked(false)
+      setIsLiked(false);
     }
+  }
+
+  function formatDuration(duration) {
+    let h = Math.floor(duration / 60);
+    let m = Math.floor(duration % 60);
+    let timestamp = "";
+    timestamp = (h > 0 ? h + "ч" : "") + (m > 0 ? " " + m + "м" : "");
+    return timestamp;
   }
 
   return (
     <article className="movies-card">
-      <p className="movies-card__title">33 слова о дизайне</p>
-      <p className="movies-card__duration">1ч 47м</p>
+      <p className="movies-card__title">{props.movie.nameRU}</p>
+      <p className="movies-card__duration">{formatDuration(props.movie.duration)}</p>
       <Route exact path="/movies">
-        <button className={`movies-card__save-icon ${isLiked ? "movies-card__save-icon_active" : ""}`} onClick={handleSaveClick} />
+        <button
+          className={`movies-card__save-icon ${
+            isLiked ? "movies-card__save-icon_active" : ""
+          }`}
+          onClick={handleSaveClick}
+        />
       </Route>
       <Route exact path="/saved-movies">
-        <button className="movies-card__delete-icon" onClick={handleDeleteClick} />
+        <button
+          className="movies-card__delete-icon"
+          onClick={handleDeleteClick}
+        />
       </Route>
-      <img src={image} className="movies-card__image" alt="Обложка фильма"/>
+      <img
+        src={props.movie.image.url}
+        className="movies-card__image"
+        alt="Обложка фильма"
+      />
+      <img
+        src={`https://api.nomoreparties.co${props.movie.image.url}`}
+        className="movies-card__image"
+        alt="Обложка фильма"
+      />
     </article>
-  )
+  );
 }
 
 export default MoviesCard;

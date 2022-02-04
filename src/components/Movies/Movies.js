@@ -1,15 +1,17 @@
-import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import "./Movies.css";
 
+function Movies(props) {
+  // Загружаем все карточки фильмов
+  // props.onLoad();
 
-function Movies() {
   return (
     <>
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList allMovies={props.allMovies} />
     </>
-  )
+  );
 }
 
 export default Movies;

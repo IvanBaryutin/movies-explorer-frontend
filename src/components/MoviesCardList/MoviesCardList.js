@@ -2,22 +2,16 @@ import { Route } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 
-function MoviesCardList() {
+function MoviesCardList(props) {
   return (
     <section className="movies-card-list">
         <div className="movies-card-list__cards">
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
+          {props.allMovies.map(movie => (
+            <MoviesCard
+              key={movie._id}
+              movie={movie}
+            />
+          ))}
         </div>
         <Route exact path="/movies">
           <div className="movies-card-list__more">
