@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import "./MoviesCard.css";
-import image from "../../images/3bfd6b9af4141d2ee15e36a186b073a7.jpg";
 
 function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);

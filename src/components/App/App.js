@@ -23,6 +23,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [formErrorText, setFormErrorText] = React.useState("");
+  const [filmsErrorText, setfilmsErrorText] = React.useState("");
   const [allMovies, setAllMovies] = React.useState([]);
   const [allSavedMovies, setAllSavedMovies] = React.useState([]);
   const history = useHistory();
@@ -112,20 +113,30 @@ function App() {
 
     // Загрузка данных о карточках с сервиса
     function getAllMovies() {
-      /*
-      moviesApi
+        moviesApi
       .getAllMovies()
       .then((res) => {
         setAllMovies(res);
-        // console.log(allMovies);
+        localStorage.setItem("allMovies", res);
       })
       .catch((err) => {
-        setFormErrorText(err.message);
+        setfilmsErrorText("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
         console.log(`Ошибка ${err}`)
       });
-      */
-     console.log(6666666666666);
     };
+
+    function handleSearchMovies(queryData) {
+      if (queryData.query === "") {
+        setfilmsErrorText("Нужно ввести ключевое слово");
+        return;
+      }
+      setfilmsErrorText("");
+      const movies = localStorage.getItem("allMovies");
+      // getAllMovies();
+      if (!movies) {
+        getAllMovies();
+      }
+    }
 
   // Загрузка данных о сохраненных карточках
   useEffect(() => {
@@ -175,8 +186,10 @@ function App() {
               exact
               path="/movies"
               loggedIn={loggedIn}
+              onSearchMovies={handleSearchMovies}
               component={Movies}
               allMovies={allMovies}
+              errorText={filmsErrorText}
             ></ProtectedRoute>
 
             <Route exact path="/">

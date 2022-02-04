@@ -8,8 +8,8 @@ function Movies(props) {
 
   return (
     <>
-      <SearchForm />
-      <MoviesCardList allMovies={props.allMovies} />
+      <SearchForm onSearchMovies={props.onSearchMovies} />
+      <MoviesCardList allMovies={props.allMovies} errorText={props.errorText} />
     </>
   );
 }

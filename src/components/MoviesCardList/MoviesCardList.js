@@ -5,6 +5,9 @@ import "./MoviesCardList.css";
 function MoviesCardList(props) {
   return (
     <section className="movies-card-list">
+      {props.errorText !== "" && (
+          <p className="movies-card-list__result-error">{props.errorText}</p>
+        )}
         <div className="movies-card-list__cards">
           {props.allMovies.map(movie => (
             <MoviesCard

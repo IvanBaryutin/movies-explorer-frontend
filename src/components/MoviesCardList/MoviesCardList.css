@@ -56,3 +56,14 @@
   cursor: pointer;
   border-radius: 5px;
 }
+
+.movies-card-list__result-error {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  margin: 0;
+  color: #000;
+  text-align: center;
+  width: 100%;
+}
