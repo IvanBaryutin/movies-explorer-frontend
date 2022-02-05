@@ -20,8 +20,10 @@ import moviesApi from "../../utils/MoviesApi";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  console.log(viewportWidth);
+  const [cardsQty, setCardsQty] = useState({ add: 0, initial: 0 })
+  console.log(cardsQty);
 
   const [formErrorText, setFormErrorText] = React.useState("");
   const [filmsErrorText, setfilmsErrorText] = React.useState("");
@@ -189,6 +191,15 @@ function App() {
 
   const updateWidth = () => {
     setViewportWidth(window.innerWidth);
+    if (window.innerWidth >= 1280) {
+      setCardsQty({ add: 3, initial: 12 });
+    } else {
+      if (window.innerWidth >= 765) {
+        setCardsQty({ add: 2, initial: 8 });
+      } else {
+        setCardsQty({ add: 2, initial: 5 });
+      }
+    }
   };
 
   // Хук изменения ширины окна
