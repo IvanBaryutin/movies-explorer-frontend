@@ -3,12 +3,10 @@ import { Link } from "react-router-dom";
 import { useFormWithValidation } from "../../utils/FormValidation";
 import logo from "../../images/logo.svg";
 import "../Form/Form.css";
-import { useHistory } from "react-router";
 
 function Register(props) {
   const { values, handleChange, resetForm, errors, isValid } =
     useFormWithValidation();
-  const history = useHistory();
 
   function handleSubmit() {
     props.onRegister(values.name, values.email, values.password);

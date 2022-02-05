@@ -18,11 +18,12 @@ export function useForm() {
 }
 
 //хук управления формой и валидации формы
-export function useFormWithValidation() {
+export function useFormWithValidation(defaultValues) {
   // Храним данные формы в объектах - стейт переменных
-  const [values, setValues] = React.useState({});
+  const [values, setValues] = React.useState({...defaultValues});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
+  console.log(values);
 
   const handleChange = (event) => {
     // Получаем значение и имя поля

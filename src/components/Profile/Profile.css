@@ -95,6 +95,7 @@
 .profile__button:disabled,
 .profile__button[disabled]{
   color: #c2c2c2;
+  cursor: not-allowed;
 }
 
 .profile__button_color_red {
@@ -108,7 +109,6 @@
   line-height: 12px;
   margin: 6px 0 24px;
   color: #ff4062;
-  cursor: not-allowed;
 }
 
 .profile__submit-result-error {

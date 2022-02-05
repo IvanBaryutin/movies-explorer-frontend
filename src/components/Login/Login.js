@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useFormWithValidation } from "../../utils/FormValidation";
 import logo from "../../images/logo.svg";
@@ -8,7 +7,6 @@ import "../Form/Form.css";
 function Login(props) {
   const { values, handleChange, resetForm, errors, isValid } =
     useFormWithValidation();
-  const history = useHistory();
 
   function handleSubmit() {
     props.onLogin(values.email, values.password);
@@ -62,7 +60,7 @@ function Login(props) {
           onClick={handleSubmit}
           disabled= { !isValid ? "disabled" : ""}
         >
-          Войти
+          {props.buttonText}
         </button>
         <p className="form__footer-text">
           Ещё не зарегистрированы?{" "}

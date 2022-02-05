@@ -23,7 +23,11 @@ function App() {
 
   const [formErrorText, setFormErrorText] = React.useState("");
   const [filmsErrorText, setfilmsErrorText] = React.useState("");
+
   const [registerButtonText, setRegisterButtonText] = React.useState("Зарегистрироваться");
+  const [loginButtonText, setLoginButtonText] = React.useState("Войти");
+  const [profileButtonText, setprofileButtonText] = React.useState("Редактировать");
+
   const [allMovies, setAllMovies] = React.useState([]);
   const [isMoviesActual, setIsMoviesActual] = React.useState(false);
   const [allSearchedMovies, setAllSearchedMovies] = React.useState([]);
@@ -61,8 +65,8 @@ function App() {
     setRegisterButtonText("Загрузка...");
     mainApi.register(name, email, password)
       .then((res) => {
+        setFormErrorText("");
         handleLogin(email, password);
-        console.log(location.pathname);
       })
       .catch((err) => {
         setFormErrorText(err.message);
@@ -76,12 +80,13 @@ function App() {
     if (email === "" || password === "") {
       return;
     }
+    setLoginButtonText("Загрузка...");
     mainApi.authorize(email, password)
       .then((data) => {
         if (data.token) {
-          console.log(data.token);
           localStorage.setItem("jwt", data.token);
           setLoggedIn(true);
+          setFormErrorText("");
           history.push("/movies");
         }
       })
@@ -92,7 +97,9 @@ function App() {
           //setSubmitResult({ status: 'error', message: err.message })
         }
       })
-      .finally(() => setFormErrorText(""));
+      .finally(() => {
+        setLoginButtonText("Войти");
+      });
   }
 
   // Выход
@@ -105,7 +112,7 @@ function App() {
 
   // Обновление профиля
   function handleUpdate(name, email) {
-    // console.log(name, email);
+    setprofileButtonText("Загрузка...");
     mainApi
       .setUserInfo({ name: name, email: email })
       .then((res) => {
@@ -114,12 +121,15 @@ function App() {
       })
       .catch((err) => {
         setFormErrorText(err.message);
+      })
+      .finally(() => {
+        setprofileButtonText("Редактировать");
       });
   }
 
-    // Загрузка данных о карточках с сервиса
-    function getAllMovies() {
-        moviesApi
+  // Загрузка данных о карточках с сервиса
+  function getAllMovies() {
+    moviesApi
       .getAllMovies()
       .then((res) => {
         setAllMovies(res);
@@ -130,22 +140,22 @@ function App() {
         setfilmsErrorText("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
         console.log(`Ошибка ${err}`)
       });
-    };
+  };
 
-    function handleSearchMovies(queryData) {
-      if (queryData.query === "") {
-        setfilmsErrorText("Нужно ввести ключевое слово");
-        return;
-      }
-      const cachedMovies = localStorage.getItem("allMovies");
-
-      if (isMoviesActual === false || !cachedMovies) {
-        getAllMovies();
-      }
-      setfilmsErrorText("");
-      console.log(isMoviesActual);
-      console.log(allMovies);
+  function handleSearchMovies(queryData) {
+    if (queryData.query === "") {
+      setfilmsErrorText("Нужно ввести ключевое слово");
+      return;
     }
+    const cachedMovies = localStorage.getItem("allMovies");
+
+    if (isMoviesActual === false || !cachedMovies) {
+      getAllMovies();
+    }
+    setfilmsErrorText("");
+    console.log(isMoviesActual);
+    console.log(allMovies);
+  }
 
   // Загрузка данных о сохраненных карточках
   /*
@@ -174,7 +184,7 @@ function App() {
             </Route>
 
             <Route exact path="/signin">
-              <Login onLogin={handleLogin} errorText={formErrorText} />
+              <Login onLogin={handleLogin} errorText={formErrorText} buttonText={loginButtonText} />
             </Route>
 
             <ProtectedRoute
@@ -185,6 +195,7 @@ function App() {
               onSignOut={handleSignOut}
               onUpdateProfile={handleUpdate}
               errorText={formErrorText}
+              buttonText={profileButtonText}
             ></ProtectedRoute>
 
             <ProtectedRoute

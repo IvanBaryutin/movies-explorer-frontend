@@ -4,9 +4,9 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./Profile.css";
 
 function Profile(props) {
-  const { values, handleChange, resetForm, errors, isValid } =
-    useFormWithValidation();
   const currentUser = React.useContext(CurrentUserContext);
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation(currentUser);
 
   function handleClickExit(evt) {
     props.onSignOut();
@@ -64,7 +64,7 @@ function Profile(props) {
           onClick={handleClickUpdate}
           disabled={!isValid ? "disabled" : ""}
         >
-          Редактировать
+          {props.buttonText}
         </button>
         <button
           type="submit"
