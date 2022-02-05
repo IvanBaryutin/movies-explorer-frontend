@@ -1,7 +1,7 @@
 //export const BASE_URL = 'https://api.diploma.nomoredomains.rocks';
 export const BASE_URL = 'http://localhost:3000';
 
-
+/*
 const checkRequestResult = (res) => {
   if (res.ok) {
     console.log(res);
@@ -33,7 +33,7 @@ export const  authorize = (email, password) => {
     .then((res) => checkRequestResult(res))
 }
 
-/*
+
 export const  getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',

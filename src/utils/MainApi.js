@@ -20,7 +20,7 @@ export class MainApi {
     console.log(res);
     // если ошибка, отклоняем промис
     // return Promise.reject(`Ошибка: ${res.status}`);
-    return res.json().then(err => {throw err;});
+    return res.json().then(err => { throw err; });
   };
 
   register = (name, email, password) => {
@@ -33,6 +33,16 @@ export class MainApi {
       body: JSON.stringify({ name, email, password }),
     }).then((res) => this._checkRequestResult(res));
   };
+
+  authorize = (email, password) => {
+    return fetch(`${this._baseUrl}/signin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    }).then((res) => this._checkRequestResult(res));
+  }
 
   getUserInfo = () => {
     return fetch(`${this._baseUrl}/users/me`, {

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import * as Auth from "../../utils/auth";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useFormWithValidation } from "../../utils/FormValidation";

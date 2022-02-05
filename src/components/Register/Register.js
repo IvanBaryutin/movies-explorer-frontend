@@ -79,7 +79,7 @@ function Register(props) {
           onClick={handleSubmit}
           disabled= { !isValid ? "disabled" : ""}
         >
-          Зарегистрироваться
+          {props.buttonText}
         </button>
         <p className="form__footer-text">
           Уже зарегистрированы?{" "}
