@@ -20,7 +20,8 @@ import moviesApi from "../../utils/MoviesApi";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [viewportWidth, setViewportWidth] = useState({});
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  console.log(viewportWidth);
 
   const [formErrorText, setFormErrorText] = React.useState("");
   const [filmsErrorText, setfilmsErrorText] = React.useState("");
@@ -162,18 +163,18 @@ function App() {
   }
 
   function filterMovies(moviesArr, queryData) {
-    const {query = "", shorts = false} = queryData;
+    const { query = "", shorts = false } = queryData;
     let filteredMovies;
     if (moviesArr) {
       //console.log(moviesArr);
-      filteredMovies = moviesArr.filter(function(movie) {
+      filteredMovies = moviesArr.filter(function (movie) {
         //console.log(movie.nameRU);
         if (movie.nameRU.toLowerCase().includes(query.toLowerCase())) {
           return true;
         }
       });
       if (shorts === true) {
-        filteredMovies = filteredMovies.filter(function(movie) {
+        filteredMovies = filteredMovies.filter(function (movie) {
           //console.log(movie.nameRU);
           if (movie.duration < 40) {
             return true;
@@ -183,6 +184,22 @@ function App() {
     }
     return filteredMovies;
   };
+
+  // https://stackoverflow.com/questions/45644457/action-on-window-resize-in-react
+
+  const updateWidth = () => {
+    setViewportWidth(window.innerWidth);
+  };
+
+  // Хук изменения ширины окна
+  React.useEffect(() => {
+    const timer = setTimeout(() =>
+      window.addEventListener("resize", updateWidth), 1000);
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+      clearTimeout(timer);
+    }
+  });
 
   // Загрузка данных о сохраненных карточках
   /*
@@ -227,18 +244,19 @@ function App() {
 
             <ProtectedRoute
               exact
-              path="/saved-movies"
-              loggedIn={loggedIn}
-              component={SavedMovies}
-            ></ProtectedRoute>
-            <ProtectedRoute
-              exact
               path="/movies"
               loggedIn={loggedIn}
               onSearchMovies={handleSearchMovies}
               component={Movies}
               allMovies={allSearchedMovies}
               errorText={filmsErrorText}
+            ></ProtectedRoute>
+
+            <ProtectedRoute
+              exact
+              path="/saved-movies"
+              loggedIn={loggedIn}
+              component={SavedMovies}
             ></ProtectedRoute>
 
             <Route exact path="/">
