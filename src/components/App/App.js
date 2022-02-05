@@ -20,6 +20,7 @@ import moviesApi from "../../utils/MoviesApi";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [viewportWidth, setViewportWidth] = useState({});
 
   const [formErrorText, setFormErrorText] = React.useState("");
   const [filmsErrorText, setfilmsErrorText] = React.useState("");
@@ -131,7 +132,7 @@ function App() {
       .getAllMovies()
       .then((res) => {
         setAllMovies(res);
-        localStorage.setItem("allMovies", res);
+        localStorage.setItem("allMovies", JSON.stringify(res));
         setIsMoviesActual(true);
       })
       .catch((err) => {
@@ -146,13 +147,15 @@ function App() {
       return;
     }
     const cachedMovies = localStorage.getItem("allMovies");
+    console.log(cachedMovies);
 
     if (isMoviesActual === false || !cachedMovies) {
       getAllMovies();
     }
     setfilmsErrorText("");
+    console.log(allMovies);
     setAllSearchedMovies(filterMovies(allMovies, queryData));
-    console.log(allSearchedMovies);
+    //console.log(allSearchedMovies);
 
     //console.log(isMoviesActual);
     //console.log(allMovies);
@@ -160,17 +163,25 @@ function App() {
 
   function filterMovies(moviesArr, queryData) {
     const {query = "", shorts = false} = queryData;
+    let filteredMovies;
     if (moviesArr) {
       //console.log(moviesArr);
-      const filteredMovies = moviesArr.filter(function(movie) {
+      filteredMovies = moviesArr.filter(function(movie) {
         //console.log(movie.nameRU);
         if (movie.nameRU.toLowerCase().includes(query.toLowerCase())) {
           return true;
         }
       });
-      return filteredMovies;
+      if (shorts === true) {
+        filteredMovies = filteredMovies.filter(function(movie) {
+          //console.log(movie.nameRU);
+          if (movie.duration < 40) {
+            return true;
+          }
+        });
+      }
     }
-
+    return filteredMovies;
   };
 
   // Загрузка данных о сохраненных карточках

@@ -17,7 +17,7 @@ function SearchForm(props) {
     // props.onLogin(values.email, values.password);
     // Запрещаем браузеру переходить по адресу формы
     evt.preventDefault();
-    props.onSearchMovies({query: textQuery, filter: filterCheckBox});
+    props.onSearchMovies({query: textQuery, shorts: filterCheckBox});
     //console.log(999);
   }
 
