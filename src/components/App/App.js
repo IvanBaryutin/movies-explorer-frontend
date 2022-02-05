@@ -32,6 +32,7 @@ function App() {
   const [isMoviesActual, setIsMoviesActual] = React.useState(false);
   const [allSearchedMovies, setAllSearchedMovies] = React.useState([]);
   const [allSavedMovies, setAllSavedMovies] = React.useState([]);
+
   const history = useHistory();
   const location = useLocation();
 
@@ -45,12 +46,9 @@ function App() {
         .getUserInfo()
         .then((res) => {
           if (res) {
-            //console.log(res);
             // авторизуем пользователя
             setCurrentUser(res);
-            // console.log(currentUser);
             setLoggedIn(true);
-            //history.push("/");
           }
         })
         .catch((err) => {
@@ -153,9 +151,27 @@ function App() {
       getAllMovies();
     }
     setfilmsErrorText("");
-    console.log(isMoviesActual);
-    console.log(allMovies);
+    setAllSearchedMovies(filterMovies(allMovies, queryData));
+    console.log(allSearchedMovies);
+
+    //console.log(isMoviesActual);
+    //console.log(allMovies);
   }
+
+  function filterMovies(moviesArr, queryData) {
+    const {query = "", shorts = false} = queryData;
+    if (moviesArr) {
+      //console.log(moviesArr);
+      const filteredMovies = moviesArr.filter(function(movie) {
+        //console.log(movie.nameRU);
+        if (movie.nameRU.toLowerCase().includes(query.toLowerCase())) {
+          return true;
+        }
+      });
+      return filteredMovies;
+    }
+
+  };
 
   // Загрузка данных о сохраненных карточках
   /*
@@ -210,7 +226,7 @@ function App() {
               loggedIn={loggedIn}
               onSearchMovies={handleSearchMovies}
               component={Movies}
-              allMovies={allMovies}
+              allMovies={allSearchedMovies}
               errorText={filmsErrorText}
             ></ProtectedRoute>
 

@@ -23,7 +23,6 @@ export function useFormWithValidation(defaultValues) {
   const [values, setValues] = React.useState({...defaultValues});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
-  console.log(values);
 
   const handleChange = (event) => {
     // Получаем значение и имя поля
