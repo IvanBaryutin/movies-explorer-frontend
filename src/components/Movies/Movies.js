@@ -4,8 +4,6 @@ import Preloader from "../Preloader/Preloader";
 import "./Movies.css";
 
 function Movies(props) {
-  // console.log("В movies")
-  // console.log(props.cardsQty)
 
   return (
     <>

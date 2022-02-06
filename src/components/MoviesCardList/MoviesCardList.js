@@ -4,6 +4,8 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 
 function MoviesCardList(props) {
+
+  // https://www.pluralsight.com/guides/re-render-react-component-on-window-resize
   console.log(props.width);
 
   const [cardsToShow, setCardsToShow] = useState(props.width > 770 ? 12 : props.width > 490 ? 8 : 5);

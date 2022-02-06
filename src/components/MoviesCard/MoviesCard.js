@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+
 import { Route } from "react-router-dom";
 import "./MoviesCard.css";
 
 function MoviesCard(props) {
+
+  // Подписываемся на контекст CurrentUserContext
+  const currentUser = React.useContext(CurrentUserContext);
+  // Определяем, являемся ли мы владельцем текущей карточки
+  //const isOwn = props.card.owner === currentUser._id;
   const [isLiked, setIsLiked] = useState(false);
 
   function handleSaveClick() {
@@ -21,6 +28,19 @@ function MoviesCard(props) {
     }
   }
 
+  function handleMovieClick() {
+    //props.onCardClick(props.card);
+  }
+
+  function handleLikeClick() {
+    props.onCardLike(props.card);
+  }
+
+  function handleCardDelete() {
+    props.onCardDelete(props.card);
+  }
+
+
   function formatDuration(duration) {
     let h = Math.floor(duration / 60);
     let m = Math.floor(duration % 60);
@@ -35,9 +55,8 @@ function MoviesCard(props) {
       <p className="movies-card__duration">{formatDuration(props.movie.duration)}</p>
       <Route exact path="/movies">
         <button
-          className={`movies-card__save-icon ${
-            isLiked ? "movies-card__save-icon_active" : ""
-          }`}
+          className={`movies-card__save-icon ${isLiked ? "movies-card__save-icon_active" : ""
+            }`}
           onClick={handleSaveClick}
         />
       </Route>
@@ -51,6 +70,7 @@ function MoviesCard(props) {
         src={props.movie.image.url}
         className="movies-card__image"
         alt="Обложка фильма"
+        onClick={handleMovieClick}
       />
       <img
         src={`https://api.nomoreparties.co${props.movie.image.url}`}
