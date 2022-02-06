@@ -134,12 +134,13 @@ function App() {
 
   async function getAllMovies() {
     if (!localStorage.getItem("allMovies")) {
+      // console.log("Нет кэша");
       await moviesApi
         .getAllMovies()
         .then((res) => {
           setAllMovies(res);
           localStorage.setItem("allMovies", JSON.stringify(res));
-          console.log("Записываем результат")
+          // console.log("Записываем результат")
         })
         .catch((err) => {
           setfilmsErrorText("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
@@ -156,10 +157,11 @@ function App() {
 
     getAllMovies()
       .then(() => {
+        // console.log("выполнение дальнейшей функции кэша");
         setfilmsErrorText("");
         const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
+        // console.log(cachedMovies);
         setAllSearchedMovies(filterMovies(allMovies, queryData));
-        console.log(cachedMovies);
       })
       .catch((err) => {
         setfilmsErrorText("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
@@ -172,15 +174,19 @@ function App() {
 
   function filterMovies(moviesArr, queryData) {
     const { query = "", shorts = false } = queryData;
+    console.log(moviesArr);
     let filteredMovies;
     if (moviesArr) {
+      //console.log(moviesArr);
       filteredMovies = moviesArr.filter(function (movie) {
+        //console.log(movie.nameRU);
         if (movie.nameRU.toLowerCase().includes(query.toLowerCase())) {
           return true;
         }
       });
       if (shorts === true) {
         filteredMovies = filteredMovies.filter(function (movie) {
+          //console.log(movie.nameRU);
           if (movie.duration < 40) {
             return true;
           }
@@ -263,6 +269,7 @@ function App() {
               onSearchMovies={handleSearchMovies}
               component={Movies}
               allMovies={allSearchedMovies}
+              allSearchedMovies={allSearchedMovies}
               errorText={filmsErrorText}
             ></ProtectedRoute>
 
