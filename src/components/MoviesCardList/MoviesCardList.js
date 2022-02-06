@@ -4,10 +4,16 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 
 function MoviesCardList(props) {
-  const [cardsToShow, setCardsToShow] = useState(props.cardsQty.initial);
+  console.log(props.width);
+
+  const [cardsToShow, setCardsToShow] = useState(props.width > 770 ? 12 : props.width > 490 ? 8 : 5);
+  const [cardsToAdd, setCardsToAdd] = useState(props.width > 770 ? 3 : props.width > 490 ? 2 : 1);
+
+  console.log(cardsToShow);
+  console.log(cardsToAdd);
 
   function showMore() {
-    setCardsToShow(cardsToShow + props.cardsQty.add);
+    setCardsToShow(cardsToShow + cardsToAdd);
   }
 
   return (

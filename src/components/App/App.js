@@ -19,10 +19,11 @@ import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
 
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const [cardsQty, setCardsQty] = useState({ add: 0, initial: 0 })
+  const [cardsQty, setCardsQty] = useState({ add: 3, initial: 12 })
 
   const [formErrorText, setFormErrorText] = React.useState("");
   const [filmsErrorText, setfilmsErrorText] = React.useState("");
@@ -134,6 +135,7 @@ function App() {
   async function getAllMovies() {
     if (!localStorage.getItem("allMovies")) {
       // console.log("Нет кэша");
+      setIsLoading(true);
       await moviesApi
         .getAllMovies()
         .then((res) => {
@@ -144,7 +146,8 @@ function App() {
         .catch((err) => {
           setfilmsErrorText("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
           console.log(`Ошибка ${err}`)
-        });
+        })
+        .finally(() => setIsLoading(false));
     }
   };
 
@@ -160,6 +163,7 @@ function App() {
         setfilmsErrorText("");
         const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
         setAllSearchedMovies(filterMovies(cachedMovies, queryData));
+        console.log(allSearchedMovies);
       })
       .catch((err) => {
         setfilmsErrorText("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
@@ -197,16 +201,8 @@ function App() {
 
   // https://stackoverflow.com/questions/45644457/action-on-window-resize-in-react
   const updateWidth = () => {
+    console.log("updateWidth");
     setViewportWidth(window.innerWidth);
-    if (window.innerWidth >= 1280) {
-      setCardsQty({ add: 3, initial: 12 });
-    } else {
-      if (window.innerWidth >= 765) {
-        setCardsQty({ add: 2, initial: 8 });
-      } else {
-        setCardsQty({ add: 2, initial: 5 });
-      }
-    }
   };
 
   // Хук изменения ширины окна
@@ -264,9 +260,11 @@ function App() {
               exact
               path="/movies"
               loggedIn={loggedIn}
+              isLoading={isLoading}
               onSearchMovies={handleSearchMovies}
               component={Movies}
               allSearchedMovies={allSearchedMovies}
+              viewportWidth={viewportWidth}
               cardsQty={cardsQty}
               errorText={filmsErrorText}
             ></ProtectedRoute>
