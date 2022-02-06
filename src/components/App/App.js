@@ -23,7 +23,6 @@ function App() {
 
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const [cardsQty, setCardsQty] = useState({ add: 0, initial: 0 })
-  // console.log(cardsQty);
 
   const [formErrorText, setFormErrorText] = React.useState("");
   const [filmsErrorText, setfilmsErrorText] = React.useState("");
@@ -150,6 +149,7 @@ function App() {
   };
 
   function handleSearchMovies(queryData) {
+    updateWidth();
     if (queryData.query === "") {
       setfilmsErrorText("Нужно ввести ключевое слово");
       return;
@@ -157,11 +157,9 @@ function App() {
 
     getAllMovies()
       .then(() => {
-        // console.log("выполнение дальнейшей функции кэша");
         setfilmsErrorText("");
         const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
-        // console.log(cachedMovies);
-        setAllSearchedMovies(filterMovies(allMovies, queryData));
+        setAllSearchedMovies(filterMovies(cachedMovies, queryData));
       })
       .catch((err) => {
         setfilmsErrorText("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
@@ -174,7 +172,7 @@ function App() {
 
   function filterMovies(moviesArr, queryData) {
     const { query = "", shorts = false } = queryData;
-    console.log(moviesArr);
+    // console.log(moviesArr);
     let filteredMovies;
     if (moviesArr) {
       //console.log(moviesArr);
@@ -193,11 +191,11 @@ function App() {
         });
       }
     }
+    // console.log(filteredMovies)
     return filteredMovies;
   };
 
   // https://stackoverflow.com/questions/45644457/action-on-window-resize-in-react
-
   const updateWidth = () => {
     setViewportWidth(window.innerWidth);
     if (window.innerWidth >= 1280) {
@@ -268,8 +266,8 @@ function App() {
               loggedIn={loggedIn}
               onSearchMovies={handleSearchMovies}
               component={Movies}
-              allMovies={allSearchedMovies}
               allSearchedMovies={allSearchedMovies}
+              cardsQty={cardsQty}
               errorText={filmsErrorText}
             ></ProtectedRoute>
 
