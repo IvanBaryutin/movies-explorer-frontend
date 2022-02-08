@@ -62,14 +62,13 @@ function App() {
           console.log(err);
         });
     }
-    if (loggedIn) {
+      // Загружаем сохраненные в базу данных карточки
       mainApi
         .getAllSavedMovies()
         .then((res) => {
           setAllSavedMovies(res);
+          // Сохраняем список сохраненных карточек в хранилище браузера
           localStorage.setItem("allSavedMovies", JSON.stringify(res));
-          //console.log(JSON.parse(localStorage.getItem("allSavedMovies")));
-          // console.log(JSON.parse(localStorage.getItem("allMovies")));
         })
         .catch((err) => {
           setfilmsErrorText(
@@ -77,7 +76,6 @@ function App() {
           );
           console.log(`Ошибка ${err}`);
         });
-    }
   }, [loggedIn]);
 
   // Регистрация нового пользователя
@@ -161,7 +159,6 @@ function App() {
         .then((res) => {
           setAllMovies(res);
           localStorage.setItem("allMovies", JSON.stringify(res));
-          // console.log("Записываем результат")
         })
         .catch((err) => {
           setfilmsErrorText(
@@ -197,7 +194,6 @@ function App() {
 
   function filterMovies(moviesArr, queryData) {
     const { query = "", shorts = false } = queryData;
-    // console.log(moviesArr);
     let filteredMovies;
     if (moviesArr) {
       //console.log(moviesArr);
@@ -221,12 +217,13 @@ function App() {
   }
 
   function handleAddMovieCard(movie) {
+    movie.owner = currentUser._id;
     mainApi
       .addMovie(movie)
       .then((res) => {
         //console.log(res);
         setAllSavedMovies([...allSavedMovies, res]);
-        //console.log(allSavedMovies);
+        localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
       })
       .catch((err) => {
         setfilmsErrorText(
@@ -238,16 +235,13 @@ function App() {
   }
 
   function handleDeleteMovieCard(movieId) {
-    //console.log("movieID: "+movieId);
-    //console.log("movieID: "+movieId);
     const currentMovieCard = allSavedMovies.find(item => item.movieId == movieId);
-    //console.log(currentMovieCard._id);
-
+    console.log(currentMovieCard);
     mainApi
       .deleteMovie(currentMovieCard._id)
       .then((res) => {
-        setAllSavedMovies(allSavedMovies.filter(item => item._id === currentMovieCard._id)[0]);
-
+        console.log(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
+        setAllSavedMovies(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
         localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
       })
       .catch((err) => {

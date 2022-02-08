@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import { Route } from "react-router-dom";
@@ -7,47 +7,40 @@ import "./MoviesCard.css";
 function MoviesCard(props) {
   // Подписываемся на контекст CurrentUserContext
   const currentUser = React.useContext(CurrentUserContext);
-  // Определяем, являемся ли мы владельцем текущей карточки
-  //const isOwn = props.card.owner === currentUser._id;
-  //const [isLiked, setIsLiked] = useState(false);
+  // Определяем владелец ли карточки
+  const isOwn = props.movie.owner === currentUser._id;
+  // Определяем состояние иконки лайка
+  const isLiked = props.allSavedMovies.some(
+    (item) => item.movieId === props.movie.id.toString()
+  );
 
 
-
-  // Создаём переменную, которую после зададим в `className` для кнопки лайка
-  // const cardLikeButtonClassName = (isLiked) ? "element__like-icon element__like-icon_active" : "element__like-icon";
-
-  //console.log('id: '+props.movie.id);
-
-  //console.log("Определяем лайк");
-  //console.log(typeof props.allSavedMovies)
-  //console.log(props.allSavedMovies);
-  const isLiked = props.allSavedMovies.some(item => item.movieId == props.movie.id);
-  //const isLiked = props.allSavedMovies.some(isEqual);
-  //console.log(isLiked);
-  // const isLiked = props.allSavedMovies.some(i => i.id === currentUser._id);
-  // console.log(isLiked);
-
-  function handleMovieClick() {
-    // props.onCardClick(props.card);
+  // Обработчик клика по картинке карточки фильма
+  const handleMovieClick = () => {
+    const win = window.open(props.movie.trailerLink, "_blank");
+    win.focus();
   }
 
-  function handleLikeClick() {
-    console.log(props.movie);
+  // Обработчик клика по иконке лайка
+  const handleLikeClick = () => {
     if (isLiked === true) {
       props.handleDeleteMovieCard(props.movie.id);
-      console.log("Delete");
     } else {
       props.handleAddMovieCard(props.movie);
-      console.log("Add");
     }
   }
 
-  function handleDeleteClick() {
-    // props.onCardDelete(props.card);
+  // Обработчик клика по иконке удаления
+  const handleDeleteClick = () => {
+    if (isOwn) {
+      props.handleDeleteMovieCard(props.movie.id);
+    } else {
+      console.log("Нельзя удалять чужие фильмы");
+    }
   }
 
-
-  function formatDuration(duration) {
+  // Функция форматирования продолжительности фильма
+  const formatDuration = (duration) => {
     let h = Math.floor(duration / 60);
     let m = Math.floor(duration % 60);
     let timestamp = "";
@@ -58,11 +51,14 @@ function MoviesCard(props) {
   return (
     <article className="movies-card">
       <p className="movies-card__title">{props.movie.nameRU}</p>
-      <p className="movies-card__duration">{formatDuration(props.movie.duration)}</p>
+      <p className="movies-card__duration">
+        {formatDuration(props.movie.duration)}
+      </p>
       <Route exact path="/movies">
         <button
-          className={`movies-card__save-icon ${isLiked ? "movies-card__save-icon_active" : ""
-            }`}
+          className={`movies-card__save-icon ${
+            isLiked ? "movies-card__save-icon_active" : ""
+          }`}
           onClick={handleLikeClick}
         />
       </Route>
@@ -73,15 +69,10 @@ function MoviesCard(props) {
         />
       </Route>
       <img
-        src={props.movie.image.url}
-        className="movies-card__image"
-        alt="Обложка фильма"
-        onClick={handleMovieClick}
-      />
-      <img
         src={`https://api.nomoreparties.co${props.movie.image.url}`}
         className="movies-card__image"
         alt="Обложка фильма"
+        onClick={handleMovieClick}
       />
     </article>
   );
