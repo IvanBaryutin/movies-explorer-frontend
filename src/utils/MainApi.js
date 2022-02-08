@@ -2,6 +2,7 @@ export class MainApi {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
+    this._beatfilmBaseUrl = "https://api.nomoreparties.co";
   }
 
   _checkToken = (headers) => {
@@ -79,21 +80,21 @@ export class MainApi {
         country: movie.country,
         director: movie.director,
         duration: movie.duration,
-        year: movie.duration,
+        year: movie.year,
         description: movie.description,
-        image: movie.image,
-        trailer: movie.trailer,
+        image: `${this._beatfilmBaseUrl}${movie.image.url}`,
+        trailer: movie.trailerLink,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
-        thumbnail: movie.thumbnail,
-        movieId: movie.movieId,
+        thumbnail: `${this._beatfilmBaseUrl}${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
       }),
     }).then((res) => this._checkRequestResult(res));
   };
 
   deleteMovie = (movieId) => {
     this._headers["Content-Type"] = "application/json";
-    return fetch(`${this._baseUrl}/cards/${movieId}`, {
+    return fetch(`${this._baseUrl}/movies/${movieId}`, {
       method: "DELETE",
       headers: this._checkToken(this._headers),
     }).then((res) => this._checkRequestResult(res));

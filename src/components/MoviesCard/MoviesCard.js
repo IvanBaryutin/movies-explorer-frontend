@@ -5,39 +5,45 @@ import { Route } from "react-router-dom";
 import "./MoviesCard.css";
 
 function MoviesCard(props) {
-
   // Подписываемся на контекст CurrentUserContext
   const currentUser = React.useContext(CurrentUserContext);
   // Определяем, являемся ли мы владельцем текущей карточки
   //const isOwn = props.card.owner === currentUser._id;
-  const [isLiked, setIsLiked] = useState(false);
+  //const [isLiked, setIsLiked] = useState(false);
 
-  function handleSaveClick() {
-    if (!isLiked) {
-      setIsLiked(true);
+
+
+  // Создаём переменную, которую после зададим в `className` для кнопки лайка
+  // const cardLikeButtonClassName = (isLiked) ? "element__like-icon element__like-icon_active" : "element__like-icon";
+
+  //console.log('id: '+props.movie.id);
+
+  //console.log("Определяем лайк");
+  //console.log(typeof props.allSavedMovies)
+  //console.log(props.allSavedMovies);
+  const isLiked = props.allSavedMovies.some(item => item.movieId == props.movie.id);
+  //const isLiked = props.allSavedMovies.some(isEqual);
+  //console.log(isLiked);
+  // const isLiked = props.allSavedMovies.some(i => i.id === currentUser._id);
+  // console.log(isLiked);
+
+  function handleMovieClick() {
+    // props.onCardClick(props.card);
+  }
+
+  function handleLikeClick() {
+    console.log(props.movie);
+    if (isLiked === true) {
+      props.handleDeleteMovieCard(props.movie.id);
+      console.log("Delete");
     } else {
-      setIsLiked(false);
+      props.handleAddMovieCard(props.movie);
+      console.log("Add");
     }
   }
 
   function handleDeleteClick() {
-    if (!isLiked) {
-      setIsLiked(true);
-    } else {
-      setIsLiked(false);
-    }
-  }
-
-  function handleMovieClick() {
-    //props.onCardClick(props.card);
-  }
-
-  function handleLikeClick() {
-    props.onCardLike(props.card);
-  }
-
-  function handleCardDelete() {
-    props.onCardDelete(props.card);
+    // props.onCardDelete(props.card);
   }
 
 
@@ -57,7 +63,7 @@ function MoviesCard(props) {
         <button
           className={`movies-card__save-icon ${isLiked ? "movies-card__save-icon_active" : ""
             }`}
-          onClick={handleSaveClick}
+          onClick={handleLikeClick}
         />
       </Route>
       <Route exact path="/saved-movies">

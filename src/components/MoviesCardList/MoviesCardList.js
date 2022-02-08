@@ -28,6 +28,9 @@ function MoviesCardList(props) {
             <MoviesCard
               key={movie.id}
               movie={movie}
+              allSavedMovies={props.allSavedMovies}
+              handleAddMovieCard={props.handleAddMovieCard}
+              handleDeleteMovieCard={props.handleDeleteMovieCard}
             />
           ))}
         </div>
