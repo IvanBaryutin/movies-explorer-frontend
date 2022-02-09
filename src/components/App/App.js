@@ -39,7 +39,6 @@ function App() {
   const [allSavedMovies, setAllSavedMovies] = useState([]);
 
   const history = useHistory();
-  const location = useLocation();
 
   useEffect(() => {
     // Загружаем первоначальную информация с сервера
