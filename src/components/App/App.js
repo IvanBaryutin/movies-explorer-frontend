@@ -32,8 +32,7 @@ function App() {
   const [formErrorText, setFormErrorText] = useState("");
   const [filmsErrorText, setfilmsErrorText] = useState("");
 
-  const [registerButtonText, setRegisterButtonText] =
-    useState("Зарегистрироваться");
+  const [registerButtonText, setRegisterButtonText] = useState("Зарегистрироваться");
   const [loginButtonText, setLoginButtonText] = useState("Войти");
   const [profileButtonText, setprofileButtonText] = useState("Редактировать");
 
@@ -47,63 +46,59 @@ function App() {
   useEffect(() => {
     // Загружаем первоначальную информация с сервера
     mainApi
-      .getUserInfo()
-      .then((res) => {
-        if (res) {
-          setCurrentUser(res);
-          setLoggedIn(true);
-        }
-      })
-      .catch((err) => {
-        // попадаем сюда, если один из промисов завершится ошибкой
-        console.log(err);
-      });
-  }, [loggedIn]);
+        .getUserInfo()
+        .then((res) => {
+          if (res) {
+            // авторизуем пользователя
+            setCurrentUser(res);
+            //setLoggedIn(true);
+          }
+        })
+        .catch((err) => {
+          // попадаем сюда, если один из промисов завершится ошибкой
+          console.log(err);
+        });
+    }, [loggedIn]);
 
+  // Проверяем токен
   useEffect(() => {
     // если у пользователя есть токен в localStorage, проверим валидность токена
-    const jwt = localStorage.getItem('jwt');
-    if (jwt){
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
       // проверим токен
-      mainApi.getUserInfo(jwt).then((res) => {
-        if (res){
-          // авторизуем пользователя
-          setCurrentUser(res);
-          setLoggedIn(true);
-          history.push("/movies");
-        }
-      })
-      .catch((err) => {
-        // попадаем сюда, если один из промисов завершится ошибкой
-        console.log(err);
-      });
-    }
-  }, [history]);
+      mainApi
+        .getUserInfo()
+        .then((res) => {
+          if (res) {
+            // авторизуем пользователя
+            setCurrentUser(res);
+            setLoggedIn(true);
+            history.push("/movies");
+          }
+        })
+        .catch((err) => {
+          // попадаем сюда, если один из промисов завершится ошибкой
+          console.log(err);
+        });
+    }}, [history]);
 
-  useEffect(() => {
-    // Загружаем сохраненные в базу данных карточки
-    mainApi
-      .getAllSavedMovies()
-      .then((res) => {
-        // console.log(res);
-        const savedByUserMovies = res.filter(
-          (item) => item.owner === currentUser._id
-        );
-        //console.log(currentUser._id);
-        console.log(111);
-        console.log(savedByUserMovies);
-        setAllSavedMovies(res);
-        //console.log(res);
-        // Сохраняем список сохраненных карточек в хранилище браузера
-        localStorage.setItem("allSavedMovies", JSON.stringify(res));
-      })
-      .catch((err) => {
-        setfilmsErrorText(
-          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-        );
-        console.log(err);
-        //console.log(`Ошибка ${err}`);
-      });
+    useEffect(() => {
+      // Загружаем сохраненные в базу данных карточки
+      mainApi
+        .getAllSavedMovies()
+        .then((res) => {
+          // Фильтруем по id текущего пользователя
+          const savedByUserMovies = res.filter(item => item.owner === currentUser._id);
+           setAllSavedMovies(savedByUserMovies);
+          // Сохраняем список сохраненных карточек в хранилище браузера
+          localStorage.setItem("allSavedMovies", JSON.stringify(savedByUserMovies));
+        })
+        .catch((err) => {
+          setfilmsErrorText(
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          );
+          console.log(`Ошибка ${err}`);
+        });
   }, [loggedIn]);
 
   // Регистрация нового пользователя
@@ -142,7 +137,6 @@ function App() {
         //console.log(`Ошибка ${err}`)
         if (err.message) {
           setFormErrorText(err.message);
-          //setSubmitResult({ status: 'error', message: err.message })
         }
       })
       .finally(() => {
@@ -210,8 +204,6 @@ function App() {
         setfilmsErrorText("");
         const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
         setAllSearchedMovies(filterMovies(cachedMovies, queryData));
-        //console.log(allSearchedMovies);
-        //console.log(allSavedMovies);
       })
       .catch((err) => {
         setfilmsErrorText(
@@ -225,39 +217,50 @@ function App() {
     const { query = "", shorts = false } = queryData;
     let filteredMovies;
     if (moviesArr) {
-      // console.log(moviesArr);
       filteredMovies = moviesArr.filter(function (movie) {
-        //console.log(movie.nameRU);
         if (movie.nameRU.toLowerCase().includes(query.toLowerCase())) {
           return true;
         }
       });
       if (shorts === true) {
         filteredMovies = filteredMovies.filter(function (movie) {
-          //console.log(movie.nameRU);
           if (movie.duration < 40) {
             return true;
           }
         });
       }
     }
-    //console.log(filteredMovies)
-    return filteredMovies.map(function (element) {
+    return filteredMovies.map(function(element) {
       element.movieId = element.id;
       return element;
     });
   }
 
   function handleAddMovieCard(movie) {
-    //console.log(movie);
     movie.owner = currentUser._id;
     mainApi
       .addMovie(movie)
       .then((res) => {
-        //console.log(res);
         setAllSavedMovies([...allSavedMovies, res]);
         localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
-        //console.log(allSavedMovies);
+      })
+      .catch((err) => {
+        setfilmsErrorText(
+          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+        );
+        console.log(`Ошибка ${err}`);
+      });
+  }
+
+  function handleDeleteMovieCard(movieId) {
+    const currentMovieCard = allSavedMovies.find(item => item.movieId == movieId);
+    if (currentMovieCard) {
+      mainApi
+      .deleteMovie(currentMovieCard._id)
+      .then((res) => {
+        //console.log(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
+        setAllSavedMovies(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
+        localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
       })
       .catch((err) => {
         setfilmsErrorText(
@@ -266,35 +269,10 @@ function App() {
         console.log(`Ошибка ${err}`);
         // console.log(err);
       });
-  }
-
-  function handleDeleteMovieCard(movieId) {
-    const currentMovieCard = allSavedMovies.find(
-      (item) => item.movieId == movieId
-    );
-    if (currentMovieCard) {
-      mainApi
-        .deleteMovie(currentMovieCard._id)
-        .then((res) => {
-          //console.log(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
-          setAllSavedMovies(
-            allSavedMovies.filter((item) => item._id !== currentMovieCard._id)
-          );
-          localStorage.setItem(
-            "allSavedMovies",
-            JSON.stringify(allSavedMovies)
-          );
-        })
-        .catch((err) => {
-          setfilmsErrorText(
-            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-          );
-          console.log(`Ошибка ${err}`);
-          // console.log(err);
-        });
     } else {
       console.log("Такая карточка не найдена среди сохраненных");
     }
+
   }
 
   // https://stackoverflow.com/questions/45644457/action-on-window-resize-in-react
@@ -314,21 +292,6 @@ function App() {
       clearTimeout(timer);
     };
   });
-
-  // Загрузка данных о сохраненных карточках
-  /*
-  useEffect(() => {
-    mainApi
-    .getAllSavedMovies()
-    .then((res) => {
-      setAllSavedMovies(res);
-      //console.log(allSavedMovies);
-    })
-    .catch((err) => {
-      console.log(`Ошибка ${err}`)
-    });
-  }, [loggedIn]);
-  */
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

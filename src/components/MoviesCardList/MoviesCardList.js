@@ -30,7 +30,7 @@ function MoviesCardList(props) {
         <div className="movies-card-list__cards">
           {props.allSavedMovies.map((movie) => (
             <MoviesCard
-              key={movie.id}
+              key={movie.movieId}
               movie={movie}
               allSavedMovies={props.allSavedMovies}
               handleDeleteMovieCard={props.handleDeleteMovieCard}
@@ -42,7 +42,7 @@ function MoviesCardList(props) {
         <div className="movies-card-list__cards">
           {props.allSearchedMovies.slice(0, cardsToShow).map((movie) => (
             <MoviesCard
-              key={movie.id}
+              key={movie.movieId}
               movie={movie}
               allSavedMovies={props.allSavedMovies}
               handleAddMovieCard={props.handleAddMovieCard}

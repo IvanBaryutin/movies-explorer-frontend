@@ -29,7 +29,7 @@ function Header(props) {
               Главная
             </Link>
           </li>
-          {props.logged ? (
+          {props.logged === true ? (
             <>
               <li>
                 <Link to="/movies" className="header__main-menu-link header__main-menu-link_active">
@@ -47,7 +47,7 @@ function Header(props) {
       </nav>
       <nav>
         <ul className="header__account-menu">
-          {props.logged ? (
+          {props.logged === true ? (
             <>
               <li>
                 <Link
@@ -93,7 +93,7 @@ function Header(props) {
             alt="иконка-крестик"
             onClick={closeMobileMenu}
           />
-          {props.logged ? (
+          {props.logged === true ? (
             <>
               <ul className="header__mobile-menu">
                 <li>
