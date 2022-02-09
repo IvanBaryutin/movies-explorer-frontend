@@ -3,11 +3,17 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import "./SavedMovies.css";
 
 
-function SavedMovies() {
+function SavedMovies(props) {
   return (
     <>
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList
+        allSearchedMovies={props.allSearchedMovies}
+        allSavedMovies={props.allSavedMovies}
+        handleAddMovieCard={props.onAddMovieCard}
+        handleDeleteMovieCard={props.onDeleteMovieCard}
+        errorText={props.errorText}
+      />
     </>
   )
 }

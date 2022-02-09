@@ -67,6 +67,7 @@ function App() {
         .getAllSavedMovies()
         .then((res) => {
           setAllSavedMovies(res);
+          //console.log(res);
           // Сохраняем список сохраненных карточек в хранилище браузера
           localStorage.setItem("allSavedMovies", JSON.stringify(res));
         })
@@ -152,13 +153,13 @@ function App() {
   // Загрузка данных о карточках с сервиса
   async function getAllMovies() {
     if (!localStorage.getItem("allMovies")) {
-      // console.log("Нет кэша");
       setIsLoading(true);
       await moviesApi
         .getAllMovies()
         .then((res) => {
           setAllMovies(res);
           localStorage.setItem("allMovies", JSON.stringify(res));
+          //console.log(allMovies);
         })
         .catch((err) => {
           setfilmsErrorText(
@@ -183,6 +184,7 @@ function App() {
         const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
         setAllSearchedMovies(filterMovies(cachedMovies, queryData));
         //console.log(allSearchedMovies);
+        //console.log(allSavedMovies);
       })
       .catch((err) => {
         setfilmsErrorText(
@@ -196,7 +198,7 @@ function App() {
     const { query = "", shorts = false } = queryData;
     let filteredMovies;
     if (moviesArr) {
-      //console.log(moviesArr);
+      // console.log(moviesArr);
       filteredMovies = moviesArr.filter(function (movie) {
         //console.log(movie.nameRU);
         if (movie.nameRU.toLowerCase().includes(query.toLowerCase())) {
@@ -212,11 +214,15 @@ function App() {
         });
       }
     }
-    // console.log(filteredMovies)
-    return filteredMovies;
+    //console.log(filteredMovies)
+    return filteredMovies.map(function(element) {
+      element.movieId = element.id;
+      return element;
+    });
   }
 
   function handleAddMovieCard(movie) {
+    //console.log(movie);
     movie.owner = currentUser._id;
     mainApi
       .addMovie(movie)
@@ -224,23 +230,24 @@ function App() {
         //console.log(res);
         setAllSavedMovies([...allSavedMovies, res]);
         localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
+        //console.log(allSavedMovies);
       })
       .catch((err) => {
         setfilmsErrorText(
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
         );
-        // console.log(`Ошибка ${err}`);
-        console.log(err);
+        console.log(`Ошибка ${err}`);
+        // console.log(err);
       });
   }
 
   function handleDeleteMovieCard(movieId) {
     const currentMovieCard = allSavedMovies.find(item => item.movieId == movieId);
-    console.log(currentMovieCard);
-    mainApi
+    if (currentMovieCard) {
+      mainApi
       .deleteMovie(currentMovieCard._id)
       .then((res) => {
-        console.log(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
+        //console.log(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
         setAllSavedMovies(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
         localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
       })
@@ -248,9 +255,13 @@ function App() {
         setfilmsErrorText(
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
         );
-        // console.log(`Ошибка ${err}`);
-        console.log(err);
+        console.log(`Ошибка ${err}`);
+        // console.log(err);
       });
+    } else {
+      console.log("Такая карточка не найдена среди сохраненных");
+    }
+
   }
 
   // https://stackoverflow.com/questions/45644457/action-on-window-resize-in-react
@@ -341,6 +352,10 @@ function App() {
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
+              allSavedMovies={allSavedMovies}
+              allSearchedMovies={allSearchedMovies}
+              onDeleteMovieCard={handleDeleteMovieCard}
+              errorText={filmsErrorText}
             ></ProtectedRoute>
 
             <Route exact path="/">
