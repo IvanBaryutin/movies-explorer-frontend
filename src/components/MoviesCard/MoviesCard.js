@@ -5,12 +5,12 @@ import { Route } from "react-router-dom";
 import "./MoviesCard.css";
 
 function MoviesCard(props) {
-
+  // console.log(props.movie);
   // Подписываемся на контекст CurrentUserContext
-  const currentUser = React.useContext(CurrentUserContext);
+  // const currentUser = React.useContext(CurrentUserContext);
 
   // Определяем владелец ли карточки
-  const isOwn = props.movie.owner === currentUser._id;
+  // const isOwn = props.movie.owner === currentUser._id;
 
   // Определяем состояние иконки лайка
   const isLiked = props.allSavedMovies.some(
@@ -21,7 +21,7 @@ function MoviesCard(props) {
   // Обработчик клика по иконке лайка
   const handleLikeClick = () => {
     if (isLiked === true) {
-      props.handleDeleteMovieCard(props.movie.id);
+      props.handleDeleteMovieCard(props.movie);
     } else {
       props.handleAddMovieCard(props.movie);
     }
@@ -29,11 +29,7 @@ function MoviesCard(props) {
 
   // Обработчик клика по иконке удаления
   const handleDeleteClick = () => {
-    if (isOwn) {
-      props.handleDeleteMovieCard(props.movie.movieId);
-    } else {
-      console.log("Нельзя удалять чужие фильмы");
-    }
+    props.handleDeleteMovieCard(props.movie);
   };
 
   // Функция форматирования продолжительности фильма

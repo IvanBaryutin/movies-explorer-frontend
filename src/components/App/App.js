@@ -26,13 +26,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
 
-  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const [cardsQty, setCardsQty] = useState({ add: 3, initial: 12 });
-
   const [formErrorText, setFormErrorText] = useState("");
   const [filmsErrorText, setfilmsErrorText] = useState("");
 
-  const [registerButtonText, setRegisterButtonText] = useState("Зарегистрироваться");
+  const [registerButtonText, setRegisterButtonText] =
+    useState("Зарегистрироваться");
   const [loginButtonText, setLoginButtonText] = useState("Войти");
   const [profileButtonText, setprofileButtonText] = useState("Редактировать");
 
@@ -46,19 +44,19 @@ function App() {
   useEffect(() => {
     // Загружаем первоначальную информация с сервера
     mainApi
-        .getUserInfo()
-        .then((res) => {
-          if (res) {
-            // авторизуем пользователя
-            setCurrentUser(res);
-            //setLoggedIn(true);
-          }
-        })
-        .catch((err) => {
-          // попадаем сюда, если один из промисов завершится ошибкой
-          console.log(err);
-        });
-    }, [loggedIn]);
+      .getUserInfo()
+      .then((res) => {
+        if (res) {
+          // авторизуем пользователя
+          setCurrentUser(res);
+          //setLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        // попадаем сюда, если один из промисов завершится ошибкой
+        console.log(err);
+      });
+  }, [loggedIn]);
 
   // Проверяем токен
   useEffect(() => {
@@ -80,25 +78,31 @@ function App() {
           // попадаем сюда, если один из промисов завершится ошибкой
           console.log(err);
         });
-    }}, [history]);
+    }
+  }, [history]);
 
-    useEffect(() => {
-      // Загружаем сохраненные в базу данных карточки
-      mainApi
-        .getAllSavedMovies()
-        .then((res) => {
-          // Фильтруем по id текущего пользователя
-          const savedByUserMovies = res.filter(item => item.owner === currentUser._id);
-           setAllSavedMovies(savedByUserMovies);
-          // Сохраняем список сохраненных карточек в хранилище браузера
-          localStorage.setItem("allSavedMovies", JSON.stringify(savedByUserMovies));
-        })
-        .catch((err) => {
-          setfilmsErrorText(
-            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-          );
-          console.log(`Ошибка ${err}`);
-        });
+  useEffect(() => {
+    // Загружаем сохраненные в базу данных карточки
+    mainApi
+      .getAllSavedMovies()
+      .then((res) => {
+        // Фильтруем по id текущего пользователя
+        const savedByUserMovies = res.filter(
+          (item) => item.owner === currentUser._id
+        );
+        setAllSavedMovies(savedByUserMovies);
+        // Сохраняем список сохраненных карточек в хранилище браузера
+        localStorage.setItem(
+          "allSavedMovies",
+          JSON.stringify(savedByUserMovies)
+        );
+      })
+      .catch((err) => {
+        setfilmsErrorText(
+          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+        );
+        console.log(`Ошибка ${err}`);
+      });
   }, [loggedIn]);
 
   // Регистрация нового пользователя
@@ -148,9 +152,11 @@ function App() {
   function handleSignOut() {
     localStorage.removeItem("jwt");
     localStorage.removeItem("allMovies");
+    localStorage.removeItem("allSearchedMovies");
     localStorage.removeItem("allSavedMovies");
     setLoggedIn(false);
     setCurrentUser({});
+    setFormErrorText("");
     history.push("/");
   }
 
@@ -180,13 +186,14 @@ function App() {
         .then((res) => {
           setAllMovies(res);
           localStorage.setItem("allMovies", JSON.stringify(res));
-          //console.log(allMovies);
+          console.log(res);
         })
         .catch((err) => {
           setfilmsErrorText(
             "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           );
-          console.log(`Ошибка ${err}`);
+          // console.log(`Ошибка ${err}`);
+          setFormErrorText(err.message);
         })
         .finally(() => setIsLoading(false));
     }
@@ -204,12 +211,14 @@ function App() {
         setfilmsErrorText("");
         const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
         setAllSearchedMovies(filterMovies(cachedMovies, queryData));
+        console.log(allSearchedMovies);
       })
       .catch((err) => {
         setfilmsErrorText(
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
         );
-        console.log(`Ошибка ${err}`);
+        //console.log(`Ошибка ${err}`);
+        setFormErrorText(err.message);
       });
   }
 
@@ -230,7 +239,7 @@ function App() {
         });
       }
     }
-    return filteredMovies.map(function(element) {
+    return filteredMovies.map(function (element) {
       element.movieId = element.id;
       return element;
     });
@@ -248,18 +257,24 @@ function App() {
         setfilmsErrorText(
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
         );
-        console.log(`Ошибка ${err}`);
+        // console.log(`Ошибка ${err}`);
+        //setFormErrorText(err.message);
+        console.log(err);
       });
   }
 
-  function handleDeleteMovieCard(movieId) {
-    const currentMovieCard = allSavedMovies.find(item => item.movieId == movieId);
-    if (currentMovieCard) {
-      mainApi
+  function handleDeleteMovieCard(movie) {
+    console.log(movie.owner);
+    console.log(movie.id);
+    // const currentMovieCard = allSavedMovies.find(item => item.movieId == movieId);
+    /*
+    mainApi
       .deleteMovie(currentMovieCard._id)
       .then((res) => {
         //console.log(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
-        setAllSavedMovies(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
+        setAllSavedMovies(
+          allSavedMovies.filter((item) => item._id !== currentMovieCard._id)
+        );
         localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
       })
       .catch((err) => {
@@ -269,29 +284,8 @@ function App() {
         console.log(`Ошибка ${err}`);
         // console.log(err);
       });
-    } else {
-      console.log("Такая карточка не найдена среди сохраненных");
-    }
-
+      */
   }
-
-  // https://stackoverflow.com/questions/45644457/action-on-window-resize-in-react
-  const updateWidth = () => {
-    //console.log("updateWidth");
-    setViewportWidth(window.innerWidth);
-  };
-
-  // Хук изменения ширины окна
-  React.useEffect(() => {
-    const timer = setTimeout(
-      () => window.addEventListener("resize", updateWidth),
-      1000
-    );
-    return () => {
-      window.removeEventListener("resize", updateWidth);
-      clearTimeout(timer);
-    };
-  });
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -338,8 +332,6 @@ function App() {
               allSavedMovies={allSavedMovies}
               onAddMovieCard={handleAddMovieCard}
               onDeleteMovieCard={handleDeleteMovieCard}
-              viewportWidth={viewportWidth}
-              cardsQty={cardsQty}
               errorText={filmsErrorText}
             ></ProtectedRoute>
 

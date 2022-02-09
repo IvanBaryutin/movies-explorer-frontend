@@ -15,8 +15,6 @@ function Movies(props) {
           handleAddMovieCard={props.onAddMovieCard}
           handleDeleteMovieCard={props.onDeleteMovieCard}
           errorText={props.errorText}
-          width={props.viewportWidth}
-          cardsQty={props.cardsQty}
         />
       )}
     </>

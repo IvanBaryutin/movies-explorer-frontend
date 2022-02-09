@@ -1,24 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 
 function MoviesCardList(props) {
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const [cardsToShow, setCardsToShow] = useState(12);
+  const [cardsToAdd, setCardsToAdd] = useState(3);
+
   // https://www.pluralsight.com/guides/re-render-react-component-on-window-resize
-  // console.log(props.width);
+  // https://stackoverflow.com/questions/45644457/action-on-window-resize-in-react
 
-  const [cardsToShow, setCardsToShow] = useState(
-    props.width > 770 ? 12 : props.width > 490 ? 8 : 5
-  );
-  const [cardsToAdd, setCardsToAdd] = useState(
-    props.width > 770 ? 3 : props.width > 490 ? 2 : 1
-  );
+  // Хук изменения ширины окна
+  useEffect(() => {
+    const updateWidth = () => {
+      setViewportWidth(window.innerWidth);
+      setCardsToShow(window.innerWidth > 1270 ? 12 : viewportWidth > 550 ? 8 : 5);
+      setCardsToAdd(window.innerWidth  > 1270? 3 : viewportWidth > 550 ? 2 : 1);
+    };
 
-  // console.log(cardsToShow);
-  // console.log(cardsToAdd);
+    const timer = setTimeout(
+      () => window.addEventListener("resize", updateWidth),
+      1000
+    );
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+      clearTimeout(timer);
+    };
+  });
+
+
 
   function showMore() {
     setCardsToShow(cardsToShow + cardsToAdd);
+    //console.log(cardsToShow);
   }
 
   return (
