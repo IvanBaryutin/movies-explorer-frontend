@@ -151,8 +151,11 @@ function App() {
   // Выход
   function handleSignOut() {
     localStorage.removeItem("jwt");
+    setAllMovies([]);
     localStorage.removeItem("allMovies");
+    setAllSearchedMovies([]);
     localStorage.removeItem("allSearchedMovies");
+    setAllSavedMovies([])
     localStorage.removeItem("allSavedMovies");
     setLoggedIn(false);
     setCurrentUser({});
@@ -257,34 +260,34 @@ function App() {
         setfilmsErrorText(
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
         );
-        // console.log(`Ошибка ${err}`);
-        //setFormErrorText(err.message);
         console.log(err);
       });
   }
 
   function handleDeleteMovieCard(movie) {
-    console.log(movie.owner);
-    console.log(movie.id);
-    // const currentMovieCard = allSavedMovies.find(item => item.movieId == movieId);
-    /*
-    mainApi
-      .deleteMovie(currentMovieCard._id)
-      .then((res) => {
-        //console.log(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
-        setAllSavedMovies(
-          allSavedMovies.filter((item) => item._id !== currentMovieCard._id)
-        );
-        localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
-      })
-      .catch((err) => {
-        setfilmsErrorText(
-          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-        );
-        console.log(`Ошибка ${err}`);
-        // console.log(err);
-      });
-      */
+    const currentMovieCard = allSavedMovies.filter(function (m) {
+      if (m.movieId === movie.movieId.toString()) {
+        if (m.owner === currentUser._id) {
+          return movie
+        }
+      }
+    });
+    if (currentMovieCard) {
+      mainApi
+        .deleteMovie(currentMovieCard[0]._id)
+        .then((res) => {
+          //console.log(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
+          setAllSavedMovies(
+            allSavedMovies.filter((item) => item._id !== currentMovieCard[0]._id)
+          );
+          localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
+        })
+        .catch((err) => {
+          setfilmsErrorText(err.message);
+          console.log(`Ошибка ${err}`);
+        });
+    }
+
   }
 
   return (

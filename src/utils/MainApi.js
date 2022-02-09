@@ -92,6 +92,7 @@ export class MainApi {
   };
 
   deleteMovie = (movieId) => {
+    // console.log(movieId);
     this._headers["Content-Type"] = "application/json";
     return fetch(`${this._baseUrl}/movies/${movieId}`, {
       method: "DELETE",
