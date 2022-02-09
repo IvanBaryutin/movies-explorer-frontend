@@ -31,11 +31,13 @@ function MoviesCard(props) {
   */
 
   // Обработчик клика по картинке карточки фильма
+  /*
   const handleMovieClick = () => {
     const youtubeLonk = props.movie.trailerLink ? props.movie.trailerLink : props.movie.trailer;
     const win = window.open(youtubeLonk, "_blank");
     win.focus();
   };
+  */
 
   // Обработчик клика по иконке лайка
   const handleLikeClick = () => {
@@ -77,24 +79,36 @@ function MoviesCard(props) {
           }`}
           onClick={handleLikeClick}
         />
-        <img
-          src={`https://api.nomoreparties.co${props.movie.image.url}`}
-          className="movies-card__image"
-          alt="Обложка фильма"
-          onClick={handleMovieClick}
-        />
+        <a
+          href={props.movie.trailerLink}
+          className="movies-card__trailer"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img
+            src={`https://api.nomoreparties.co${props.movie.image.url}`}
+            className="movies-card__poster"
+            alt={`постер к фильму ${props.movie.nameRU}`}
+          />
+        </a>
       </Route>
       <Route exact path="/saved-movies">
         <button
           className="movies-card__delete-icon"
           onClick={handleDeleteClick}
         />
-        <img
-          src={props.movie.image}
-          className="movies-card__image"
-          alt={`постер к фильму ${props.movie.nameRU}`}
-          onClick={handleMovieClick}
-        />
+        <a
+          href={props.movie.trailer}
+          className="movies-card__trailer"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img
+            src={props.movie.image}
+            className="movies-card__image"
+            alt={`постер к фильму ${props.movie.nameRU}`}
+          />
+        </a>
       </Route>
     </article>
   );
