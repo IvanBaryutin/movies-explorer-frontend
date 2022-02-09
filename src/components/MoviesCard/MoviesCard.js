@@ -5,39 +5,18 @@ import { Route } from "react-router-dom";
 import "./MoviesCard.css";
 
 function MoviesCard(props) {
-  console.log(props.movie);
-  // console.log(props.allSavedMovies);
-  // console.log(props.movie);
+
   // Подписываемся на контекст CurrentUserContext
   const currentUser = React.useContext(CurrentUserContext);
+
   // Определяем владелец ли карточки
   const isOwn = props.movie.owner === currentUser._id;
+
   // Определяем состояние иконки лайка
   const isLiked = props.allSavedMovies.some(
     // (item) => item.movieId === props.movie.id.toString()
     (item) => item.movieId === props.movie.movieId.toString()
   );
-  // const isLiked = true;
-
-  /*
-  props.allSavedMovies.some(
-    (item) => {
-      const id = props.movie.id ? props.movie.id : props.movie.movieId;
-      console.log(item.movieId);
-      console.log(props.movie.movieId.toString());
-      return true
-    }
-  );
-  */
-
-  // Обработчик клика по картинке карточки фильма
-  /*
-  const handleMovieClick = () => {
-    const youtubeLonk = props.movie.trailerLink ? props.movie.trailerLink : props.movie.trailer;
-    const win = window.open(youtubeLonk, "_blank");
-    win.focus();
-  };
-  */
 
   // Обработчик клика по иконке лайка
   const handleLikeClick = () => {
