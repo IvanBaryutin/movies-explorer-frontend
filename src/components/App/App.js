@@ -37,6 +37,7 @@ function App() {
   const [allMovies, setAllMovies] = useState([]);
   const [allSearchedMovies, setAllSearchedMovies] = useState([]);
   const [allSavedMovies, setAllSavedMovies] = useState([]);
+  const [allSearchedSavedMovies, setAllSearchedSavedMovies] = useState([]);
 
   const history = useHistory();
 
@@ -90,9 +91,14 @@ function App() {
           (item) => item.owner === currentUser._id
         );
         setAllSavedMovies(savedByUserMovies);
+        setAllSearchedSavedMovies(savedByUserMovies);
         // Сохраняем список сохраненных карточек в хранилище браузера
         localStorage.setItem(
           "allSavedMovies",
+          JSON.stringify(savedByUserMovies)
+        );
+        localStorage.setItem(
+          "allSearchedSavedMovies",
           JSON.stringify(savedByUserMovies)
         );
       })
@@ -154,7 +160,9 @@ function App() {
     localStorage.removeItem("allMovies");
     setAllSearchedMovies([]);
     localStorage.removeItem("allSearchedMovies");
-    setAllSavedMovies([])
+    setAllSearchedSavedMovies([]);
+    localStorage.removeItem("allSearchedSavedMovies");
+    setAllSavedMovies([]);
     localStorage.removeItem("allSavedMovies");
     setLoggedIn(false);
     setCurrentUser({});
@@ -221,6 +229,16 @@ function App() {
       });
   }
 
+  function handleSearchSavedMovies(queryData) {
+    if (queryData.query === "") {
+      setFilmsErrorText("Нужно ввести ключевое слово");
+      return;
+    }
+
+    const cachedSavedMovies = JSON.parse(localStorage.getItem("allSavedMovies"));
+    setAllSearchedSavedMovies(filterMovies(cachedSavedMovies, queryData));
+  }
+
   function filterMovies(moviesArr, queryData) {
     const { query = "", shorts = false } = queryData;
     let filteredMovies;
@@ -239,7 +257,9 @@ function App() {
       }
     }
     filteredMovies.map(function (element) {
-      element.movieId = element.id;
+      if (!element.movieId) {
+        element.movieId = element.id;
+      }
       return element;
     });
     const searchResultText = !filteredMovies.length ? "Ничего не найдено" : "";
@@ -275,7 +295,6 @@ function App() {
       mainApi
         .deleteMovie(currentMovieCard[0]._id)
         .then((res) => {
-          //console.log(allSavedMovies.filter(item => item._id !== currentMovieCard._id));
           setAllSavedMovies(
             allSavedMovies.filter((item) => item._id !== currentMovieCard[0]._id)
           );
@@ -331,6 +350,7 @@ function App() {
               onSearchMovies={handleSearchMovies}
               component={Movies}
               allSearchedMovies={allSearchedMovies}
+              allSearchedSavedMovies={allSearchedSavedMovies}
               allSavedMovies={allSavedMovies}
               onAddMovieCard={handleAddMovieCard}
               onDeleteMovieCard={handleDeleteMovieCard}
@@ -341,9 +361,12 @@ function App() {
               exact
               path="/saved-movies"
               loggedIn={loggedIn}
+              onSearchMovies={handleSearchSavedMovies}
               component={SavedMovies}
-              allSavedMovies={allSavedMovies}
               allSearchedMovies={allSearchedMovies}
+              allSearchedSavedMovies={allSearchedSavedMovies}
+              allSavedMovies={allSavedMovies}
+              onAddMovieCard={handleAddMovieCard}
               onDeleteMovieCard={handleDeleteMovieCard}
               errorText={filmsErrorText}
             ></ProtectedRoute>

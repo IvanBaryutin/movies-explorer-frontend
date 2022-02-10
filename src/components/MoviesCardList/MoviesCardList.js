@@ -33,7 +33,6 @@ function MoviesCardList(props) {
 
   function showMore() {
     setCardsToShow(cardsToShow + cardsToAdd);
-    //console.log(cardsToShow);
   }
 
   return (
@@ -43,7 +42,7 @@ function MoviesCardList(props) {
       )}
       <Route exact path="/saved-movies">
         <div className="movies-card-list__cards">
-          {props.allSavedMovies.map((movie) => (
+          {props.allSearchedSavedMovies.map((movie) => (
             <MoviesCard
               key={movie.movieId}
               movie={movie}

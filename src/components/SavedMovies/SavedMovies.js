@@ -6,9 +6,10 @@ import "./SavedMovies.css";
 function SavedMovies(props) {
   return (
     <>
-      <SearchForm />
+      <SearchForm onSearchMovies={props.onSearchMovies} />
       <MoviesCardList
         allSearchedMovies={props.allSearchedMovies}
+        allSearchedSavedMovies={props.allSearchedSavedMovies}
         allSavedMovies={props.allSavedMovies}
         handleAddMovieCard={props.onAddMovieCard}
         handleDeleteMovieCard={props.onDeleteMovieCard}

@@ -11,6 +11,7 @@ function Movies(props) {
       {props.isLoading ? (<Preloader />) : (
         <MoviesCardList
           allSearchedMovies={props.allSearchedMovies}
+          allSearchedSavedMovies={props.allSearchedSavedMovies}
           allSavedMovies={props.allSavedMovies}
           handleAddMovieCard={props.onAddMovieCard}
           handleDeleteMovieCard={props.onDeleteMovieCard}
