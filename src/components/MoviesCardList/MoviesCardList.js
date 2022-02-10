@@ -7,6 +7,8 @@ function MoviesCardList(props) {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const [cardsToShow, setCardsToShow] = useState(12);
   const [cardsToAdd, setCardsToAdd] = useState(3);
+  //console.log(props.allSearchedSavedMovies);
+  //console.log(props.allSearchedMovies);
 
   // https://www.pluralsight.com/guides/re-render-react-component-on-window-resize
   // https://stackoverflow.com/questions/45644457/action-on-window-resize-in-react
@@ -28,7 +30,6 @@ function MoviesCardList(props) {
       clearTimeout(timer);
     };
   });
-
 
 
   function showMore() {
@@ -56,7 +57,7 @@ function MoviesCardList(props) {
         <div className="movies-card-list__cards">
           {props.allSearchedMovies.slice(0, cardsToShow).map((movie) => (
             <MoviesCard
-              key={movie.movieId}
+              key={movie.id}
               movie={movie}
               allSavedMovies={props.allSavedMovies}
               handleAddMovieCard={props.handleAddMovieCard}

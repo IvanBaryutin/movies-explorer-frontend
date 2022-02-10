@@ -1,10 +1,12 @@
 import React from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useLocation } from 'react-router-dom';
 
 import { Route } from "react-router-dom";
 import "./MoviesCard.css";
 
 function MoviesCard(props) {
+  const location = useLocation();
+  // console.log(props.allSavedMovies);
   // console.log(props.movie);
   // Подписываемся на контекст CurrentUserContext
   // const currentUser = React.useContext(CurrentUserContext);
@@ -13,15 +15,31 @@ function MoviesCard(props) {
   // const isOwn = props.movie.owner === currentUser._id;
 
   // Определяем состояние иконки лайка
+  /*
   const isLiked = props.allSavedMovies.some(
     // (item) => item.movieId === props.movie.id.toString()
     (item) => item.movieId === props.movie.movieId.toString()
+  );
+  */
+  // const isLiked = true;
+
+  const isLiked = props.allSavedMovies.some(
+    (savedMovie) => {
+      // Поверяем есть ли фильм с таким ID в сохраненных фильмах
+      if (savedMovie.movieId.toString() === props.movie.id.toString()) {
+        // Сразу добавим _id из базы для удаления
+        props.movie._id = savedMovie._id;
+        return true;
+      } else {
+        return false;
+      }
+    }
   );
 
   // Обработчик клика по иконке лайка
   const handleLikeClick = () => {
     if (isLiked === true) {
-      props.handleDeleteMovieCard(props.movie);
+      props.handleDeleteMovieCard(props.movie._id);
     } else {
       props.handleAddMovieCard(props.movie);
     }
@@ -29,7 +47,7 @@ function MoviesCard(props) {
 
   // Обработчик клика по иконке удаления
   const handleDeleteClick = () => {
-    props.handleDeleteMovieCard(props.movie);
+    props.handleDeleteMovieCard(props._id);
   };
 
   // Функция форматирования продолжительности фильма
