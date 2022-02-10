@@ -27,7 +27,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   const [formErrorText, setFormErrorText] = useState("");
-  const [filmsErrorText, setfilmsErrorText] = useState("");
+  const [filmsErrorText, setFilmsErrorText] = useState("");
 
   const [registerButtonText, setRegisterButtonText] =
     useState("Зарегистрироваться");
@@ -97,7 +97,7 @@ function App() {
         );
       })
       .catch((err) => {
-        setfilmsErrorText(
+        setFilmsErrorText(
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
         );
         console.log(`Ошибка ${err}`);
@@ -187,11 +187,10 @@ function App() {
         .getAllMovies()
         .then((res) => {
           setAllMovies(res);
-          localStorage.setItem("allMovies", JSON.stringify(res));
-          console.log(res);
+          localStorage.setItem("allMovies", JSON.stringify(res))
         })
         .catch((err) => {
-          setfilmsErrorText(
+          setFilmsErrorText(
             "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           );
           // console.log(`Ошибка ${err}`);
@@ -202,21 +201,19 @@ function App() {
   }
 
   function handleSearchMovies(queryData) {
-    // updateWidth();
     if (queryData.query === "") {
-      setfilmsErrorText("Нужно ввести ключевое слово");
+      setFilmsErrorText("Нужно ввести ключевое слово");
       return;
     }
 
     getAllMovies()
       .then(() => {
-        setfilmsErrorText("");
+        setFilmsErrorText("");
         const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
         setAllSearchedMovies(filterMovies(cachedMovies, queryData));
-        console.log(allSearchedMovies);
       })
       .catch((err) => {
-        setfilmsErrorText(
+        setFilmsErrorText(
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
         );
         //console.log(`Ошибка ${err}`);
@@ -241,10 +238,13 @@ function App() {
         });
       }
     }
-    return filteredMovies.map(function (element) {
+    filteredMovies.map(function (element) {
       element.movieId = element.id;
       return element;
     });
+    const searchResultText = !filteredMovies.length ? "Ничего не найдено" : "";
+    setFilmsErrorText(searchResultText);
+    return filteredMovies;
   }
 
   function handleAddMovieCard(movie) {
@@ -256,7 +256,7 @@ function App() {
         localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
       })
       .catch((err) => {
-        setfilmsErrorText(
+        setFilmsErrorText(
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
         );
         console.log(err);
@@ -282,7 +282,7 @@ function App() {
           localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
         })
         .catch((err) => {
-          setfilmsErrorText(err.message);
+          setFilmsErrorText(err.message);
           console.log(`Ошибка ${err}`);
         });
     }
