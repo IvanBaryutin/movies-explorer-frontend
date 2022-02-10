@@ -43,19 +43,21 @@ function App() {
 
   useEffect(() => {
     // Загружаем первоначальную информация с сервера
-    mainApi
-      .getUserInfo()
-      .then((res) => {
-        if (res) {
-          // авторизуем пользователя
-          setCurrentUser(res);
-          //setLoggedIn(true);
-        }
-      })
-      .catch((err) => {
-        // попадаем сюда, если один из промисов завершится ошибкой
-        console.log(err);
-      });
+    if (loggedIn) {
+      mainApi
+        .getUserInfo()
+        .then((res) => {
+          if (res) {
+            // авторизуем пользователя
+            setCurrentUser(res);
+            //setLoggedIn(true);
+          }
+        })
+        .catch((err) => {
+          // попадаем сюда, если один из промисов завершится ошибкой
+          console.log(err);
+        });
+    }
   }, [loggedIn]);
 
   // Проверяем токен
@@ -81,48 +83,40 @@ function App() {
     }
   }, [history]);
 
+  // Загружаем сохраненные в базу данных карточки
   useEffect(() => {
-    // Загружаем сохраненные в базу данных карточки
-    mainApi
-      .getAllSavedMovies()
-      .then((res) => {
-        // console.log(res);
-        // Фильтруем по id текущего пользователя
-        const savedByUserMovies = res.filter(
-          (item) => item.owner === currentUser._id
-        );
-        /*
-        const savedByUserMovies = res.filter(function (item) {
-          console.log("owner: " + item.owner);
-          console.log("currentUser._id: " + currentUser._id);
-          if (item.owner === currentUser._id) {
-            console.log(true);
-            return true;
-          }
+    if (loggedIn) {
+      setFilmsErrorText("");
+      mainApi
+        .getAllSavedMovies()
+        .then((res) => {
+          // console.log(res);
+          // Фильтруем по id текущего пользователя
+          const savedByUserMovies = res.filter(
+            (item) => item.owner === currentUser._id
+          );
+          // Унифицируем поля с id и movieId
+          // savedByUserMovies.map((item) => (item.id = item.movieId));
+
+          console.log("allSavedMovies");
+          setAllSavedMovies(savedByUserMovies);
+
+          console.log(allSavedMovies)
+          // setAllSearchedSavedMovies(savedByUserMovies);
+          // Сохраняем список сохраненных карточек в хранилище браузера
+          localStorage.setItem(
+            "allSavedMovies",
+            JSON.stringify(savedByUserMovies)
+          );
+        })
+        .catch((err) => {
+          setFilmsErrorText(
+            "При загрузке сохраненных фильмов произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          );
+          //console.log(`Ошибка ${err}`);
+          console.log(err);
         });
-        */
-        setAllSavedMovies(savedByUserMovies);
-        console.log("allSavedMovies");
-        console.log(savedByUserMovies);
-        // setAllSearchedSavedMovies(savedByUserMovies);
-        // Сохраняем список сохраненных карточек в хранилище браузера
-        localStorage.setItem(
-          "allSavedMovies",
-          JSON.stringify(savedByUserMovies)
-        );
-        /*
-        localStorage.setItem(
-          "allSearchedSavedMovies",
-          JSON.stringify(savedByUserMovies)
-        );
-        */
-      })
-      .catch((err) => {
-        setFilmsErrorText(
-          "Загрузка сохраненных карточек: Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-        );
-        console.log(`Ошибка ${err}`);
-      });
+    }
   }, [loggedIn]);
 
   // Загрузка данных о карточках с сервиса
@@ -189,7 +183,7 @@ function App() {
         if (movie.nameRU.toLowerCase().includes(query.toLowerCase())) {
           return true;
         } else {
-          return false
+          return false;
         }
       });
       if (shorts === true) {
@@ -216,6 +210,7 @@ function App() {
   }
 
   function handleAddMovieCard(movie) {
+    console.log(movie);
     movie.owner = currentUser._id;
     mainApi
       .addMovie(movie)
@@ -233,37 +228,18 @@ function App() {
   }
 
   function handleDeleteMovieCard(id) {
-    console.log(id);
-    /*
-    const currentMovieCard = allSavedMovies.filter(function (m) {
-      if (m.movieId === movie.movieId.toString()) {
-        if (m.owner === currentUser._id) {
-          return movie;
-        }
-      }
-    });
-    if (currentMovieCard) {
-      */
-      mainApi
-        .deleteMovie(id)
-        .then((res) => {
-          setFilmsErrorText("");
-          setAllSavedMovies(
-            allSavedMovies.filter(
-              (item) => item._id !== id
-            )
-          );
-          localStorage.setItem(
-            "allSavedMovies",
-            JSON.stringify(allSavedMovies)
-          );
-        })
-        .catch((err) => {
-          setFilmsErrorText(err.message);
-          console.log(`Ошибка ${err}`);
-          // console.log(err);
-        });
-    /*}*/
+    mainApi
+      .deleteMovie(id)
+      .then((res) => {
+        setFilmsErrorText("");
+        setAllSavedMovies(allSavedMovies.filter((item) => item._id !== id));
+        localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
+      })
+      .catch((err) => {
+        setFilmsErrorText(err.message);
+        // console.log(`Ошибка ${err}`);
+        console.log(err);
+      });
   }
 
   // Регистрация нового пользователя
@@ -383,11 +359,10 @@ function App() {
               loggedIn={loggedIn}
               isLoading={isLoading}
               component={Movies}
-              onSearchMovies={handleSearchMovies}
-              allSearchedMovies={allSearchedMovies}
-              // allSearchedMovies={allMovies}
-              allSearchedSavedMovies={allSearchedSavedMovies}
-              allSavedMovies={allSavedMovies}
+              onSearchMovies={handleSearchMovies} // Функция поиска по фильмам
+              allSearchedMovies={allSearchedMovies} // Все найденные по запросу фильмы
+              allSavedMovies={allSavedMovies} // Все сохраненные фильмы
+              allSearchedSavedMovies={allSearchedSavedMovies} // Все найденные по запросу сохраненные фильмы
               onAddMovieCard={handleAddMovieCard}
               onDeleteMovieCard={handleDeleteMovieCard}
               errorText={filmsErrorText}
@@ -397,11 +372,11 @@ function App() {
               exact
               path="/saved-movies"
               loggedIn={loggedIn}
-              onSearchMovies={handleSearchSavedMovies}
               component={SavedMovies}
-              allSearchedMovies={allSearchedMovies}
-              allSearchedSavedMovies={allSearchedSavedMovies}
-              allSavedMovies={allSavedMovies}
+              onSearchMovies={handleSearchSavedMovies} // Функция поиска по сохраненным фильмам
+              allSearchedMovies={allSearchedMovies} // Все найденные по запросу фильмы
+              allSavedMovies={allSavedMovies} // Все сохраненные фильмы
+              allSearchedSavedMovies={allSearchedSavedMovies} // Все найденные по запросу сохраненные фильмы
               onAddMovieCard={handleAddMovieCard}
               onDeleteMovieCard={handleDeleteMovieCard}
               errorText={filmsErrorText}

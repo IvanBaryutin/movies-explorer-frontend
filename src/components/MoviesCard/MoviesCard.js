@@ -6,6 +6,7 @@ import "./MoviesCard.css";
 
 function MoviesCard(props) {
   const location = useLocation();
+
   // console.log(props.allSavedMovies);
   // console.log(props.movie);
   // Подписываемся на контекст CurrentUserContext
@@ -47,7 +48,7 @@ function MoviesCard(props) {
 
   // Обработчик клика по иконке удаления
   const handleDeleteClick = () => {
-    props.handleDeleteMovieCard(props._id);
+    props.handleDeleteMovieCard(props.movie._id);
   };
 
   // Функция форматирования продолжительности фильма
@@ -98,7 +99,7 @@ function MoviesCard(props) {
         >
           <img
             src={props.movie.image}
-            className="movies-card__image"
+            className="movies-card__poster"
             alt={`постер к фильму ${props.movie.nameRU}`}
           />
         </a>

@@ -43,7 +43,7 @@ function MoviesCardList(props) {
       )}
       <Route exact path="/saved-movies">
         <div className="movies-card-list__cards">
-          {props.allSearchedSavedMovies.map((movie) => (
+          {props.allSavedMovies.map((movie) => (
             <MoviesCard
               key={movie.movieId}
               movie={movie}
