@@ -2,22 +2,23 @@ import React from "react";
 import "./SearchForm.css";
 
 function SearchForm(props) {
+  /*
   const [textQuery, setTextQuery] = React.useState("");
   const [filterCheckBox, setfilterCheckBox] = React.useState(false);
+  */
 
   function handleChangetextQuery(evt) {
-    setTextQuery(evt.target.value);
+    props.setTextQuery(evt.target.value);
   }
 
   function handleChangefilterCheckBox(evt) {
-    setfilterCheckBox(evt.target.checked);
+    props.setfilterCheckBox(evt.target.checked);
   }
 
   function handleSubmit(evt) {
-    // props.onLogin(values.email, values.password);
     // Запрещаем браузеру переходить по адресу формы
     evt.preventDefault();
-    props.onSearchMovies({query: textQuery, shorts: filterCheckBox});
+    props.onSearchMovies({query: props.textQuery, shorts: props.filterCheckBox});
     //console.log(999);
   }
 
@@ -31,7 +32,7 @@ function SearchForm(props) {
             name="film"
             type="search"
             placeholder="Фильм"
-            value={textQuery}
+            value={props.textQuery}
             onChange={handleChangetextQuery}
             required
           ></input>
@@ -43,7 +44,7 @@ function SearchForm(props) {
             className="search-form__filter-checkbox"
             name="short-film"
             id="short-film"
-            checked={filterCheckBox}
+            checked={props.filterCheckBox}
             onChange={handleChangefilterCheckBox}
           ></input>
           <label htmlFor="short-film" className="search-form__label">

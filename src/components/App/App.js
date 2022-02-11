@@ -39,6 +39,11 @@ function App() {
   const [allSavedMovies, setAllSavedMovies] = useState([]);
   const [allSearchedSavedMovies, setAllSearchedSavedMovies] = useState([]);
 
+  const [moviesTextQuery, setMoviesTextQuery] = useState("");
+  const [moviesFilterCheckBox, setMoviesFilterCheckBox] = useState(false);
+  const [savedMoviesTextQuery, setSavedMoviesTextQuery] = useState("");
+  const [savedMoviesFilterCheckBox, setSavedMoviesFilterCheckBox] = useState(false);
+
   const history = useHistory();
   const location = useLocation();
 
@@ -101,6 +106,7 @@ function App() {
             (item) => item.owner === currentUser._id
           );
           setAllSavedMovies(savedByUserMovies);
+          setAllSearchedSavedMovies(savedByUserMovies);
           // Сохраняем список сохраненных карточек пользователя в хранилище браузера
           localStorage.setItem(
             "allSavedMovies",
@@ -117,56 +123,11 @@ function App() {
     }
   }, [loggedIn, currentUser]);
 
-  /*
-  // Загрузка данных о карточках с сервиса
-  async function getAllMovies() {
-    if (!localStorage.getItem("allMovies")) {
-      setIsLoading(true);
-      await moviesApi
-        .getAllMovies()
-        .then((res) => {
-          setAllMovies(res);
-          localStorage.setItem("allMovies", JSON.stringify(res));
-        })
-        .catch((err) => {
-          setFilmsErrorText(
-            "Запрос всех карточек с сервиса: Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-          );
-          // console.log(`Ошибка ${err}`);
-          setFormErrorText(err.message);
-        })
-        .finally(() => setIsLoading(false));
-    }
-  }
-
   function handleSearchMovies(queryData) {
+    console.log(queryData);
+
     if (queryData.query === "") {
-      setFilmsErrorText("Нужно ввести ключевое слово");
-      return;
-    }
-
-    getAllMovies()
-      .then(() => {
-        setFilmsErrorText("");
-        const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
-        setAllSearchedMovies(filterMovies(cachedMovies, queryData));
-        console.log("allSearchedMovies");
-        console.log(allSearchedMovies);
-      })
-      .catch((err) => {
-        setFilmsErrorText(
-          "Поиск фильмов по фразе: Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-        );
-        //console.log(`Ошибка ${err}`);
-        setFormErrorText(err.message);
-      });
-  }
-
-  */
-
-  function handleSearchMovies(queryData) {
-    // console.log("handleSearchMovies");
-    if (queryData.query === "") {
+      setAllSearchedMovies([]);
       setFilmsErrorText("Нужно ввести ключевое слово");
       return;
     }
@@ -196,7 +157,11 @@ function App() {
 
   function showSearchedMovies(queryData) {
     const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
-    setAllSearchedMovies(filterMovies(cachedMovies, queryData));
+    const searchedMovies = filterMovies(cachedMovies, queryData)
+    console.log(cachedMovies);
+    console.log(searchedMovies);
+    setAllSearchedMovies(searchedMovies);
+    localStorage.setItem("allSearchedMovies", JSON.stringify(searchedMovies));
   }
 
   function handleSearchSavedMovies(queryData) {
@@ -208,7 +173,10 @@ function App() {
     const cachedSavedMovies = JSON.parse(
       localStorage.getItem("allSavedMovies")
     );
-    setAllSearchedSavedMovies(filterMovies(cachedSavedMovies, queryData));
+    const searchedSavedMovies = filterMovies(cachedSavedMovies, queryData)
+    setAllSearchedSavedMovies(searchedSavedMovies);
+    localStorage.setItem("allSearchedSavedMovies", JSON.stringify(searchedSavedMovies));
+
   }
 
   function filterMovies(moviesArr, queryData) {
@@ -232,14 +200,7 @@ function App() {
         });
       }
     }
-    /*
-    filteredMovies.map(function (element) {
-      if (!element.movieId) {
-        element.movieId = element.id;
-      }
-      return element;
-    });
-    */
+    console.log(filteredMovies);
     const searchResultText = !filteredMovies.length ? "Ничего не найдено" : "";
     setFilmsErrorText(searchResultText);
     return filteredMovies;
@@ -407,6 +368,10 @@ function App() {
               onAddMovieCard={handleAddMovieCard}
               onDeleteMovieCard={handleDeleteMovieCard}
               errorText={filmsErrorText}
+              textQuery={moviesTextQuery}
+              setTextQuery={setMoviesTextQuery}
+              filterCheckBox={moviesFilterCheckBox}
+              setfilterCheckBox={setMoviesFilterCheckBox}
             ></ProtectedRoute>
 
             <ProtectedRoute
@@ -421,6 +386,10 @@ function App() {
               onAddMovieCard={handleAddMovieCard}
               onDeleteMovieCard={handleDeleteMovieCard}
               errorText={filmsErrorText}
+              textQuery={savedMoviesTextQuery}
+              setTextQuery={setSavedMoviesTextQuery}
+              filterCheckBox={savedMoviesFilterCheckBox}
+              setfilterCheckBox={setSavedMoviesFilterCheckBox}
             ></ProtectedRoute>
 
             <Route exact path="/">

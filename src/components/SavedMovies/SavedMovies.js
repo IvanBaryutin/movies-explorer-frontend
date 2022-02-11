@@ -1,12 +1,17 @@
-import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import "./SavedMovies.css";
-
 
 function SavedMovies(props) {
   return (
     <>
-      <SearchForm onSearchMovies={props.onSearchMovies} />
+      <SearchForm
+        onSearchMovies={props.onSearchMovies}
+        textQuery={props.textQuery}
+        setTextQuery={props.setTextQuery}
+        filterCheckBox={props.filterCheckBox}
+        setfilterCheckBox={props.setfilterCheckBox}
+      />
       <MoviesCardList
         allSearchedMovies={props.allSearchedMovies}
         allSearchedSavedMovies={props.allSearchedSavedMovies}
@@ -16,7 +21,7 @@ function SavedMovies(props) {
         errorText={props.errorText}
       />
     </>
-  )
+  );
 }
 
 export default SavedMovies;

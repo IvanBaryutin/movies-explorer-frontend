@@ -4,11 +4,18 @@ import Preloader from "../Preloader/Preloader";
 import "./Movies.css";
 
 function Movies(props) {
-
   return (
     <>
-      <SearchForm onSearchMovies={props.onSearchMovies} />
-      {props.isLoading ? (<Preloader />) : (
+      <SearchForm
+        onSearchMovies={props.onSearchMovies}
+        textQuery={props.textQuery}
+        setTextQuery={props.setTextQuery}
+        filterCheckBox={props.filterCheckBox}
+        setfilterCheckBox={props.setfilterCheckBox}
+      />
+      {props.isLoading ? (
+        <Preloader />
+      ) : (
         <MoviesCardList
           allSearchedMovies={props.allSearchedMovies}
           allSearchedSavedMovies={props.allSearchedSavedMovies}
