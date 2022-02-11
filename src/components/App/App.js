@@ -100,14 +100,8 @@ function App() {
           const savedByUserMovies = res.filter(
             (item) => item.owner === currentUser._id
           );
-          // Унифицируем поля с id и movieId
-          // savedByUserMovies.map((item) => (item.id = item.movieId));
-
-          console.log("allSavedMovies");
           setAllSavedMovies(savedByUserMovies);
-
-          console.log(allSavedMovies);
-          // Сохраняем список сохраненных карточек в хранилище браузера
+          // Сохраняем список сохраненных карточек пользователя в хранилище браузера
           localStorage.setItem(
             "allSavedMovies",
             JSON.stringify(savedByUserMovies)
@@ -121,7 +115,7 @@ function App() {
           console.log(err);
         });
     }
-  }, [loggedIn]);
+  }, [loggedIn, currentUser]);
 
   /*
   // Загрузка данных о карточках с сервиса
@@ -171,7 +165,7 @@ function App() {
   */
 
   function handleSearchMovies(queryData) {
-    console.log("handleSearchMovies");
+    // console.log("handleSearchMovies");
     if (queryData.query === "") {
       setFilmsErrorText("Нужно ввести ключевое слово");
       return;
