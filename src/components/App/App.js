@@ -39,8 +39,8 @@ function App() {
   const [allSavedMovies, setAllSavedMovies] = useState([]);
   const [allSearchedSavedMovies, setAllSearchedSavedMovies] = useState([]);
 
-  const [moviesTextQuery, setMoviesTextQuery] = useState("");
-  const [moviesFilterCheckBox, setMoviesFilterCheckBox] = useState(false);
+  const [moviesTextQuery, setMoviesTextQuery] = useState(localStorage.getItem("moviesTextQuery"));
+  const [moviesFilterCheckBox, setMoviesFilterCheckBox] = useState(localStorage.getItem("moviesFilterCheckBox"));
   const [savedMoviesTextQuery, setSavedMoviesTextQuery] = useState("");
   const [savedMoviesFilterCheckBox, setSavedMoviesFilterCheckBox] = useState(false);
 
@@ -124,7 +124,8 @@ function App() {
   }, [loggedIn, currentUser]);
 
   function handleSearchMovies(queryData) {
-    console.log(queryData);
+    localStorage.setItem("moviesTextQuery", moviesTextQuery);
+    localStorage.setItem("moviesFilterCheckBox", moviesFilterCheckBox);
 
     if (queryData.query === "") {
       setAllSearchedMovies([]);
