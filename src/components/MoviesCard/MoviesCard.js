@@ -26,6 +26,11 @@ function MoviesCard(props) {
 
   const isLiked = props.allSavedMovies.some(
     (savedMovie) => {
+      // сохраненные карточки не проверяем
+      if (!props.movie.id) {
+        return false
+      }
+
       // Поверяем есть ли фильм с таким ID в сохраненных фильмах
       if (savedMovie.movieId.toString() === props.movie.id.toString()) {
         // Сразу добавим _id из базы для удаления

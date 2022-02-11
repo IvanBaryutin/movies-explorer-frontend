@@ -40,6 +40,12 @@ function App() {
   const [allSearchedSavedMovies, setAllSearchedSavedMovies] = useState([]);
 
   const history = useHistory();
+  const location = useLocation();
+
+  useEffect(() => {
+    setFormErrorText("");
+    setFilmsErrorText("");
+  }, [location]);
 
   useEffect(() => {
     // Загружаем первоначальную информация с сервера
@@ -83,14 +89,13 @@ function App() {
     }
   }, [history]);
 
-  // Загружаем сохраненные в базу данных карточки
+  // Загружаем, сохраненные в базу данных, карточки
   useEffect(() => {
     if (loggedIn) {
       setFilmsErrorText("");
       mainApi
         .getAllSavedMovies()
         .then((res) => {
-          // console.log(res);
           // Фильтруем по id текущего пользователя
           const savedByUserMovies = res.filter(
             (item) => item.owner === currentUser._id
@@ -101,8 +106,7 @@ function App() {
           console.log("allSavedMovies");
           setAllSavedMovies(savedByUserMovies);
 
-          console.log(allSavedMovies)
-          // setAllSearchedSavedMovies(savedByUserMovies);
+          console.log(allSavedMovies);
           // Сохраняем список сохраненных карточек в хранилище браузера
           localStorage.setItem(
             "allSavedMovies",
@@ -119,6 +123,7 @@ function App() {
     }
   }, [loggedIn]);
 
+  /*
   // Загрузка данных о карточках с сервиса
   async function getAllMovies() {
     if (!localStorage.getItem("allMovies")) {
@@ -161,6 +166,43 @@ function App() {
         //console.log(`Ошибка ${err}`);
         setFormErrorText(err.message);
       });
+  }
+
+  */
+
+  function handleSearchMovies(queryData) {
+    console.log("handleSearchMovies");
+    if (queryData.query === "") {
+      setFilmsErrorText("Нужно ввести ключевое слово");
+      return;
+    }
+    if (!localStorage.getItem("allMovies")) {
+      setIsLoading(true);
+      moviesApi
+        .getAllMovies()
+        .then((res) => {
+          localStorage.setItem("allMovies", JSON.stringify(res));
+          setAllMovies(res);
+          showSearchedMovies(queryData);
+        })
+        .catch((err) => {
+          setFilmsErrorText(
+            "Запрос всех карточек с сервиса: Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          );
+          // console.log(`Ошибка ${err}`);
+          setFormErrorText(err.message);
+          console.log(err);
+        })
+        .finally(() => setIsLoading(false));
+    } else {
+      showSearchedMovies(queryData);
+    }
+
+  }
+
+  function showSearchedMovies(queryData) {
+    const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
+    setAllSearchedMovies(filterMovies(cachedMovies, queryData));
   }
 
   function handleSearchSavedMovies(queryData) {
@@ -210,7 +252,7 @@ function App() {
   }
 
   function handleAddMovieCard(movie) {
-    console.log(movie);
+    // console.log(movie);
     movie.owner = currentUser._id;
     mainApi
       .addMovie(movie)
@@ -288,14 +330,19 @@ function App() {
   // Выход
   function handleSignOut() {
     localStorage.removeItem("jwt");
+
     setAllMovies([]);
     localStorage.removeItem("allMovies");
+
     setAllSearchedMovies([]);
     localStorage.removeItem("allSearchedMovies");
+
     setAllSearchedSavedMovies([]);
     localStorage.removeItem("allSearchedSavedMovies");
+
     setAllSavedMovies([]);
     localStorage.removeItem("allSavedMovies");
+
     setLoggedIn(false);
     setCurrentUser({});
     setFormErrorText("");
