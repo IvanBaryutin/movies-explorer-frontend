@@ -39,10 +39,10 @@ function App() {
   const [allSavedMovies, setAllSavedMovies] = useState([]);
   const [allSearchedSavedMovies, setAllSearchedSavedMovies] = useState([]);
 
-  const [moviesTextQuery, setMoviesTextQuery] = useState(localStorage.getItem("moviesTextQuery"));
-  const [moviesFilterCheckBox, setMoviesFilterCheckBox] = useState(localStorage.getItem("moviesFilterCheckBox"));
-  const [savedMoviesTextQuery, setSavedMoviesTextQuery] = useState("");
-  const [savedMoviesFilterCheckBox, setSavedMoviesFilterCheckBox] = useState(false);
+  const [moviesTextQuery, setMoviesTextQuery] = useState(localStorage.getItem("moviesTextQuery") ? localStorage.getItem("moviesTextQuery") : "");
+  const [moviesFilterCheckBox, setMoviesFilterCheckBox] = useState(localStorage.getItem("moviesFilterCheckBox") ? localStorage.getItem("moviesFilterCheckBox") : "");
+  const [savedMoviesTextQuery, setSavedMoviesTextQuery] = useState(localStorage.getItem("savedMoviesTextQuery") ? localStorage.getItem("savedMoviesTextQuery") : "");
+  const [savedMoviesFilterCheckBox, setSavedMoviesFilterCheckBox] = useState(localStorage.getItem("SavedMoviesFilterCheckBox") ? localStorage.getItem("SavedMoviesFilterCheckBox") : "");
 
   const history = useHistory();
   const location = useLocation();
@@ -174,7 +174,7 @@ function App() {
     const cachedSavedMovies = JSON.parse(
       localStorage.getItem("allSavedMovies")
     );
-    const searchedSavedMovies = filterMovies(cachedSavedMovies, queryData)
+    const searchedSavedMovies = filterMovies(cachedSavedMovies, queryData);
     setAllSearchedSavedMovies(searchedSavedMovies);
     localStorage.setItem("allSearchedSavedMovies", JSON.stringify(searchedSavedMovies));
 
@@ -201,7 +201,6 @@ function App() {
         });
       }
     }
-    console.log(filteredMovies);
     const searchResultText = !filteredMovies.length ? "Ничего не найдено" : "";
     setFilmsErrorText(searchResultText);
     return filteredMovies;
@@ -215,6 +214,7 @@ function App() {
       .then((res) => {
         setFilmsErrorText("");
         setAllSavedMovies([...allSavedMovies, res]);
+        setAllSearchedSavedMovies([...allSearchedSavedMovies, res]);
         localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
       })
       .catch((err) => {
@@ -298,6 +298,11 @@ function App() {
 
     setAllSavedMovies([]);
     localStorage.removeItem("allSavedMovies");
+
+    setMoviesTextQuery("");
+    localStorage.removeItem("moviesTextQuery");
+    setMoviesFilterCheckBox("");
+    localStorage.removeItem("moviesFilterCheckBox");
 
     setLoggedIn(false);
     setCurrentUser({});

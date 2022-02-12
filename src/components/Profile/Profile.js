@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useFormWithValidation } from "../../utils/FormValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./Profile.css";
 
 function Profile(props) {
   const currentUser = React.useContext(CurrentUserContext);
-  const { values, handleChange, resetForm, errors, isValid } =
+  const { values, handleChange, errors, isValid } =
     useFormWithValidation(currentUser);
 
   function handleClickExit(evt) {

@@ -5,7 +5,7 @@ import logo from "../../images/logo.svg";
 import "../Form/Form.css";
 
 function Register(props) {
-  const { values, handleChange, resetForm, errors, isValid } =
+  const { values, handleChange, errors, isValid } =
     useFormWithValidation();
 
   function handleSubmit() {

@@ -1,28 +1,9 @@
 import React from "react";
-import { useLocation } from 'react-router-dom';
 
 import { Route } from "react-router-dom";
 import "./MoviesCard.css";
 
 function MoviesCard(props) {
-  const location = useLocation();
-
-  // console.log(props.allSavedMovies);
-  // console.log(props.movie);
-  // Подписываемся на контекст CurrentUserContext
-  // const currentUser = React.useContext(CurrentUserContext);
-
-  // Определяем владелец ли карточки
-  // const isOwn = props.movie.owner === currentUser._id;
-
-  // Определяем состояние иконки лайка
-  /*
-  const isLiked = props.allSavedMovies.some(
-    // (item) => item.movieId === props.movie.id.toString()
-    (item) => item.movieId === props.movie.movieId.toString()
-  );
-  */
-  // const isLiked = true;
 
   const isLiked = props.allSavedMovies.some(
     (savedMovie) => {

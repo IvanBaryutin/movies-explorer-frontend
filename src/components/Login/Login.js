@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useFormWithValidation } from "../../utils/FormValidation";
 import logo from "../../images/logo.svg";
 import "../Form/Form.css";
 
 function Login(props) {
-  const { values, handleChange, resetForm, errors, isValid } =
+  const { values, handleChange, errors, isValid } =
     useFormWithValidation();
 
   function handleSubmit() {
