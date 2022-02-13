@@ -100,10 +100,9 @@ export class MainApi {
 }
 
 const mainApi = new MainApi({
-  // baseUrl: 'https://api.the-mesto.students.nomoredomains.rocks',
-  baseUrl: "http://localhost:4000",
+  baseUrl: 'https://the-diploma.nomoredomains.rocks',
+  // baseUrl: "http://localhost:4000",
   headers: {
-    // authorization: '1e5c33de-1f37-4db9-b61a-be6eb6c35223',
     "Access-Control-Allow-Origin": "origin-list",
   },
 });
