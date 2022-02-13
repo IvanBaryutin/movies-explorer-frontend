@@ -2,24 +2,22 @@ import React from "react";
 import "./SearchForm.css";
 
 function SearchForm(props) {
-  /*
-  const [textQuery, setTextQuery] = React.useState("");
-  const [filterCheckBox, setfilterCheckBox] = React.useState(false);
-  */
 
   function handleChangetextQuery(evt) {
     props.setTextQuery(evt.target.value);
   }
 
   function handleChangefilterCheckBox(evt) {
-    props.setfilterCheckBox(evt.target.checked);
+    props.setfilterCheckBox(evt.target.checked ? "checked" : "");
+    const filter = evt.target.checked ? "checked" : "";
+
+    props.onSearchMovies({query: props.textQuery, shorts: filter});
   }
 
   function handleSubmit(evt) {
     // Запрещаем браузеру переходить по адресу формы
     evt.preventDefault();
     props.onSearchMovies({query: props.textQuery, shorts: props.filterCheckBox});
-    //console.log(999);
   }
 
   return (

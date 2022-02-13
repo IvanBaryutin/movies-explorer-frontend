@@ -157,10 +157,10 @@ function App() {
   }
 
   function showSearchedMovies(queryData) {
+    console.log("showSearchedMovies");
+    console.log(queryData);
     const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
     const searchedMovies = filterMovies(cachedMovies, queryData)
-    console.log(cachedMovies);
-    console.log(searchedMovies);
     setAllSearchedMovies(searchedMovies);
     localStorage.setItem("allSearchedMovies", JSON.stringify(searchedMovies));
   }
@@ -181,7 +181,7 @@ function App() {
   }
 
   function filterMovies(moviesArr, queryData) {
-    const { query = "", shorts = false } = queryData;
+    const { query = "", shorts = "" } = queryData;
     let filteredMovies;
     if (moviesArr) {
       filteredMovies = moviesArr.filter(function (movie) {
@@ -191,7 +191,8 @@ function App() {
           return false;
         }
       });
-      if (shorts === true) {
+      console.log(shorts);
+      if (shorts === "checked") {
         filteredMovies = filteredMovies.filter(function (movie) {
           if (movie.duration < 40) {
             return true;
@@ -323,7 +324,7 @@ function App() {
         setFormErrorText(err.message);
       })
       .finally(() => {
-        setprofileButtonText("Редактировать");
+        setprofileButtonText("Сохранить");
       });
   }
 
