@@ -17,7 +17,6 @@ export class MainApi {
     if (res.ok) {
       return res.json();
     }
-    //console.log(res);
     // если ошибка, отклоняем промис
     // return Promise.reject(`Ошибка: ${res.status}`);
     return res.json().then(err => { throw err; });
@@ -92,7 +91,6 @@ export class MainApi {
   };
 
   deleteMovie = (movieId) => {
-    // console.log(movieId);
     this._headers["Content-Type"] = "application/json";
     return fetch(`${this._baseUrl}/movies/${movieId}`, {
       method: "DELETE",

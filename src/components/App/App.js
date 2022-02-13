@@ -158,8 +158,6 @@ function App() {
   }
 
   function showSearchedMovies(queryData) {
-    console.log("showSearchedMovies");
-    console.log(queryData);
     const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
     const searchedMovies = filterMovies(cachedMovies, queryData)
     setAllSearchedMovies(searchedMovies);
@@ -192,7 +190,6 @@ function App() {
           return false;
         }
       });
-      console.log(shorts);
       if (shorts === "checked") {
         filteredMovies = filteredMovies.filter(function (movie) {
           if (movie.duration < 40) {
@@ -209,7 +206,6 @@ function App() {
   }
 
   function handleAddMovieCard(movie) {
-    // console.log(movie);
     movie.owner = currentUser._id;
     mainApi
       .addMovie(movie)
@@ -232,7 +228,6 @@ function App() {
       .deleteMovie(id)
       .then((res) => {
         setFilmsErrorText("");
-        console.log(allSavedMovies);
         setAllSavedMovies(allSavedMovies.filter((item) => item._id !== id));
         setAllSearchedSavedMovies(allSearchedSavedMovies.filter((item) => item._id !== id));
         localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
