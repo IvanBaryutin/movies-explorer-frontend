@@ -35,7 +35,8 @@ function App() {
   const [profileButtonText, setprofileButtonText] = useState("Редактировать");
 
   const [allMovies, setAllMovies] = useState([]);
-  const [allSearchedMovies, setAllSearchedMovies] = useState([]);
+  //const [allSearchedMovies, setAllSearchedMovies] = useState([]);
+  const [allSearchedMovies, setAllSearchedMovies] = useState(JSON.parse(localStorage.getItem("allSearchedMovies")) || []);
   const [allSavedMovies, setAllSavedMovies] = useState([]);
   const [allSearchedSavedMovies, setAllSearchedSavedMovies] = useState([]);
 
@@ -231,7 +232,9 @@ function App() {
       .deleteMovie(id)
       .then((res) => {
         setFilmsErrorText("");
+        console.log(allSavedMovies);
         setAllSavedMovies(allSavedMovies.filter((item) => item._id !== id));
+        setAllSearchedSavedMovies(allSearchedSavedMovies.filter((item) => item._id !== id));
         localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
       })
       .catch((err) => {
@@ -324,7 +327,7 @@ function App() {
         setFormErrorText(err.message);
       })
       .finally(() => {
-        setprofileButtonText("Сохранить");
+        setprofileButtonText("Редактировать");
       });
   }
 
