@@ -100,7 +100,7 @@ export class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://the-diploma.nomoredomains.rocks',
+  baseUrl: 'https://api.diploma.nomoredomains.rocks',
   // baseUrl: "http://localhost:4000",
   headers: {
     "Access-Control-Allow-Origin": "origin-list",
