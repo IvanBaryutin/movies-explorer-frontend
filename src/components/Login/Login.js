@@ -30,6 +30,7 @@ function Login(props) {
             onChange={handleChange}
             pattern="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$"
             value={values.email || ""}
+            disabled={props.isLoading ? "disabled" : ""}
             required
           ></input>
           <p className="form__error">{errors.email || " "}</p>
@@ -46,6 +47,7 @@ function Login(props) {
             className="form__input"
             onChange={handleChange}
             value={values.password || ""}
+            disabled={props.isLoading ? "disabled" : ""}
             required
           ></input>
           <p className="form__error">{errors.password || " "}</p>

@@ -9,8 +9,7 @@ function Profile(props) {
     useFormWithValidation(currentUser);
 
   const isButtonDisabled = ((values.name === currentUser.name && (values.email === currentUser.email)) || !isValid) ? true : false;
-
-  // console.log(isButtonDisabled);
+  console.log(props.isLoading);
 
 
   function handleClickExit(evt) {
@@ -40,6 +39,7 @@ function Profile(props) {
             pattern="^[а-яА-ЯёЁa-zA-Z -]+$"
             value={values.name || ""}
             onChange={handleChange}
+            disabled={props.isLoading ? "disabled" : ""}
             required
           ></input>
           <p className="profile__error">{errors.name || " "}</p>
@@ -55,6 +55,7 @@ function Profile(props) {
             pattern="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$"
             value={values.email || ""}
             onChange={handleChange}
+            disabled={props.isLoading ? "disabled" : ""}
             required
           ></input>
           <p className="profile__error">{errors.email || " "}</p>

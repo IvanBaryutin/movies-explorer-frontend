@@ -291,6 +291,7 @@ function App() {
 
   // Регистрация нового пользователя
   function handleRegister(name, email, password) {
+    setIsLoading(true);
     setRegisterButtonText("Загрузка...");
     mainApi
       .register(name, email, password)
@@ -302,7 +303,10 @@ function App() {
         setFormErrorText(err.message);
         console.log(`Ошибка ${err}`);
       })
-      .finally(() => setRegisterButtonText("Зарегистрироваться"));
+      .finally(() => {
+        setRegisterButtonText("Зарегистрироваться");
+        setIsLoading(false);
+      });
   }
 
   // Авторизация
@@ -310,6 +314,7 @@ function App() {
     if (email === "" || password === "") {
       return;
     }
+    setIsLoading(true);
     setLoginButtonText("Загрузка...");
     mainApi
       .authorize(email, password)
@@ -329,6 +334,7 @@ function App() {
       })
       .finally(() => {
         setLoginButtonText("Войти");
+        setIsLoading(false);
       });
   }
 
@@ -361,6 +367,7 @@ function App() {
 
   // Обновление профиля
   function handleUpdate(name, email) {
+    setIsLoading(true);
     setprofileButtonText("Загрузка...");
     mainApi
       .setUserInfo({ name: name, email: email })
@@ -373,6 +380,7 @@ function App() {
       })
       .finally(() => {
         setprofileButtonText("Редактировать");
+        setIsLoading(false);
       });
   }
 
@@ -392,6 +400,7 @@ function App() {
                 onRegister={handleRegister}
                 errorText={formErrorText}
                 buttonText={registerButtonText}
+                isLoading={isLoading}
               />
             </Route>
 
@@ -400,6 +409,7 @@ function App() {
                 onLogin={handleLogin}
                 errorText={formErrorText}
                 buttonText={loginButtonText}
+                isLoading={isLoading}
               />
             </Route>
 
@@ -412,6 +422,7 @@ function App() {
               onUpdateProfile={handleUpdate}
               errorText={formErrorText}
               buttonText={profileButtonText}
+              isLoading={isLoading}
             ></ProtectedRoute>
 
             <ProtectedRoute

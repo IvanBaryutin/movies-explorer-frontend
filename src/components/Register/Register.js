@@ -32,6 +32,7 @@ function Register(props) {
             className="form__input"
             value={values.name || ""}
             onChange={handleChange}
+            disabled={props.isLoading ? "disabled" : ""}
             required
           ></input>
           <p className="form__error">{errors.name || " "}</p>
@@ -47,6 +48,7 @@ function Register(props) {
             className="form__input"
             value={values.email || ""}
             onChange={handleChange}
+            disabled={props.isLoading ? "disabled" : ""}
             required
           ></input>
           <p className="form__error">{errors.email || " "}</p>
@@ -63,6 +65,7 @@ function Register(props) {
             className="form__input"
             value={values.password || ""}
             onChange={handleChange}
+            disabled={props.isLoading ? "disabled" : ""}
             required
           ></input>
           <p className="form__error">{errors.password || " "}</p>
