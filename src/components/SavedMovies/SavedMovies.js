@@ -11,6 +11,7 @@ function SavedMovies(props) {
         setTextQuery={props.setTextQuery}
         filterCheckBox={props.filterCheckBox}
         setfilterCheckBox={props.setfilterCheckBox}
+        showSearchedMovies={props.onChangeFilterCheckbox}
       />
       <MoviesCardList
         allSearchedMovies={props.allSearchedMovies}

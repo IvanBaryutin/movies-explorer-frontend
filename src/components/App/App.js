@@ -49,6 +49,14 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
+    localStorage.setItem("moviesFilterCheckBox", moviesFilterCheckBox);
+  }, [moviesFilterCheckBox]);
+
+  useEffect(() => {
+    localStorage.setItem("savedMoviesFilterCheckBox", savedMoviesFilterCheckBox);
+  }, [savedMoviesFilterCheckBox]);
+
+  useEffect(() => {
     setFormErrorText("");
     setFilmsErrorText("");
   }, [location]);
@@ -170,13 +178,16 @@ function App() {
       return;
     }
 
+    showSearchedSavedMovies(queryData);
+  }
+
+  function showSearchedSavedMovies(queryData) {
     const cachedSavedMovies = JSON.parse(
       localStorage.getItem("allSavedMovies")
     );
     const searchedSavedMovies = filterMovies(cachedSavedMovies, queryData);
     setAllSearchedSavedMovies(searchedSavedMovies);
     localStorage.setItem("allSearchedSavedMovies", JSON.stringify(searchedSavedMovies));
-
   }
 
   function filterMovies(moviesArr, queryData) {
@@ -193,6 +204,14 @@ function App() {
       if (shorts === "checked") {
         filteredMovies = filteredMovies.filter(function (movie) {
           if (movie.duration < 40) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+      } else {
+        filteredMovies = filteredMovies.filter(function (movie) {
+          if (movie.duration >= 40) {
             return true;
           } else {
             return false;
@@ -377,6 +396,7 @@ function App() {
               setTextQuery={setMoviesTextQuery}
               filterCheckBox={moviesFilterCheckBox}
               setfilterCheckBox={setMoviesFilterCheckBox}
+              onChangeFilterCheckbox={showSearchedMovies}
             ></ProtectedRoute>
 
             <ProtectedRoute
@@ -395,6 +415,7 @@ function App() {
               setTextQuery={setSavedMoviesTextQuery}
               filterCheckBox={savedMoviesFilterCheckBox}
               setfilterCheckBox={setSavedMoviesFilterCheckBox}
+              onChangeFilterCheckbox={showSearchedSavedMovies}
             ></ProtectedRoute>
 
             <Route exact path="/">
