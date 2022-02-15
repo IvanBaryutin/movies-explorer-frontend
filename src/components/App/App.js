@@ -36,14 +36,32 @@ function App() {
 
   const [allMovies, setAllMovies] = useState([]);
   //const [allSearchedMovies, setAllSearchedMovies] = useState([]);
-  const [allSearchedMovies, setAllSearchedMovies] = useState(JSON.parse(localStorage.getItem("allSearchedMovies")) || []);
+  const [allSearchedMovies, setAllSearchedMovies] = useState(
+    JSON.parse(localStorage.getItem("allSearchedMovies")) || []
+  );
   const [allSavedMovies, setAllSavedMovies] = useState([]);
   const [allSearchedSavedMovies, setAllSearchedSavedMovies] = useState([]);
 
-  const [moviesTextQuery, setMoviesTextQuery] = useState(localStorage.getItem("moviesTextQuery") ? localStorage.getItem("moviesTextQuery") : "");
-  const [moviesFilterCheckBox, setMoviesFilterCheckBox] = useState(localStorage.getItem("moviesFilterCheckBox") ? localStorage.getItem("moviesFilterCheckBox") : "");
-  const [savedMoviesTextQuery, setSavedMoviesTextQuery] = useState(localStorage.getItem("savedMoviesTextQuery") ? localStorage.getItem("savedMoviesTextQuery") : "");
-  const [savedMoviesFilterCheckBox, setSavedMoviesFilterCheckBox] = useState(localStorage.getItem("SavedMoviesFilterCheckBox") ? localStorage.getItem("SavedMoviesFilterCheckBox") : "");
+  const [moviesTextQuery, setMoviesTextQuery] = useState(
+    localStorage.getItem("moviesTextQuery")
+      ? localStorage.getItem("moviesTextQuery")
+      : ""
+  );
+  const [moviesFilterCheckBox, setMoviesFilterCheckBox] = useState(
+    localStorage.getItem("moviesFilterCheckBox")
+      ? localStorage.getItem("moviesFilterCheckBox")
+      : ""
+  );
+  const [savedMoviesTextQuery, setSavedMoviesTextQuery] = useState(
+    localStorage.getItem("savedMoviesTextQuery")
+      ? localStorage.getItem("savedMoviesTextQuery")
+      : ""
+  );
+  const [savedMoviesFilterCheckBox, setSavedMoviesFilterCheckBox] = useState(
+    localStorage.getItem("SavedMoviesFilterCheckBox")
+      ? localStorage.getItem("SavedMoviesFilterCheckBox")
+      : ""
+  );
 
   const history = useHistory();
   const location = useLocation();
@@ -53,7 +71,10 @@ function App() {
   }, [moviesFilterCheckBox]);
 
   useEffect(() => {
-    localStorage.setItem("savedMoviesFilterCheckBox", savedMoviesFilterCheckBox);
+    localStorage.setItem(
+      "savedMoviesFilterCheckBox",
+      savedMoviesFilterCheckBox
+    );
   }, [savedMoviesFilterCheckBox]);
 
   useEffect(() => {
@@ -93,7 +114,11 @@ function App() {
             // авторизуем пользователя
             setCurrentUser(res);
             setLoggedIn(true);
-            history.push("/movies");
+            if (location.pathname === "/signup" || location.pathname === "/signin") {
+              history.push("/movies");
+            } else {
+              history.push(location.pathname);
+            }
           }
         })
         .catch((err) => {
@@ -162,12 +187,11 @@ function App() {
     } else {
       showSearchedMovies(queryData);
     }
-
   }
 
   function showSearchedMovies(queryData) {
     const cachedMovies = JSON.parse(localStorage.getItem("allMovies"));
-    const searchedMovies = filterMovies(cachedMovies, queryData)
+    const searchedMovies = filterMovies(cachedMovies, queryData);
     setAllSearchedMovies(searchedMovies);
     localStorage.setItem("allSearchedMovies", JSON.stringify(searchedMovies));
   }
@@ -187,7 +211,10 @@ function App() {
     );
     const searchedSavedMovies = filterMovies(cachedSavedMovies, queryData);
     setAllSearchedSavedMovies(searchedSavedMovies);
-    localStorage.setItem("allSearchedSavedMovies", JSON.stringify(searchedSavedMovies));
+    localStorage.setItem(
+      "allSearchedSavedMovies",
+      JSON.stringify(searchedSavedMovies)
+    );
   }
 
   function filterMovies(moviesArr, queryData) {
@@ -248,7 +275,9 @@ function App() {
       .then((res) => {
         setFilmsErrorText("");
         setAllSavedMovies(allSavedMovies.filter((item) => item._id !== id));
-        setAllSearchedSavedMovies(allSearchedSavedMovies.filter((item) => item._id !== id));
+        setAllSearchedSavedMovies(
+          allSearchedSavedMovies.filter((item) => item._id !== id)
+        );
         localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
       })
       .catch((err) => {
@@ -352,6 +381,10 @@ function App() {
           <Header logged={loggedIn} />
 
           <Switch>
+            <Route exact path="/">
+              <Main />
+            </Route>
+
             <Route exact path="/signup">
               <Register
                 onRegister={handleRegister}
@@ -417,10 +450,6 @@ function App() {
               setfilterCheckBox={setSavedMoviesFilterCheckBox}
               onChangeFilterCheckbox={showSearchedSavedMovies}
             ></ProtectedRoute>
-
-            <Route exact path="/">
-              <Main />
-            </Route>
 
             <Route path="*">
               <ErrorPage />

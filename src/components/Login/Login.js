@@ -28,6 +28,7 @@ function Login(props) {
             placeholder=""
             className="form__input"
             onChange={handleChange}
+            pattern="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$"
             value={values.email || ""}
             required
           ></input>
@@ -44,7 +45,6 @@ function Login(props) {
             placeholder=""
             className="form__input"
             onChange={handleChange}
-            pattern="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$"
             value={values.password || ""}
             required
           ></input>
