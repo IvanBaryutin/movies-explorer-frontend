@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import {
+  DESKTOPCARDSINROW,
+  TABLETCARDSINROW,
+  MOBILECARDSINROW,
+  DESKTOPCARDSTOADD,
+  TABLETCARDSTOADD,
+  MOBILECARDSTOADD,
+} from "../../constants/constants";
 import "./MoviesCardList.css";
 
 function MoviesCardList(props) {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const [cardsToShow, setCardsToShow] = useState(12);
-  const [cardsToAdd, setCardsToAdd] = useState(3);
+  const [cardsToShow, setCardsToShow] = useState(DESKTOPCARDSINROW);
+  const [cardsToAdd, setCardsToAdd] = useState(DESKTOPCARDSTOADD);
 
   // https://www.pluralsight.com/guides/re-render-react-component-on-window-resize
   // https://stackoverflow.com/questions/45644457/action-on-window-resize-in-react
@@ -15,8 +23,21 @@ function MoviesCardList(props) {
   useEffect(() => {
     const updateWidth = () => {
       setViewportWidth(window.innerWidth);
-      setCardsToShow(window.innerWidth > 1270 ? 12 : viewportWidth > 550 ? 8 : 5);
-      setCardsToAdd(window.innerWidth  > 1270? 3 : viewportWidth > 550 ? 2 : 1);
+      setCardsToShow(
+        // window.innerWidth > 1270 ? 12 : viewportWidth > 550 ? 8 : 5
+        window.innerWidth > 1270
+          ? DESKTOPCARDSINROW
+          : viewportWidth > 550
+          ? TABLETCARDSINROW
+          : MOBILECARDSINROW
+      );
+      setCardsToAdd(
+        window.innerWidth > 1270
+          ? DESKTOPCARDSTOADD
+          : viewportWidth > 550
+          ? TABLETCARDSTOADD
+          : MOBILECARDSTOADD
+      );
     };
 
     const timer = setTimeout(
@@ -28,7 +49,6 @@ function MoviesCardList(props) {
       clearTimeout(timer);
     };
   });
-
 
   function showMore() {
     setCardsToShow(cardsToShow + cardsToAdd);

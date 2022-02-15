@@ -19,6 +19,8 @@ import Footer from "../Footer/Footer";
 import mainApi from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
 
+import { SHORTFILMDURATION } from "../../constants/constants";
+
 import "./App.css";
 
 function App() {
@@ -114,7 +116,10 @@ function App() {
             // авторизуем пользователя
             setCurrentUser(res);
             setLoggedIn(true);
-            if (location.pathname === "/signup" || location.pathname === "/signin") {
+            if (
+              location.pathname === "/signup" ||
+              location.pathname === "/signin"
+            ) {
               history.push("/movies");
             } else {
               history.push(location.pathname);
@@ -230,7 +235,7 @@ function App() {
       });
       if (shorts === "checked") {
         filteredMovies = filteredMovies.filter(function (movie) {
-          if (movie.duration < 40) {
+          if (movie.duration < SHORTFILMDURATION) {
             return true;
           } else {
             return false;
@@ -238,7 +243,7 @@ function App() {
         });
       } else {
         filteredMovies = filteredMovies.filter(function (movie) {
-          if (movie.duration >= 40) {
+          if (movie.duration >= SHORTFILMDURATION) {
             return true;
           } else {
             return false;
