@@ -8,6 +8,11 @@ function Profile(props) {
   const { values, handleChange, errors, isValid } =
     useFormWithValidation(currentUser);
 
+  const isButtonDisabled = ((values.name === currentUser.name && (values.email === currentUser.email)) || !isValid) ? true : false;
+
+  // console.log(isButtonDisabled);
+
+
   function handleClickExit(evt) {
     props.onSignOut();
   }
@@ -63,7 +68,7 @@ function Profile(props) {
           type="submit"
           className="profile__button"
           onClick={handleClickUpdate}
-          disabled={!isValid ? "disabled" : ""}
+          disabled={isButtonDisabled ? "disabled" : ""}
         >
           {props.buttonText}
         </button>
