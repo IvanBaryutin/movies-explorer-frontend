@@ -47,6 +47,7 @@ function Profile(props) {
             type="email"
             placeholder=""
             className="profile__input"
+            pattern="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$"
             value={values.email || ""}
             onChange={handleChange}
             required
