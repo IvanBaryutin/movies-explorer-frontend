@@ -60,8 +60,8 @@ function App() {
       : ""
   );
   const [savedMoviesFilterCheckBox, setSavedMoviesFilterCheckBox] = useState(
-    localStorage.getItem("SavedMoviesFilterCheckBox")
-      ? localStorage.getItem("SavedMoviesFilterCheckBox")
+    localStorage.getItem("savedMoviesFilterCheckBox")
+      ? localStorage.getItem("savedMoviesFilterCheckBox")
       : ""
   );
 
@@ -73,10 +73,7 @@ function App() {
   }, [moviesFilterCheckBox]);
 
   useEffect(() => {
-    localStorage.setItem(
-      "savedMoviesFilterCheckBox",
-      savedMoviesFilterCheckBox
-    );
+    localStorage.setItem("savedMoviesFilterCheckBox", savedMoviesFilterCheckBox);
   }, [savedMoviesFilterCheckBox]);
 
   useEffect(() => {
@@ -150,6 +147,7 @@ function App() {
             "allSavedMovies",
             JSON.stringify(savedByUserMovies)
           );
+          showSearchedSavedMovies({query: savedMoviesTextQuery, shorts: savedMoviesFilterCheckBox });
         })
         .catch((err) => {
           setFilmsErrorText(

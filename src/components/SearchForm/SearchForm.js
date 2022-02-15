@@ -10,7 +10,6 @@ function SearchForm(props) {
   function handleChangefilterCheckBox(evt) {
     props.setfilterCheckBox(evt.target.checked ? "checked" : "");
     const filter = evt.target.checked ? "checked" : "";
-    // props.onSearchMovies({query: props.textQuery, shorts: filter});
     props.showSearchedMovies({query: props.textQuery, shorts: filter});
   }
 
