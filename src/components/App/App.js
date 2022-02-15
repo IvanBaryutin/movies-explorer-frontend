@@ -93,7 +93,6 @@ function App() {
           if (res) {
             // авторизуем пользователя
             setCurrentUser(res);
-            //setLoggedIn(true);
           }
         })
         .catch((err) => {

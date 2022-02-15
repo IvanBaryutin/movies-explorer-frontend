@@ -24,7 +24,6 @@ function MoviesCardList(props) {
     const updateWidth = () => {
       setViewportWidth(window.innerWidth);
       setCardsToShow(
-        // window.innerWidth > 1270 ? 12 : viewportWidth > 550 ? 8 : 5
         window.innerWidth > 1270
           ? DESKTOPCARDSINROW
           : viewportWidth > 550
